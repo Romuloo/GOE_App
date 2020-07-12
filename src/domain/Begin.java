@@ -13,6 +13,7 @@ public class Begin {
     private static JButton b1 = new JButton("Simplex");
     private static JButton b2 = new JButton("Dual");
 
+    private static FirstSimplex fs;
 
     private static void initComponents(){
         f.add(b1);
@@ -23,7 +24,7 @@ public class Begin {
         b1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new FirstSimplex();
+                fs = new FirstSimplex();
             }
         });
 

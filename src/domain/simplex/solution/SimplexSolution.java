@@ -18,9 +18,6 @@ public class SimplexSolution extends JFrame {
     private void initComponentes(){
        add(jt);
        jt.add(new PanelSimplexSolution(), 0);
-       jt.add(new PanelSimplexSolution(), 1);
-       jt.add(new PanelSimplexSolution(), 2);
-
     }
     private void initFrame(){
         setBackground(new Color(39, 156, 207));

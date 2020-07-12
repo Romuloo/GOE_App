@@ -3,10 +3,10 @@ package domain.simplex;
 import domain.simplex.solution.SimplexSolution;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 
 /**
  * @author Javier Linares Castrillón
@@ -32,6 +32,9 @@ public class FirstSimplex extends JFrame {
 
     private SimplexSolution sp;
 
+    private HashMap<String, Double> valores;
+    private HashMap<String, String> procesos;
+
 
     /**
      * Constructor de la clase. Inicializa el Frame y los componentes.
@@ -44,6 +47,7 @@ public class FirstSimplex extends JFrame {
     private SimplexSolution getInstanceSimplexSolution(){
        return (sp == null) ? sp = new SimplexSolution() : sp;
     }
+
 
     private void initComponents(){
         add(cj1); add(cj2); add(cj3); add(cj4); add(cj5); add(cj6); add(cj7); add(cj8); add(cj9); add(cj10); add(v1); add(v2); add(v3);
@@ -257,5 +261,84 @@ public class FirstSimplex extends JFrame {
         wj7.setBounds(225+330, 317, 50, 40);
         wj7.setBackground(Color.orange);
         wj7.setText("0");
+
     }
+
+    public HashMap<String, Double> getValores(){
+       return addValores();
+    }
+
+    private HashMap<String, Double> addValores(){
+        valores = new HashMap<>();
+
+        valores.put("cj1", Double.parseDouble(cj1.getText()));
+        valores.put("cj2", Double.parseDouble(cj2.getText()));
+        valores.put("cj3", Double.parseDouble(cj3.getText()));
+        valores.put("cj4", Double.parseDouble(cj4.getText()));
+        valores.put("cj5", Double.parseDouble(cj5.getText()));
+        valores.put("cj6", Double.parseDouble(cj6.getText()));
+        valores.put("cj7", Double.parseDouble(cj7.getText()));
+        valores.put("cj8", Double.parseDouble(cj8.getText()));
+        valores.put("cj9", Double.parseDouble(cj9.getText()));
+        valores.put("cj10", Double.parseDouble(cj10.getText()));
+
+        valores.put("x11", Double.parseDouble(x11.getText()));
+        valores.put("x12", Double.parseDouble(x12.getText()));
+        valores.put("x13", Double.parseDouble(x13.getText()));
+        valores.put("x21", Double.parseDouble(x21.getText()));
+        valores.put("x22", Double.parseDouble(x22.getText()));
+        valores.put("x23", Double.parseDouble(x23.getText()));
+        valores.put("x31", Double.parseDouble(x31.getText()));
+        valores.put("x32", Double.parseDouble(x32.getText()));
+        valores.put("x33", Double.parseDouble(x33.getText()));
+        valores.put("x41", Double.parseDouble(x41.getText()));
+        valores.put("x42", Double.parseDouble(x42.getText()));
+        valores.put("x43", Double.parseDouble(x43.getText()));
+        valores.put("x51", Double.parseDouble(x51.getText()));
+        valores.put("x52", Double.parseDouble(x52.getText()));
+        valores.put("x53", Double.parseDouble(x53.getText()));
+        valores.put("x61", Double.parseDouble(x61.getText()));
+        valores.put("x62", Double.parseDouble(x62.getText()));
+        valores.put("x63", Double.parseDouble(x63.getText()));
+        valores.put("x71", Double.parseDouble(x71.getText()));
+        valores.put("x72", Double.parseDouble(x72.getText()));
+        valores.put("x73", Double.parseDouble(x73.getText()));
+
+        valores.put("c1", Double.parseDouble(c1.getText()));
+        valores.put("c2", Double.parseDouble(c2.getText()));
+        valores.put("c3", Double.parseDouble(c3.getText()));
+
+        valores.put("zj1", Double.parseDouble(zj1.getText()));
+        valores.put("zj2", Double.parseDouble(zj2.getText()));
+        valores.put("zj3", Double.parseDouble(zj3.getText()));
+        valores.put("zj4", Double.parseDouble(zj4.getText()));
+        valores.put("zj5", Double.parseDouble(zj5.getText()));
+        valores.put("zj6", Double.parseDouble(zj6.getText()));
+        valores.put("zj7", Double.parseDouble(zj7.getText()));
+
+        valores.put("wj1", Double.parseDouble(wj1.getText()));
+        valores.put("wj2", Double.parseDouble(wj2.getText()));
+        valores.put("wj3", Double.parseDouble(wj3.getText()));
+        valores.put("wj4", Double.parseDouble(wj4.getText()));
+        valores.put("wj5", Double.parseDouble(wj5.getText()));
+        valores.put("wj6", Double.parseDouble(wj6.getText()));
+        valores.put("wj7", Double.parseDouble(wj7.getText()));
+
+        return valores;
+    }
+
+    public HashMap<String, String> getProcesos(){
+       return addProcesos();
+    }
+
+    private HashMap<String, String> addProcesos(){
+       procesos = new HashMap<>();
+
+        procesos.put("v1", v1.getText());
+        procesos.put("v2", v2.getText());
+        procesos.put("v3", v3.getText());
+        return procesos;
+    }
+
+
 }

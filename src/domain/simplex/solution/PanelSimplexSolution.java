@@ -13,7 +13,9 @@ public class PanelSimplexSolution extends JPanel {
             x51 = new JTextField(), x52 = new JTextField(), x53 = new JTextField(), x61 = new JTextField(), x62 = new JTextField(), x63 = new JTextField(),
             x71 = new JTextField(), x72 = new JTextField(), x73 = new JTextField(), zj1 = new JTextField(), zj2 = new JTextField(), zj3 = new JTextField(),
             zj4 = new JTextField(), zj5 = new JTextField(), zj6 = new JTextField(), zj7 = new JTextField(), wj1 = new JTextField(),
-            wj2 = new JTextField(), wj3 = new JTextField(), wj4 = new JTextField(), wj5 = new JTextField(), wj6 = new JTextField(), wj7 = new JTextField();
+            wj2 = new JTextField(), wj3 = new JTextField(), wj4 = new JTextField(), wj5 = new JTextField(), wj6 = new JTextField(), wj7 = new JTextField(),
+            m11 = new JTextField(), m12 = new JTextField(), m13 = new JTextField(), m21 = new JTextField(), m22 = new JTextField(), m23 = new JTextField(),
+            m31 = new JTextField(), m32 = new JTextField(), m33 = new JTextField(), sol = new JTextField(), ent = new JTextField(), sal = new JTextField();
 
     public PanelSimplexSolution(){
     setLayout(null);
@@ -24,7 +26,7 @@ public class PanelSimplexSolution extends JPanel {
         add(c1); add(c2); add(c3); add(x11); add(x12); add(x13); add(x21); add(x22); add(x23); add(x31); add(x32); add(x33); add(x41);
         add(x42); add(x43); add(x51); add(x52); add(x53); add(x61); add(x62); add(x63); add(x71); add(x72); add(x73); add(zj1); add(zj2);
         add(zj3); add(zj4); add(zj5); add(zj6); add(zj7); add(wj1); add(wj2); add(wj3); add(wj4); add(wj5); add(wj6); add(wj7);
-
+        add(m11); add(m12); add(m13); add(m21); add(m22); add(m23); add(m31); add(m32); add(m33); add(sol); add(ent); add(sal);
         initFields();
     }
 
@@ -37,6 +39,44 @@ public class PanelSimplexSolution extends JPanel {
     }
 
     private void initFields(){
+
+        m11.setBounds(225+165-105, 95, 45, 40);
+        m11.setBorder(null);
+        m11.setOpaque(false);
+        m11.setText("0");
+        m12.setBounds(225+165-105, 95+37, 45, 40);
+        m12.setBorder(null);
+        m12.setOpaque(false);
+        m12.setText("0");
+        m13.setBounds(225+165-105, 95+75, 45, 40);
+        m13.setBorder(null);
+        m13.setOpaque(false);
+        m13.setText("0");
+        m21.setBounds(225+165-70, 95, 47, 40);
+        m21.setBorder(null);
+        m21.setOpaque(false);
+        m21.setText("0");
+        m22.setBounds(225+165-70, 95+37, 47, 40);
+        m22.setBorder(null);
+        m22.setOpaque(false);
+        m22.setText("0");
+        m23.setBounds(225+165-70, 95+75, 47, 40);
+        m23.setBorder(null);
+        m23.setOpaque(false);
+        m23.setText("0");
+        m31.setBounds(225+165-30, 95, 47, 40);
+        m31.setBorder(null);
+        m31.setOpaque(false);
+        m31.setText("0");
+        m32.setBounds(225+165-30, 95+37, 47, 40);
+        m32.setBorder(null);
+        m32.setOpaque(false);
+        m32.setText("0");
+        m33.setBounds(225+165-30, 95+75, 47, 40);
+        m33.setBorder(null);
+        m33.setOpaque(false);
+        m33.setText("0");
+
         cj1.setBounds(225-55, 255, 47, 40);
         cj1.setBorder(null);
         cj1.setOpaque(false);
@@ -253,6 +293,11 @@ public class PanelSimplexSolution extends JPanel {
         wj7.setBorder(null);
         wj7.setOpaque(false);
         wj7.setText("0");
+
+        sol.setBounds(225-110, 565, 47,40);
+
+        ent.setBounds(225+55-72, 22, 47, 40);
+        sal.setBounds(225+330-95, 22, 47, 40);
     }
 
 }
