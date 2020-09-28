@@ -18,8 +18,8 @@ public class PanelSimplexSolution extends JPanel {
             m31 = new JTextField(), m32 = new JTextField(), m33 = new JTextField(), sol = new JTextField(), ent = new JTextField(), sal = new JTextField();
 
     public PanelSimplexSolution(){
-    setLayout(null);
-    initComponents();
+        setLayout(null);
+        initComponents();
     }
     private void initComponents(){
         add(cj1); add(cj2); add(cj3); add(cj4); add(cj5); add(cj6); add(cj7); add(cj8); add(cj9); add(cj10); add(v1); add(v2); add(v3);
@@ -31,7 +31,7 @@ public class PanelSimplexSolution extends JPanel {
     }
 
     public void paint(Graphics grafico) {
-        ImageIcon Img = new ImageIcon("res/imagen.png");
+        ImageIcon Img = new ImageIcon("GOE/src/main/res/imagen.png");
         grafico.drawImage(Img.getImage(), 0, 10, 1190/2,1226/2, null);
         setOpaque(false);
         super.paint(grafico);
@@ -298,6 +298,10 @@ public class PanelSimplexSolution extends JPanel {
 
         ent.setBounds(225+55-72, 22, 47, 40);
         sal.setBounds(225+330-95, 22, 47, 40);
+    }
+
+    public void stackFields(){
+
     }
 
 }
