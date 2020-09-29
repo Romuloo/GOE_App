@@ -24,6 +24,11 @@ public class EntranteSalienteTest {
     private ArrayList<Double> x6s = new ArrayList();
     private ArrayList<Double> x7s = new ArrayList();
 
+    private ArrayList<Double> dividendos = new ArrayList();
+    private ArrayList<Double> divisores = new ArrayList();
+
+
+
 
     @Before
     public void setUp(){
@@ -85,20 +90,56 @@ public class EntranteSalienteTest {
         x7s.add(0.0);
         vs.put("x7", x7s);
 
+        dividendos.add(40.0);
+        dividendos.add(20.0);
+        dividendos.add(30.0);
+        vs.put("sols", dividendos);
+
+        divisores.add(3.0);
+        divisores.add(4.0);
+        divisores.add(2.0);
+        vs.put("divisores", divisores);
+
+
 
     }
 
+    /**
+     * Este test comprueba que el algoritmo calcula el proceso entrante correctamente.
+     */
     @Test
     public void testEntranteCorrecto(){
         es = new EntranteSaliente(vs, 0);
         assertEquals(es.getEntrante(), "x1");
     }
 
+    /**
+     * Con este test se prueba que el entrante es correcto en distintas iteraciones.
+     */
     @Test
     public void testEntranteCorrectoIteracion2(){
         es = new EntranteSaliente(vs, 1);
         assertEquals(es.getEntrante(), "x2");
     }
+
+    /**
+     * Este test comprueba que el método saliente funciona correctamente.
+     */
+    @Test
+    public void testSalienteCorrecto(){
+        es = new EntranteSaliente(vs, 0);
+        assertEquals(es.getSaliente(), "x6");
+    }
+
+    /**
+     * Este test comprueba que el método saliente no se ve afectado por el entrante
+     * */
+    @Test
+    public void testSalienteConEntranteSegundaIteracion(){
+        es = new EntranteSaliente(vs, 1);
+        assertEquals(es.getSaliente(), "x6");
+    }
+
 
 
 

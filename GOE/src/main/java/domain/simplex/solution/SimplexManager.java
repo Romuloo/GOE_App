@@ -37,7 +37,8 @@ public class SimplexManager extends JFrame {
 
             EntranteSaliente es1 = new EntranteSaliente(valoresIniciales, 0);
 
-            System.out.println(es1.getEntrante() + " Este");
+            System.out.println(es1.getEntrante() + " entrante");
+            System.out.println(es1.getSaliente() + " saliente");
             correcto = true;
 
 

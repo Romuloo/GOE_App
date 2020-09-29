@@ -355,6 +355,34 @@ public class FirstSimplex extends JFrame {
         wjs.add(Double.parseDouble(wj6.getText()));
         vs.put("wjs", wjs);
 
+        ArrayList<Double> sols = new ArrayList();
+        sols.add(Double.parseDouble(c1.getText()));
+        sols.add(Double.parseDouble(c2.getText()));
+        sols.add(Double.parseDouble(c3.getText()));
+        vs.put("sols", sols);
+
+        ArrayList<Double> ladoX5 = new ArrayList();
+        ladoX5.add(Double.parseDouble(cj8.getText()));
+        ladoX5.add(Double.parseDouble(c1.getText()));
+        vs.put("ladoX5", ladoX5);
+
+        ArrayList<Double> ladoX6 = new ArrayList();
+        ladoX6.add(Double.parseDouble(cj9.getText()));
+        ladoX6.add(Double.parseDouble(c2.getText()));
+        vs.put("ladoX6", ladoX6);
+
+        ArrayList<Double> ladoX7 = new ArrayList();
+        ladoX7.add(Double.parseDouble(cj10.getText()));
+        ladoX7.add(Double.parseDouble(c3.getText()));
+        vs.put("ladoX7", ladoX7);
+
+        ArrayList<Double> divisores = new ArrayList();
+        divisores.add(Double.parseDouble(cj8.getText()));
+        divisores.add(Double.parseDouble(cj9.getText()));
+        divisores.add(Double.parseDouble(cj10.getText()));
+        vs.put("divisores", divisores);
+
+
         return vs;
 
     }
