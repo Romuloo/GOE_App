@@ -90,10 +90,8 @@ public class EntranteSaliente {
      * Localiza el proceso que debe salir.
      * @return proceso saliente.
      */
-    /**
-     * Falta generalizar el código de manera que devuelva el valor xi que le corresponda!!!.
-     */
-    public String getSaliente(){
+
+    public String getSaliente(ArrayList<String> procesosSalientes){
 
         for(Double d : valoresStack.get("sols"))
             dividendos.add(d);
@@ -118,9 +116,9 @@ public class EntranteSaliente {
                 }
 
         String saliente = "";
-        if(solIndex == 0) saliente = "x5";
-        if(solIndex == 1) saliente = "x6";
-        if(solIndex == 2) saliente = "x7";
+        if(solIndex == 0) saliente = procesosSalientes.get(0);
+        if(solIndex == 1) saliente = procesosSalientes.get(1);
+        if(solIndex == 2) saliente = procesosSalientes.get(2);
         return saliente;
     }
 

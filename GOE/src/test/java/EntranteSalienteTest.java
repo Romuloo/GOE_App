@@ -23,6 +23,7 @@ public class EntranteSalienteTest {
     private ArrayList<Double> x5s = new ArrayList();
     private ArrayList<Double> x6s = new ArrayList();
     private ArrayList<Double> x7s = new ArrayList();
+    private ArrayList<String> salientes = new ArrayList<>();
 
     private ArrayList<Double> dividendos = new ArrayList();
     private ArrayList<Double> divisores = new ArrayList();
@@ -32,6 +33,10 @@ public class EntranteSalienteTest {
 
     @Before
     public void setUp(){
+
+        salientes.add("x5");
+        salientes.add("x6");
+        salientes.add("x7");
 
         x1s.add(40.0);
         x1s.add(4.0);
@@ -128,7 +133,7 @@ public class EntranteSalienteTest {
     @Test
     public void testSalienteCorrecto(){
         es = new EntranteSaliente(vs, 0);
-        assertEquals(es.getSaliente(), "x6");
+        assertEquals(es.getSaliente(salientes), "x6");
     }
 
     /**
@@ -137,7 +142,7 @@ public class EntranteSalienteTest {
     @Test
     public void testSalienteConEntranteSegundaIteracion(){
         es = new EntranteSaliente(vs, 1);
-        assertEquals(es.getSaliente(), "x6");
+        assertEquals(es.getSaliente(salientes), "x6");
     }
 
 

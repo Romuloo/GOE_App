@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.SimpleTimeZone;
@@ -19,7 +20,7 @@ import java.util.SimpleTimeZone;
  */
 public class FirstSimplex extends JFrame {
     //cj: procesos, x = valores matriz, c =  matriz ampliada, v = valores solución óptima.
-    private JTextField cj1 = new JTextField(), cj2 = new JTextField(), cj3 = new JTextField(), cj4 = new JTextField(), cj5 = new JTextField(),
+    private static JTextField cj1 = new JTextField(), cj2 = new JTextField(), cj3 = new JTextField(), cj4 = new JTextField(), cj5 = new JTextField(),
             cj6 = new JTextField(), cj7 = new JTextField(), cj8 = new JTextField(), cj9 = new JTextField(), cj10 = new JTextField(), v1 = new JTextField(),
             v2 = new JTextField(), v3 = new JTextField(), c1 = new JTextField(), c2 = new JTextField(), c3 = new JTextField(), x11 = new JTextField(),
             x12 = new JTextField(), x13 = new JTextField(), x21 = new JTextField(), x22 = new JTextField(), x23 = new JTextField(),
@@ -33,8 +34,8 @@ public class FirstSimplex extends JFrame {
     private ImageIcon ic = new ImageIcon("GOE/src/main/res/iconoResolver.png");
 
 
-
     private static HashMap<String, ArrayList<Double>> valoresStack;
+    private static ArrayList<String> procesos;
 
     /**
      * Inicializa los valores Stack.
@@ -47,6 +48,17 @@ public class FirstSimplex extends JFrame {
 
     public static HashMap<String, ArrayList<Double>> getValoresStack(){
         return valoresStack;
+    }
+
+    public static ArrayList<String> salientesInicial(){
+       return salientes();
+    }
+    private static ArrayList<String> salientes(){
+        procesos = new ArrayList<>();
+        procesos.add(v1.getText());
+        procesos.add(v2.getText());
+        procesos.add(v3.getText());
+        return procesos;
     }
 
 
@@ -381,7 +393,6 @@ public class FirstSimplex extends JFrame {
         divisores.add(Double.parseDouble(cj9.getText()));
         divisores.add(Double.parseDouble(cj10.getText()));
         vs.put("divisores", divisores);
-
 
         return vs;
 
