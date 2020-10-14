@@ -1,6 +1,8 @@
-package domain.simplex.solution;
+package domain.simplex.programLoop;
 
-import domain.simplex.FirstSimplex;
+import domain.simplex.programLoop.firstStep.FirstSimplex;
+import domain.simplex.programLoop.recurring.EntranteSaliente;
+import domain.simplex.programLoop.recurring.MatrixCalculator;
 
 import javax.swing.*;
 import java.awt.*;
@@ -36,9 +38,12 @@ public class SimplexManager extends JFrame {
             if(contadorInicial != 0)  correcto = true;
 
             EntranteSaliente es1 = new EntranteSaliente(valoresIniciales, 0);
+            String entrante_1 = es1.getEntrante();
+            String saliente_1 = es1.getSaliente(FirstSimplex.salientesInicial());
 
-            System.out.println(es1.getEntrante() + " entrante");
-            System.out.println(es1.getSaliente(FirstSimplex.salientesInicial()) + " saliente");
+
+
+            
             correcto = true;
 
 

@@ -1,15 +1,13 @@
-package domain.simplex;
+package domain.simplex.programLoop.firstStep;
 
-import domain.simplex.solution.SimplexManager;
+import domain.simplex.programLoop.SimplexManager;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.SimpleTimeZone;
 
 /**
  * @author Javier Linares Castrillón

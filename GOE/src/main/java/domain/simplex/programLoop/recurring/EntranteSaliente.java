@@ -1,9 +1,6 @@
-package domain.simplex.solution;
-
-import domain.simplex.FirstSimplex;
+package domain.simplex.programLoop.recurring;
 
 import java.util.ArrayList;
-import java.util.DoubleSummaryStatistics;
 import java.util.HashMap;
 import java.util.PriorityQueue;
 

@@ -1,4 +1,4 @@
-import domain.simplex.solution.EntranteSaliente;
+import domain.simplex.programLoop.recurring.EntranteSaliente;
 import org.junit.Test;
 import org.junit.Before;
 
@@ -14,7 +14,7 @@ public class EntranteSalienteTest {
 
     private EntranteSaliente es;
 
-   HashMap<String, ArrayList<Double>> vs = new HashMap();
+    private HashMap<String, ArrayList<Double>> vs = new HashMap();
 
     private ArrayList<Double> x1s = new ArrayList();
     private ArrayList<Double> x2s = new ArrayList();

@@ -1,12 +1,11 @@
 package domain.simplex;
 
-import domain.simplex.FirstSimplex;
+import domain.simplex.programLoop.firstStep.FirstSimplex;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashMap;
 
 public class Begin {
 
