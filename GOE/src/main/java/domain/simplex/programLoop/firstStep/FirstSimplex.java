@@ -18,7 +18,7 @@ import java.util.HashMap;
  */
 public class FirstSimplex extends JFrame {
     //cj: procesos, x = valores matriz, c =  matriz ampliada, v = valores solución óptima.
-    private static JTextField cj1 = new JTextField(), cj2 = new JTextField(), cj3 = new JTextField(), cj4 = new JTextField(), cj5 = new JTextField(),
+    private static final JTextField cj1 = new JTextField(), cj2 = new JTextField(), cj3 = new JTextField(), cj4 = new JTextField(), cj5 = new JTextField(),
             cj6 = new JTextField(), cj7 = new JTextField(), cj8 = new JTextField(), cj9 = new JTextField(), cj10 = new JTextField(), v1 = new JTextField(),
             v2 = new JTextField(), v3 = new JTextField(), c1 = new JTextField(), c2 = new JTextField(), c3 = new JTextField(), x11 = new JTextField(),
             x12 = new JTextField(), x13 = new JTextField(), x21 = new JTextField(), x22 = new JTextField(), x23 = new JTextField(),
@@ -391,6 +391,37 @@ public class FirstSimplex extends JFrame {
         divisores.add(Double.parseDouble(cj9.getText()));
         divisores.add(Double.parseDouble(cj10.getText()));
         vs.put("divisores", divisores);
+
+
+        ArrayList<Double> xh1s = new ArrayList();
+        xh1s.add(Double.parseDouble(x11.getText()));
+        xh1s.add(Double.parseDouble(x21.getText()));
+        xh1s.add(Double.parseDouble(x31.getText()));
+        xh1s.add(Double.parseDouble(x41.getText()));
+        xh1s.add(Double.parseDouble(x51.getText()));
+        xh1s.add(Double.parseDouble(x61.getText()));
+        xh1s.add(Double.parseDouble(x71.getText()));
+        vs.put("hx5s", xh1s);
+
+        ArrayList<Double> xh2s = new ArrayList();
+        xh2s.add(Double.parseDouble(x12.getText()));
+        xh2s.add(Double.parseDouble(x22.getText()));
+        xh2s.add(Double.parseDouble(x32.getText()));
+        xh2s.add(Double.parseDouble(x42.getText()));
+        xh2s.add(Double.parseDouble(x52.getText()));
+        xh2s.add(Double.parseDouble(x62.getText()));
+        xh2s.add(Double.parseDouble(x72.getText()));
+        vs.put("hx6s", xh2s);
+
+        ArrayList<Double> xh3s = new ArrayList();
+        xh3s.add(Double.parseDouble(x13.getText()));
+        xh3s.add(Double.parseDouble(x23.getText()));
+        xh3s.add(Double.parseDouble(x33.getText()));
+        xh3s.add(Double.parseDouble(x43.getText()));
+        xh3s.add(Double.parseDouble(x53.getText()));
+        xh3s.add(Double.parseDouble(x63.getText()));
+        xh3s.add(Double.parseDouble(x73.getText()));
+        vs.put("hx7s", xh3s);
 
         return vs;
 
