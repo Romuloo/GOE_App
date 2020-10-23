@@ -123,4 +123,17 @@ public class EntranteSaliente {
         return dividendo / divisor;
     }
 
+    public String[] noSalientes(ArrayList<String> p, String saliente)
+    {
+        ArrayList<String> procesos = p;
+        int idx = procesos.indexOf(saliente);
+        procesos.remove(idx);
+
+        String[] procesosNoSalientes = new String[2];
+        procesosNoSalientes[0] = procesos.get(0);
+        procesosNoSalientes[1] = procesos.get(1);
+
+        return procesosNoSalientes;
+    }
+
 }

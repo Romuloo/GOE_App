@@ -2,9 +2,13 @@ package domain.simplex.programLoop.recurring;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class PanelSimplexSolution extends JPanel {
 
+
+
+    //cj: procesos, x = valores matriz, c =  matriz ampliada, v = valores solución óptima, m = matriz inversa
     private JTextField cj1 = new JTextField(), cj2 = new JTextField(), cj3 = new JTextField(), cj4 = new JTextField(), cj5 = new JTextField(),
             cj6 = new JTextField(), cj7 = new JTextField(), cj8 = new JTextField(), cj9 = new JTextField(), cj10 = new JTextField(), v1 = new JTextField(),
             v2 = new JTextField(), v3 = new JTextField(), c1 = new JTextField(), c2 = new JTextField(), c3 = new JTextField(), x11 = new JTextField(),
@@ -22,12 +26,228 @@ public class PanelSimplexSolution extends JPanel {
         initComponents();
     }
     private void initComponents(){
+
         add(cj1); add(cj2); add(cj3); add(cj4); add(cj5); add(cj6); add(cj7); add(cj8); add(cj9); add(cj10); add(v1); add(v2); add(v3);
         add(c1); add(c2); add(c3); add(x11); add(x12); add(x13); add(x21); add(x22); add(x23); add(x31); add(x32); add(x33); add(x41);
         add(x42); add(x43); add(x51); add(x52); add(x53); add(x61); add(x62); add(x63); add(x71); add(x72); add(x73); add(zj1); add(zj2);
         add(zj3); add(zj4); add(zj5); add(zj6); add(zj7); add(wj1); add(wj2); add(wj3); add(wj4); add(wj5); add(wj6); add(wj7);
         add(m11); add(m12); add(m13); add(m21); add(m22); add(m23); add(m31); add(m32); add(m33); add(sol); add(ent); add(sal);
         initFields();
+    }
+    public JTextField getCj1() {
+        return cj1;
+    }
+
+    public JTextField getCj2() {
+        return cj2;
+    }
+
+    public JTextField getCj3() {
+        return cj3;
+    }
+
+    public JTextField getCj4() {
+        return cj4;
+    }
+
+    public JTextField getCj5() {
+        return cj5;
+    }
+
+    public JTextField getCj6() {
+        return cj6;
+    }
+
+    public JTextField getCj7() {
+        return cj7;
+    }
+
+    public JTextField getCj8() {
+        return cj8;
+    }
+
+    public JTextField getCj9() {
+        return cj9;
+    }
+
+    public JTextField getCj10() {
+        return cj10;
+    }
+
+    public JTextField getV1() {
+        return v1;
+    }
+
+    public JTextField getV2() {
+        return v2;
+    }
+
+    public JTextField getV3() {
+        return v3;
+    }
+
+    public JTextField getC1() {
+        return c1;
+    }
+
+    public JTextField getC2() {
+        return c2;
+    }
+
+    public JTextField getC3() {
+        return c3;
+    }
+
+    public JTextField getX11() {
+        return x11;
+    }
+
+    public JTextField getX12() {
+        return x12;
+    }
+
+    public JTextField getX13() {
+        return x13;
+    }
+
+    public JTextField getX21() {
+        return x21;
+    }
+
+    public JTextField getX22() {
+        return x22;
+    }
+
+    public JTextField getX23() {
+        return x23;
+    }
+
+    public JTextField getX31() {
+        return x31;
+    }
+
+    public JTextField getX32() {
+        return x32;
+    }
+
+    public JTextField getX33() {
+        return x33;
+    }
+
+    public JTextField getX41() {
+        return x41;
+    }
+
+    public JTextField getX42() {
+        return x42;
+    }
+
+    public JTextField getX43() {
+        return x43;
+    }
+
+    public JTextField getX51() {
+        return x51;
+    }
+
+    public JTextField getX52() {
+        return x52;
+    }
+
+    public JTextField getX53() {
+        return x53;
+    }
+
+    public JTextField getX61() {
+        return x61;
+    }
+
+    public JTextField getX62() {
+        return x62;
+    }
+
+    public JTextField getX63() {
+        return x63;
+    }
+
+    public JTextField getX71() {
+        return x71;
+    }
+
+    public JTextField getX72() {
+        return x72;
+    }
+
+    public JTextField getX73() {
+        return x73;
+    }
+
+    public JTextField getZj1() {
+        return zj1;
+    }
+
+    public JTextField getZj2() {
+        return zj2;
+    }
+
+    public JTextField getZj3() {
+        return zj3;
+    }
+
+    public JTextField getZj4() {
+        return zj4;
+    }
+
+    public JTextField getZj5() {
+        return zj5;
+    }
+
+    public JTextField getZj6() {
+        return zj6;
+    }
+
+    public JTextField getZj7() {
+        return zj7;
+    }
+
+    public JTextField getWj1() {
+        return wj1;
+    }
+
+    public JTextField getWj2() {
+        return wj2;
+    }
+
+    public JTextField getWj3() {
+        return wj3;
+    }
+
+    public JTextField getWj4() {
+        return wj4;
+    }
+
+    public JTextField getWj5() {
+        return wj5;
+    }
+
+    public JTextField getWj6() {
+        return wj6;
+    }
+
+    public JTextField getWj7() {
+        return wj7;
+    }
+
+    public JTextField getSol() {
+        return sol;
+    }
+
+    public JTextField getEnt() {
+        return ent;
+    }
+
+    public JTextField getSal() {
+        return sal;
     }
 
     public void paint(Graphics grafico) {
@@ -300,8 +520,6 @@ public class PanelSimplexSolution extends JPanel {
         sal.setBounds(225+330-95, 22, 47, 40);
     }
 
-    public void stackFields(){
 
-    }
 
 }

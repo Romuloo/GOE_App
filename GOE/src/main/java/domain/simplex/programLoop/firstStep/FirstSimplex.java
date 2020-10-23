@@ -355,6 +355,15 @@ public class FirstSimplex extends JFrame {
         x7s.add(Double.parseDouble(wj7.getText()));
         vs.put("x7", x7s);
 
+        ArrayList<Double> cjs = new ArrayList();
+        cjs.add(Double.parseDouble(cj1.getText()));
+        cjs.add(Double.parseDouble(cj2.getText()));
+        cjs.add(Double.parseDouble(cj3.getText()));
+        cjs.add(Double.parseDouble(cj4.getText()));
+        cjs.add(Double.parseDouble(cj5.getText()));
+        cjs.add(Double.parseDouble(cj6.getText()));
+        cjs.add(Double.parseDouble(cj7.getText()));
+        vs.put("cjs", cjs);
 
         ArrayList<Double> wjs = new ArrayList();
         wjs.add(Double.parseDouble(wj1.getText()));
@@ -363,7 +372,19 @@ public class FirstSimplex extends JFrame {
         wjs.add(Double.parseDouble(wj4.getText()));
         wjs.add(Double.parseDouble(wj5.getText()));
         wjs.add(Double.parseDouble(wj6.getText()));
+        wjs.add(Double.parseDouble(wj7.getText()));
         vs.put("wjs", wjs);
+
+
+        ArrayList<Double> zjs = new ArrayList();
+        zjs.add(Double.parseDouble(zj1.getText()));
+        zjs.add(Double.parseDouble(zj2.getText()));
+        zjs.add(Double.parseDouble(zj3.getText()));
+        zjs.add(Double.parseDouble(zj4.getText()));
+        zjs.add(Double.parseDouble(zj5.getText()));
+        zjs.add(Double.parseDouble(zj6.getText()));
+        zjs.add(Double.parseDouble(zj7.getText()));
+        vs.put("zjs", zjs);
 
         ArrayList<Double> sols = new ArrayList();
         sols.add(Double.parseDouble(c1.getText()));
@@ -393,39 +414,52 @@ public class FirstSimplex extends JFrame {
         vs.put("divisores", divisores);
 
 
-        ArrayList<Double> xh1s = new ArrayList();
-        xh1s.add(Double.parseDouble(x11.getText()));
-        xh1s.add(Double.parseDouble(x21.getText()));
-        xh1s.add(Double.parseDouble(x31.getText()));
-        xh1s.add(Double.parseDouble(x41.getText()));
-        xh1s.add(Double.parseDouble(x51.getText()));
-        xh1s.add(Double.parseDouble(x61.getText()));
-        xh1s.add(Double.parseDouble(x71.getText()));
-        vs.put("hx5s", xh1s);
+        ArrayList<Double> hx5 = new ArrayList();
+        hx5.add(Double.parseDouble(x11.getText()));
+        hx5.add(Double.parseDouble(x21.getText()));
+        hx5.add(Double.parseDouble(x31.getText()));
+        hx5.add(Double.parseDouble(x41.getText()));
+        hx5.add(Double.parseDouble(x51.getText()));
+        hx5.add(Double.parseDouble(x61.getText()));
+        hx5.add(Double.parseDouble(x71.getText()));
+        hx5.add(Double.parseDouble(c1.getText()));
+        hx5.add(Double.parseDouble(cj8.getText()));
+        vs.put("hx5", hx5);
 
-        ArrayList<Double> xh2s = new ArrayList();
-        xh2s.add(Double.parseDouble(x12.getText()));
-        xh2s.add(Double.parseDouble(x22.getText()));
-        xh2s.add(Double.parseDouble(x32.getText()));
-        xh2s.add(Double.parseDouble(x42.getText()));
-        xh2s.add(Double.parseDouble(x52.getText()));
-        xh2s.add(Double.parseDouble(x62.getText()));
-        xh2s.add(Double.parseDouble(x72.getText()));
-        vs.put("hx6s", xh2s);
+        ArrayList<Double> hx6 = new ArrayList();
+        hx6.add(Double.parseDouble(x12.getText()));
+        hx6.add(Double.parseDouble(x22.getText()));
+        hx6.add(Double.parseDouble(x32.getText()));
+        hx6.add(Double.parseDouble(x42.getText()));
+        hx6.add(Double.parseDouble(x52.getText()));
+        hx6.add(Double.parseDouble(x62.getText()));
+        hx6.add(Double.parseDouble(x72.getText()));
+        hx6.add(Double.parseDouble(c2.getText()));
+        hx6.add(Double.parseDouble(cj9.getText()));
+        vs.put("hx6", hx6);
 
-        ArrayList<Double> xh3s = new ArrayList();
-        xh3s.add(Double.parseDouble(x13.getText()));
-        xh3s.add(Double.parseDouble(x23.getText()));
-        xh3s.add(Double.parseDouble(x33.getText()));
-        xh3s.add(Double.parseDouble(x43.getText()));
-        xh3s.add(Double.parseDouble(x53.getText()));
-        xh3s.add(Double.parseDouble(x63.getText()));
-        xh3s.add(Double.parseDouble(x73.getText()));
-        vs.put("hx7s", xh3s);
+        ArrayList<Double> hx7 = new ArrayList();
+        hx7.add(Double.parseDouble(x13.getText()));
+        hx7.add(Double.parseDouble(x23.getText()));
+        hx7.add(Double.parseDouble(x33.getText()));
+        hx7.add(Double.parseDouble(x43.getText()));
+        hx7.add(Double.parseDouble(x53.getText()));
+        hx7.add(Double.parseDouble(x63.getText()));
+        hx7.add(Double.parseDouble(x73.getText()));
+        hx7.add(Double.parseDouble(c3.getText()));
+        hx7.add(Double.parseDouble(cj10.getText()));
+        vs.put("hx7", hx7);
 
         return vs;
 
     }
 
+    public static HashMap<Double, String> posicionesFirst(){
+        HashMap<Double, String> hm = new HashMap<>();
+        hm.put(0.0, v1.getText());
+        hm.put(1.0, v2.getText());
+        hm.put(2.0, v3.getText());
+        return hm;
+    }
 
 }

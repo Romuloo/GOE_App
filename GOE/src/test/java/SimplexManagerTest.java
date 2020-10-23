@@ -1,17 +1,14 @@
 import domain.simplex.programLoop.SimplexManager;
 import domain.simplex.programLoop.recurring.EntranteSaliente;
-import org.junit.Test;
 import org.junit.Before;
+import org.junit.Test;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static org.junit.Assert.*;
-
-/**
- * Clase encargada de probar la clase EntranteSaliente.
- */
-public class EntranteSalienteTest {
+public class SimplexManagerTest {
 
     private EntranteSaliente es;
 
@@ -29,11 +26,22 @@ public class EntranteSalienteTest {
     private ArrayList<Double> dividendos = new ArrayList();
     private ArrayList<Double> divisores = new ArrayList();
 
+    private SimplexManager sm = new SimplexManager();
 
-
+    //Get Orden
+    private HashMap<Double, String> hm = new HashMap<>();
+    private String saliente = "x6";
+    private String noSaliente1 = "x5";
+    private String noSaliente2 = "x7";
 
     @Before
     public void setUp(){
+
+        hm.put(0.0, "x5");
+        hm.put(1.0, "x6");
+        hm.put(2.0, "x7");
+
+
 
         salientes.add("x5");
         salientes.add("x6");
@@ -110,41 +118,22 @@ public class EntranteSalienteTest {
     }
 
     /**
-     * Este test comprueba que el algoritmo calcula el proceso entrante correctamente.
+     * Con este test pruevo que se haya realizado con éxito el setPosicion;
      */
     @Test
-    public void testEntranteCorrecto(){
-        es = new EntranteSaliente(vs, 0);
-        assertEquals(es.getEntrante(), "x1");
-    }
+    public void testSetPosicionesCorrecto(){
+     HashMap<String, Double> h = sm.setPosiciones(hm, saliente, noSaliente1, noSaliente2);
+     HashMap<String, Double> myH = new HashMap<>();
+     myH.put("x5", 0.0); myH.put("x6", 1.0); myH.put("x7", 2.0);
 
-    /**
-     * Con este test se prueba que el entrante es correcto en distintas iteraciones.
-     */
-    @Test
-    public void testEntranteCorrectoIteracion2(){
-        es = new EntranteSaliente(vs, 1);
-        assertEquals(es.getEntrante(), "x2");
-    }
+     boolean igual = true;
+     igual = igual && (myH.get("x5").equals(h.get("x5")));
+     igual = igual && (myH.get("x6").equals(h.get("x6")));
+     igual = igual && (myH.get("x7").equals(h.get("x7")));
 
-    /**
-     * Este test comprueba que el método saliente funciona correctamente.
-     */
-    @Test
-    public void testSalienteCorrecto(){
-        es = new EntranteSaliente(vs, 0);
-        assertEquals(es.getSaliente(salientes), "x6");
-    }
 
-    /**
-     * Este test comprueba que el método saliente no se ve afectado por el entrante
-     * */
-    @Test
-    public void testSalienteConEntranteSegundaIteracion(){
-        es = new EntranteSaliente(vs, 1);
-        assertEquals(es.getSaliente(salientes), "x6");
-    }
-
+     assertEquals(true, igual);
+     }
 
 
 
