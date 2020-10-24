@@ -1,4 +1,4 @@
-package domain.simplex.programLoop.recurring;
+package domain.simplex.programLoop.recurring.plantillas;
 
 import javax.swing.*;
 import java.awt.*;

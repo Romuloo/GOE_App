@@ -1,8 +1,9 @@
 package domain.simplex.programLoop.recurring;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.PriorityQueue;
+import domain.simplex.programLoop.recurring.plantillas.IProceso;
+import domain.simplex.programLoop.recurring.plantillas.ProcesoHorizontal;
+
+import java.util.*;
 
 public class EntranteSaliente {
 
@@ -10,6 +11,10 @@ public class EntranteSaliente {
 
     private HashMap<String, ArrayList<Double>> valoresStack;
     private int contador;
+
+    private ArrayList<IProceso> procesos;
+
+    private ArrayList<Double> xs = new ArrayList<>();
 
     private ArrayList<Double> x1 = new ArrayList<>();
     private ArrayList<Double> x2 = new ArrayList<>();
@@ -28,12 +33,69 @@ public class EntranteSaliente {
         this.valoresStack = es;
         this.contador = cont;
     }
+    public EntranteSaliente(ArrayList<IProceso> procesos, int cont){
+        this.procesos = procesos;
+        this.contador = cont;
+    }
+
 
     /**
      * Con este código encuentro el entrante.
      *
      * @return la variable que sale del proceso simplex.
      */
+
+    public String getEntranteP(){
+        //Con este bloque de codigo obtengo el objeto.
+
+        double solucion = 0; //almacenará la solución de quién es más grande.
+        int posicion = 0; //almacenará la dirección de memoria del elemento mayor en el ArrayList.
+
+        ProcesoHorizontal x1 = new ProcesoHorizontal("x1");
+        xs.add(procesos.get(procesos.indexOf(x1)).getCj());
+
+        ProcesoHorizontal x2 = new ProcesoHorizontal("x2");
+        xs.add(procesos.get(procesos.indexOf(x2)).getCj());
+
+        ProcesoHorizontal x3 = new ProcesoHorizontal("x3");
+        xs.add(procesos.get(procesos.indexOf(x3)).getCj());
+
+        ProcesoHorizontal x4 = new ProcesoHorizontal("x4");
+        xs.add(procesos.get(procesos.indexOf(x4)).getCj());
+
+        ProcesoHorizontal x5 = new ProcesoHorizontal("x5");
+        xs.add(procesos.get(procesos.indexOf(x5)).getCj());
+
+        ProcesoHorizontal x6 = new ProcesoHorizontal("x6");
+        xs.add(procesos.get(procesos.indexOf(x6)).getCj());
+
+        ProcesoHorizontal x7 = new ProcesoHorizontal("x7");
+        xs.add(procesos.get(procesos.indexOf(x7)).getCj());
+
+        PriorityQueue<Double> values = new PriorityQueue<>();
+        values.add(xs.get(0));
+        values.add(xs.get(1));
+        values.add(xs.get(2));
+        values.add(xs.get(3));
+        values.add(xs.get(4));
+        values.add(xs.get(5));
+        values.add(xs.get(6));
+
+        for (int i = 0; i < 7 - contador; i++)
+            solucion = values.remove();
+        System.out.println(solucion);
+
+        for (int i = 0; i < 7; i++)
+            if (solucion == xs.get(i))
+                posicion = i + 1;
+        System.out.println(posicion);
+
+        String solucionFinal = "x" + posicion;
+
+        return solucionFinal;
+
+    }
+    /*
     public String getEntrante() {
 
         double solucion = 0; //almacenará la solución de quién es más grande.
@@ -82,12 +144,12 @@ public class EntranteSaliente {
 
     }
 
+*/
 
     /**
      * Localiza el proceso que debe salir.
      * @return proceso saliente.
      */
-
     public String getSaliente(ArrayList<String> procesosSalientes){
 
         for(Double d : valoresStack.get("sols"))

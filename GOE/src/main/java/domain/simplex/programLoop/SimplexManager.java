@@ -2,7 +2,7 @@ package domain.simplex.programLoop;
 
 import domain.simplex.programLoop.firstStep.FirstSimplex;
 import domain.simplex.programLoop.recurring.EntranteSaliente;
-import domain.simplex.programLoop.recurring.PanelSimplexSolution;
+import domain.simplex.programLoop.recurring.plantillas.PanelSimplexSolution;
 
 import javax.swing.*;
 import java.awt.*;

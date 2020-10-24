@@ -1,13 +1,15 @@
 package domain.simplex.programLoop.firstStep;
 
 import domain.simplex.programLoop.SimplexManager;
+import domain.simplex.programLoop.recurring.plantillas.IProceso;
+import domain.simplex.programLoop.recurring.plantillas.ProcesoVertical;
+import domain.simplex.programLoop.recurring.plantillas.ProcesoHorizontal;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 
 /**
  * @author Javier Linares Castrillón
@@ -285,6 +287,160 @@ public class FirstSimplex extends JFrame {
     }
 
 
+    private ArrayList<IProceso> getProcesos()
+    {
+        ArrayList<IProceso> procesos = new ArrayList<>();
+        //--------------- Instancio e inicializo los procesos Verticales
+        ProcesoVertical x1 = new ProcesoVertical();
+        x1.setNombreProceso("x1");
+        x1.setCj(Double.parseDouble(cj1.getText()));
+        x1.setX1(Double.parseDouble(x11.getText()));
+        x1.setX2(Double.parseDouble(x12.getText()));
+        x1.setX3(Double.parseDouble(x13.getText()));
+        x1.setZj(Double.parseDouble(zj1.getText()));
+        x1.setWj(Double.parseDouble(wj1.getText()));
+        procesos.add(x1);
+
+        ProcesoVertical x2 = new ProcesoVertical();
+        x2.setNombreProceso("x2");
+        x2.setCj(Double.parseDouble(cj2.getText()));
+        x2.setX1(Double.parseDouble(x21.getText()));
+        x2.setX2(Double.parseDouble(x22.getText()));
+        x2.setX3(Double.parseDouble(x23.getText()));
+        x2.setZj(Double.parseDouble(zj2.getText()));
+        x2.setWj(Double.parseDouble(wj2.getText()));
+        procesos.add(x2);
+
+        ProcesoVertical x3 = new ProcesoVertical();
+        x3.setNombreProceso("x3");
+        x3.setCj(Double.parseDouble(cj3.getText()));
+        x3.setX1(Double.parseDouble(x31.getText()));
+        x3.setX2(Double.parseDouble(x32.getText()));
+        x3.setX3(Double.parseDouble(x33.getText()));
+        x3.setZj(Double.parseDouble(zj3.getText()));
+        x3.setWj(Double.parseDouble(wj3.getText()));
+        procesos.add(x3);
+
+        ProcesoVertical x4 = new ProcesoVertical();
+        x4.setNombreProceso("x4");
+        x4.setCj(Double.parseDouble(cj4.getText()));
+        x4.setX1(Double.parseDouble(x41.getText()));
+        x4.setX2(Double.parseDouble(x42.getText()));
+        x4.setX3(Double.parseDouble(x43.getText()));
+        x4.setZj(Double.parseDouble(zj4.getText()));
+        x4.setWj(Double.parseDouble(wj4.getText()));
+        procesos.add(x4);
+
+        ProcesoVertical x5 = new ProcesoVertical();
+        x5.setNombreProceso("x5");
+        x5.setCj(Double.parseDouble(cj5.getText()));
+        x5.setX1(Double.parseDouble(x51.getText()));
+        x5.setX2(Double.parseDouble(x52.getText()));
+        x5.setX3(Double.parseDouble(x53.getText()));
+        x5.setZj(Double.parseDouble(zj5.getText()));
+        x5.setWj(Double.parseDouble(wj5.getText()));
+        procesos.add(x5);
+
+        ProcesoVertical x6 = new ProcesoVertical();
+        x6.setNombreProceso("x6");
+        x6.setCj(Double.parseDouble(cj6.getText()));
+        x6.setX1(Double.parseDouble(x61.getText()));
+        x6.setX2(Double.parseDouble(x62.getText()));
+        x6.setX3(Double.parseDouble(x63.getText()));
+        x6.setZj(Double.parseDouble(zj6.getText()));
+        x6.setWj(Double.parseDouble(wj6.getText()));
+        procesos.add(x6);
+
+        ProcesoVertical x7 = new ProcesoVertical();
+        x7.setNombreProceso("x7");
+        x7.setCj(Double.parseDouble(cj7.getText()));
+        x7.setX1(Double.parseDouble(x71.getText()));
+        x7.setX2(Double.parseDouble(x72.getText()));
+        x7.setX3(Double.parseDouble(x73.getText()));
+        x7.setZj(Double.parseDouble(zj7.getText()));
+        x7.setWj(Double.parseDouble(wj7.getText()));
+        procesos.add(x7);
+
+        ProcesoVertical cjVertical = new ProcesoVertical();
+        cjVertical.setNombreProceso("cjVertical");
+        cjVertical.setX1(Double.parseDouble(cj8.getText()));
+        cjVertical.setX1(Double.parseDouble(cj9.getText()));
+        cjVertical.setX1(Double.parseDouble(cj10.getText()));
+        procesos.add(cjVertical);
+
+        ProcesoVertical cantidades = new ProcesoVertical();
+        cantidades.setNombreProceso("cantidades");
+        cantidades.setX1(Double.parseDouble(c1.getText()));
+        cantidades.setX1(Double.parseDouble(c2.getText()));
+        cantidades.setX1(Double.parseDouble(c3.getText()));
+        procesos.add(cantidades);
+
+        //------------------- Instancio e inicializo los procesos Horizontales.
+
+        ProcesoHorizontal hx1 = new ProcesoHorizontal();
+        hx1.setNombreProceso(v1.getText());
+        hx1.setCj(Double.parseDouble(cj8.getText()));
+        hx1.setX1(Double.parseDouble(x11.getText()));
+        hx1.setX2(Double.parseDouble(x21.getText()));
+        hx1.setX3(Double.parseDouble(x31.getText()));
+        hx1.setX4(Double.parseDouble(x41.getText()));
+        hx1.setX5(Double.parseDouble(x51.getText()));
+        hx1.setX6(Double.parseDouble(x61.getText()));
+        hx1.setX7(Double.parseDouble(x71.getText()));
+        hx1.setCantidad(Double.parseDouble(c1.getText()));
+        procesos.add(hx1);
+
+        ProcesoHorizontal hx2 = new ProcesoHorizontal();
+        hx2.setNombreProceso(v2.getText());
+        hx2.setCj(Double.parseDouble(cj9.getText()));
+        hx2.setX1(Double.parseDouble(x12.getText()));
+        hx2.setX2(Double.parseDouble(x22.getText()));
+        hx2.setX3(Double.parseDouble(x32.getText()));
+        hx2.setX4(Double.parseDouble(x42.getText()));
+        hx2.setX5(Double.parseDouble(x52.getText()));
+        hx2.setX6(Double.parseDouble(x62.getText()));
+        hx2.setX7(Double.parseDouble(x72.getText()));
+        hx2.setCantidad(Double.parseDouble(c2.getText()));
+        procesos.add(hx2);
+
+        ProcesoHorizontal hx3 = new ProcesoHorizontal();
+        hx3.setNombreProceso(v3.getText());
+        hx3.setCj(Double.parseDouble(cj10.getText()));
+        hx3.setX1(Double.parseDouble(x13.getText()));
+        hx3.setX2(Double.parseDouble(x23.getText()));
+        hx3.setX3(Double.parseDouble(x33.getText()));
+        hx3.setX4(Double.parseDouble(x43.getText()));
+        hx3.setX5(Double.parseDouble(x53.getText()));
+        hx3.setX6(Double.parseDouble(x63.getText()));
+        hx3.setX7(Double.parseDouble(x73.getText()));
+        hx3.setCantidad(Double.parseDouble(c3.getText()));
+        procesos.add(hx3);
+
+        ProcesoHorizontal zj = new ProcesoHorizontal();
+        zj.setNombreProceso("zj");
+        zj.setX1(Double.parseDouble(zj1.getText()));
+        zj.setX2(Double.parseDouble(zj2.getText()));
+        zj.setX3(Double.parseDouble(zj3.getText()));
+        zj.setX4(Double.parseDouble(zj4.getText()));
+        zj.setX5(Double.parseDouble(zj5.getText()));
+        zj.setX6(Double.parseDouble(zj6.getText()));
+        zj.setX7(Double.parseDouble(zj7.getText()));
+        procesos.add(zj);
+
+        ProcesoHorizontal wj = new ProcesoHorizontal();
+        wj.setNombreProceso("wj");
+        wj.setX1(Double.parseDouble(wj1.getText()));
+        wj.setX2(Double.parseDouble(wj2.getText()));
+        wj.setX3(Double.parseDouble(wj3.getText()));
+        wj.setX4(Double.parseDouble(wj4.getText()));
+        wj.setX5(Double.parseDouble(wj5.getText()));
+        wj.setX6(Double.parseDouble(wj6.getText()));
+        wj.setX7(Double.parseDouble(wj7.getText()));
+        procesos.add(wj);
+
+
+        return procesos;
+    }
     private HashMap<String, ArrayList<Double>> stackValores() {
 
 
