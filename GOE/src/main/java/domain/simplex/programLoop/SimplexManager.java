@@ -12,25 +12,31 @@ public class SimplexManager extends JFrame {
 
     private static final JTabbedPane jt = new JTabbedPane();
 
-    private HashMap<String, ArrayList<Double>>  valoresIniciales = FirstSimplex.getValoresStack();
+    private HashMap<String, ArrayList<Double>> valoresIniciales = FirstSimplex.getValoresStack();
 
-    public SimplexManager(){
-      // setUp();
+    public SimplexManager() {
+         setUp();
     }
 
-    private void setUp(){
+    private void setUp() {
         initComponentes();
         initFrame();
         manager();
     }
+
     /**
      * Método encargado de realizar el algoritmo.
      */
-    public void manager(){
+    public void manager() {
         boolean correcto = false;
 
 
-        do{
+        EntranteSaliente es = new EntranteSaliente(FirstSimplex.matrizProcesos(), 0);
+        System.out.println("Entrante: " + es.getEntrante());
+        System.out.println("Saliente: " + es.getSaliente(es.getEntrante()));
+        do {
+            correcto = true;
+        /*    correcto = true;
             //Con este bloque de código compruebo que los datos originales no son Sol óptima.
             HashMap<String, ArrayList<Double>> solucion_1 = new HashMap<>();
             ArrayList<Double> wjsIniciales =  valoresIniciales.get("wjs");
@@ -39,14 +45,14 @@ public class SimplexManager extends JFrame {
                 if (d > 0) contadorInicial++;
             if(contadorInicial != 0)  correcto = true;
 
-            EntranteSaliente es1 = new EntranteSaliente(valoresIniciales, 0);
+            EntranteSalienteR2 es1 = new EntranteSalienteR2(0);
             String entrante_1 = es1.getEntrante();
-            String saliente_1 = es1.getSaliente(FirstSimplex.salientesInicial());
+            String saliente_1 = "x2";//es1.getSaliente(FirstSimplex.salientesInicial());
 
             //Averiguo los procesos que se mantienen.
-            String[] noSalientes_1 = es1.noSalientes(FirstSimplex.salientesInicial(), saliente_1);
-            String noSaliente_1_1 = noSalientes_1[0];
-            String noSaliente_1_2 = noSalientes_1[1];
+           // String[] noSalientes_1 = es1.noSalientes(FirstSimplex.salientesInicial(), saliente_1);
+            //String noSaliente_1_1 = noSalientes_1[0];
+          //  String noSaliente_1_2 = noSalientes_1[1];
 
 
             //Empiezo a formar el nuevo HashMap con la solución {solucion_1}
@@ -82,20 +88,18 @@ public class SimplexManager extends JFrame {
                     noSalienteEnMap_1_2);
 
             //Si el bloque de código anterior ha funcionado como debía, debería de haber llenado en la posición 9 el índice donde debería ir cada fila.
-            correcto = true;
+           // correcto = true;
 
 
             nuevaIteracion(solucion_1, entranteEnMap_1, noSalienteEnMap_1_1, noSalienteEnMap_1_2 );
 
-
+*/
         }while(!correcto);
-
 
 
     }
 
-
-    //-------------------------------- Metodos a los que recurro durante el simplex
+            //-------------------------------- Metodos a los que recurro durante el simplex
 
 
     /**
@@ -104,7 +108,7 @@ public class SimplexManager extends JFrame {
      * @param pivote
      * @return ArrayList con los valores de la fila entera
      */
-    public ArrayList<Double> getElementosProcesoEntrante(ArrayList<Double> ar, String pivote)
+  public ArrayList<Double> getElementosProcesoEntrante(ArrayList<Double> ar, String pivote)
     {
         ArrayList<Double> sol = new ArrayList<>();
         //encuentro el pivote:
@@ -117,13 +121,13 @@ public class SimplexManager extends JFrame {
         return sol;
     }
 
-    /**
-     * Este método calcula los valores de la fila de un proceso que permanece en el programa base.
-     * @param ar
-     * @param thisAr
-     * @param pivote
-     * @return el arrayList con los valores de la fila calculados.
-     */
+            /**
+             * Este método calcula los valores de la fila de un proceso que permanece en el programa base.
+             * @param ar
+             * @param thisAr
+             * @param pivote
+             * @return el arrayList con los valores de la fila calculados.
+             */
     public ArrayList<Double> getElementosDelProgramaBase(ArrayList<Double> ar, ArrayList<Double> thisAr, String pivote)
     {
        ArrayList<Double> sol = new ArrayList<>();
@@ -135,14 +139,14 @@ public class SimplexManager extends JFrame {
        return sol;
     }
 
-    /**
-     * Hago uso de este método para calcular los procesos Zjs de la iteración actual.
-     * @param x1 array que hace referencia a hx1/hx2/hx3
-     * @param x2
-     * @param x3
-     * @return un arrayList con los valores de Zj.
-     */
-    public ArrayList<Double> calcularZjs(ArrayList<Double> x1, ArrayList<Double> x2, ArrayList<Double> x3)
+            /**
+             * Hago uso de este método para calcular los procesos Zjs de la iteración actual.
+             * @param x1 array que hace referencia a hx1/hx2/hx3
+             * @param x2
+             * @param x3
+             * @return un arrayList con los valores de Zj.
+             */
+   public ArrayList<Double> calcularZjs(ArrayList<Double> x1, ArrayList<Double> x2, ArrayList<Double> x3)
     {
         double multiplicador_1 = x1.get(7);
         double multiplicador_2 = x2.get(7);
@@ -167,12 +171,12 @@ public class SimplexManager extends JFrame {
         return solucion;
     }
 
-    /**
-     * Este método me calcula los valores de Wjs.
-     * @param cjs
-     * @param zjs
-     * @return un arrayList con los valores de Wjs.
-     */
+            /**
+             * Este método me calcula los valores de Wjs.
+             * @param cjs
+             * @param zjs
+             * @return un arrayList con los valores de Wjs.
+             */
     public ArrayList<Double> calcularWjs(ArrayList<Double> cjs, ArrayList<Double> zjs)
     {
         ArrayList<Double> solu = new ArrayList<>();
@@ -182,15 +186,15 @@ public class SimplexManager extends JFrame {
         return solu;
     }
 
-    /**
-     * Utilizo este método para hallar el orden en el que los xs horizontales van situados.
-     * @param hm hace referencia a un HashMap con los Xs originales y su orden.
-     * @param saliente hace referencia a los nombres del proceso saliente y los que no.
-     * @param noSaliente_1
-     * @param noSaliente_2
-     * @return
-     */
-    public HashMap<String, Double> setPosiciones(HashMap<Double, String> hm, String saliente, String noSaliente_1, String noSaliente_2)
+            /**
+             * Utilizo este método para hallar el orden en el que los xs horizontales van situados.
+             * @param hm hace referencia a un HashMap con los Xs originales y su orden.
+             * @param saliente hace referencia a los nombres del proceso saliente y los que no.
+             * @param noSaliente_1
+             * @param noSaliente_2
+             * @return
+             */
+   public HashMap<String, Double> setPosiciones(HashMap<Double, String> hm, String saliente, String noSaliente_1, String noSaliente_2)
     {
         HashMap<String, Double> indices = new HashMap<>();
         //Con este codigo me hago con la posicion de cada fila.
@@ -212,17 +216,17 @@ public class SimplexManager extends JFrame {
     }
 
 
-    /**
-     * Utilizo este método para annadir un valor a cada arrayList que indica el orden en el que debe ir situado.
-     * @param valores
-     * @param hm
-     * @param saliente
-     * @param noSaliente_1
-     * @param noSaliente_2
-     * @param entranteHorizontal
-     * @param noSalienteHorizontal_1
-     * @param noSalienteHorizontal_2
-     */
+            /**
+             * Utilizo este método para annadir un valor a cada arrayList que indica el orden en el que debe ir situado.
+             * @param valores
+             * @param hm
+             * @param saliente
+             * @param noSaliente_1
+             * @param noSaliente_2
+             * @param entranteHorizontal
+             * @param noSalienteHorizontal_1
+             * @param noSalienteHorizontal_2
+             */
     public void asignarPosicion(HashMap<String, ArrayList<Double>> valores, HashMap<Double, String> hm, String saliente, String noSaliente_1,
                                               String noSaliente_2, String entranteHorizontal, String noSalienteHorizontal_1, String noSalienteHorizontal_2)
     {
@@ -236,11 +240,11 @@ public class SimplexManager extends JFrame {
             valores.get(noSalienteHorizontal_2).add(orden.get(noSaliente_2));
     }
 
-    /**
-     * Método encargado de crear un Panel, inicializarlo y annadirlo al JPannelTable.
-     * !! deben de ser el entrante, noSaliente... horizontales !!
-     */
-    private void nuevaIteracion(HashMap<String, ArrayList<Double>> map, String entrante,
+            /**
+             * Método encargado de crear un Panel, inicializarlo y annadirlo al JPannelTable.
+             * !! deben de ser el entrante, noSaliente... horizontales !!
+             */
+   private void nuevaIteracion(HashMap<String, ArrayList<Double>> map, String entrante,
                                 String noSaliente_1, String noSaliente_2)
     {
         PanelSimplexSolution p = new PanelSimplexSolution();
@@ -347,18 +351,18 @@ public class SimplexManager extends JFrame {
     }
 
 
-        //------------------------------------------ Frame stuff
-    private void initComponentes(){
-        add(jt);
-        // jt.add(new PanelSimplexSolution(), 0);
-    }
-    private void initFrame(){
-        setBackground(new Color(39, 156, 207));
-        setSize(1190/2,1226/2+70);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setVisible(true);
-        setLocation(100, 20);
-        setResizable(false);
-        setTitle("Simplex - Solucion");
-    }
+            //------------------------------------------ Frame stuff
+            private void initComponentes () {
+                add(jt);
+                // jt.add(new PanelSimplexSolution(), 0);
+            }
+            private void initFrame () {
+                setBackground(new Color(39, 156, 207));
+                setSize(1190 / 2, 1226 / 2 + 70);
+                setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                setVisible(true);
+                setLocation(100, 20);
+                setResizable(false);
+                setTitle("Simplex - Solucion");
+            }
 }

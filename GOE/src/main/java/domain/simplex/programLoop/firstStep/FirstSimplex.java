@@ -30,6 +30,8 @@ public class FirstSimplex extends JFrame {
             zj4 = new JTextField(), zj5 = new JTextField(), zj6 = new JTextField(), zj7 = new JTextField(), wj1 = new JTextField(),
             wj2 = new JTextField(), wj3 = new JTextField(), wj4 = new JTextField(), wj5 = new JTextField(), wj6 = new JTextField(), wj7 = new JTextField();
 
+    private static IProceso x1,  x2, x3, x4, x5, x6, x7, cjVertical, cantidades, hx1, hx2, hx3, zj, wj;
+
     private JButton bt = new JButton("Resolver");
     private ImageIcon ic = new ImageIcon("GOE/src/main/res/iconoResolver.png");
 
@@ -37,14 +39,7 @@ public class FirstSimplex extends JFrame {
     private static HashMap<String, ArrayList<Double>> valoresStack;
     private static ArrayList<String> procesos;
 
-    /**
-     * Inicializa los valores Stack.
-     * @return valores stackeados.
-     */
-    private HashMap<String, ArrayList<Double>> inicializarValoresStack(){
-        valoresStack = stackValores();
-        return valoresStack;
-    }
+
 
     public static HashMap<String, ArrayList<Double>> getValoresStack(){
         return valoresStack;
@@ -91,7 +86,6 @@ public class FirstSimplex extends JFrame {
 
         bt.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                inicializarValoresStack();
                 new SimplexManager();
             }
         });
@@ -117,6 +111,27 @@ public class FirstSimplex extends JFrame {
         setTitle("Simplex");
     }
 
+    public static IProceso[][] matrizProcesos(){
+        IProceso[][] matriz = new IProceso[2][9];
+        initProcesos();
+        matriz[0][0] = x1;
+        matriz[0][1] = x2;
+        matriz[0][2] = x3;
+        matriz[0][3] = x4;
+        matriz[0][4] = x5;
+        matriz[0][5] = x6;
+        matriz[0][6] = x7;
+        matriz[0][7] = cjVertical;
+        matriz[0][8] = cantidades;
+
+        matriz[1][0] = hx1;
+        matriz[1][1] = hx2;
+        matriz[1][2] = hx3;
+        matriz[1][3] = zj;
+        matriz[1][4] = wj;
+
+        return matriz;
+    }
     private void initFields(){
         cj1.setBounds(225, 0, 50, 40);
         cj1.setBackground(Color.green);
@@ -287,11 +302,11 @@ public class FirstSimplex extends JFrame {
     }
 
 
-    private ArrayList<IProceso> getProcesos()
+    public static void initProcesos()
     {
-        ArrayList<IProceso> procesos = new ArrayList<>();
+
         //--------------- Instancio e inicializo los procesos Verticales
-        ProcesoVertical x1 = new ProcesoVertical();
+        x1 = new ProcesoVertical();
         x1.setNombreProceso("x1");
         x1.setCj(Double.parseDouble(cj1.getText()));
         x1.setX1(Double.parseDouble(x11.getText()));
@@ -299,9 +314,8 @@ public class FirstSimplex extends JFrame {
         x1.setX3(Double.parseDouble(x13.getText()));
         x1.setZj(Double.parseDouble(zj1.getText()));
         x1.setWj(Double.parseDouble(wj1.getText()));
-        procesos.add(x1);
 
-        ProcesoVertical x2 = new ProcesoVertical();
+        x2 = new ProcesoVertical();
         x2.setNombreProceso("x2");
         x2.setCj(Double.parseDouble(cj2.getText()));
         x2.setX1(Double.parseDouble(x21.getText()));
@@ -309,9 +323,8 @@ public class FirstSimplex extends JFrame {
         x2.setX3(Double.parseDouble(x23.getText()));
         x2.setZj(Double.parseDouble(zj2.getText()));
         x2.setWj(Double.parseDouble(wj2.getText()));
-        procesos.add(x2);
 
-        ProcesoVertical x3 = new ProcesoVertical();
+        x3 = new ProcesoVertical();
         x3.setNombreProceso("x3");
         x3.setCj(Double.parseDouble(cj3.getText()));
         x3.setX1(Double.parseDouble(x31.getText()));
@@ -319,9 +332,8 @@ public class FirstSimplex extends JFrame {
         x3.setX3(Double.parseDouble(x33.getText()));
         x3.setZj(Double.parseDouble(zj3.getText()));
         x3.setWj(Double.parseDouble(wj3.getText()));
-        procesos.add(x3);
 
-        ProcesoVertical x4 = new ProcesoVertical();
+        x4 = new ProcesoVertical();
         x4.setNombreProceso("x4");
         x4.setCj(Double.parseDouble(cj4.getText()));
         x4.setX1(Double.parseDouble(x41.getText()));
@@ -329,9 +341,8 @@ public class FirstSimplex extends JFrame {
         x4.setX3(Double.parseDouble(x43.getText()));
         x4.setZj(Double.parseDouble(zj4.getText()));
         x4.setWj(Double.parseDouble(wj4.getText()));
-        procesos.add(x4);
 
-        ProcesoVertical x5 = new ProcesoVertical();
+        x5 = new ProcesoVertical();
         x5.setNombreProceso("x5");
         x5.setCj(Double.parseDouble(cj5.getText()));
         x5.setX1(Double.parseDouble(x51.getText()));
@@ -339,9 +350,8 @@ public class FirstSimplex extends JFrame {
         x5.setX3(Double.parseDouble(x53.getText()));
         x5.setZj(Double.parseDouble(zj5.getText()));
         x5.setWj(Double.parseDouble(wj5.getText()));
-        procesos.add(x5);
 
-        ProcesoVertical x6 = new ProcesoVertical();
+        x6 = new ProcesoVertical();
         x6.setNombreProceso("x6");
         x6.setCj(Double.parseDouble(cj6.getText()));
         x6.setX1(Double.parseDouble(x61.getText()));
@@ -349,9 +359,8 @@ public class FirstSimplex extends JFrame {
         x6.setX3(Double.parseDouble(x63.getText()));
         x6.setZj(Double.parseDouble(zj6.getText()));
         x6.setWj(Double.parseDouble(wj6.getText()));
-        procesos.add(x6);
 
-        ProcesoVertical x7 = new ProcesoVertical();
+        x7 = new ProcesoVertical();
         x7.setNombreProceso("x7");
         x7.setCj(Double.parseDouble(cj7.getText()));
         x7.setX1(Double.parseDouble(x71.getText()));
@@ -359,25 +368,22 @@ public class FirstSimplex extends JFrame {
         x7.setX3(Double.parseDouble(x73.getText()));
         x7.setZj(Double.parseDouble(zj7.getText()));
         x7.setWj(Double.parseDouble(wj7.getText()));
-        procesos.add(x7);
 
-        ProcesoVertical cjVertical = new ProcesoVertical();
+        cjVertical = new ProcesoVertical();
         cjVertical.setNombreProceso("cjVertical");
         cjVertical.setX1(Double.parseDouble(cj8.getText()));
-        cjVertical.setX1(Double.parseDouble(cj9.getText()));
-        cjVertical.setX1(Double.parseDouble(cj10.getText()));
-        procesos.add(cjVertical);
+        cjVertical.setX2(Double.parseDouble(cj9.getText()));
+        cjVertical.setX3(Double.parseDouble(cj10.getText()));
 
-        ProcesoVertical cantidades = new ProcesoVertical();
+        cantidades = new ProcesoVertical();
         cantidades.setNombreProceso("cantidades");
         cantidades.setX1(Double.parseDouble(c1.getText()));
-        cantidades.setX1(Double.parseDouble(c2.getText()));
-        cantidades.setX1(Double.parseDouble(c3.getText()));
-        procesos.add(cantidades);
+        cantidades.setX2(Double.parseDouble(c2.getText()));
+        cantidades.setX3(Double.parseDouble(c3.getText()));
 
         //------------------- Instancio e inicializo los procesos Horizontales.
 
-        ProcesoHorizontal hx1 = new ProcesoHorizontal();
+        hx1 = new ProcesoHorizontal();
         hx1.setNombreProceso(v1.getText());
         hx1.setCj(Double.parseDouble(cj8.getText()));
         hx1.setX1(Double.parseDouble(x11.getText()));
@@ -388,9 +394,8 @@ public class FirstSimplex extends JFrame {
         hx1.setX6(Double.parseDouble(x61.getText()));
         hx1.setX7(Double.parseDouble(x71.getText()));
         hx1.setCantidad(Double.parseDouble(c1.getText()));
-        procesos.add(hx1);
 
-        ProcesoHorizontal hx2 = new ProcesoHorizontal();
+        hx2 = new ProcesoHorizontal();
         hx2.setNombreProceso(v2.getText());
         hx2.setCj(Double.parseDouble(cj9.getText()));
         hx2.setX1(Double.parseDouble(x12.getText()));
@@ -401,9 +406,8 @@ public class FirstSimplex extends JFrame {
         hx2.setX6(Double.parseDouble(x62.getText()));
         hx2.setX7(Double.parseDouble(x72.getText()));
         hx2.setCantidad(Double.parseDouble(c2.getText()));
-        procesos.add(hx2);
 
-        ProcesoHorizontal hx3 = new ProcesoHorizontal();
+        hx3 = new ProcesoHorizontal();
         hx3.setNombreProceso(v3.getText());
         hx3.setCj(Double.parseDouble(cj10.getText()));
         hx3.setX1(Double.parseDouble(x13.getText()));
@@ -414,9 +418,8 @@ public class FirstSimplex extends JFrame {
         hx3.setX6(Double.parseDouble(x63.getText()));
         hx3.setX7(Double.parseDouble(x73.getText()));
         hx3.setCantidad(Double.parseDouble(c3.getText()));
-        procesos.add(hx3);
 
-        ProcesoHorizontal zj = new ProcesoHorizontal();
+        zj = new ProcesoHorizontal();
         zj.setNombreProceso("zj");
         zj.setX1(Double.parseDouble(zj1.getText()));
         zj.setX2(Double.parseDouble(zj2.getText()));
@@ -425,9 +428,8 @@ public class FirstSimplex extends JFrame {
         zj.setX5(Double.parseDouble(zj5.getText()));
         zj.setX6(Double.parseDouble(zj6.getText()));
         zj.setX7(Double.parseDouble(zj7.getText()));
-        procesos.add(zj);
 
-        ProcesoHorizontal wj = new ProcesoHorizontal();
+        wj = new ProcesoHorizontal();
         wj.setNombreProceso("wj");
         wj.setX1(Double.parseDouble(wj1.getText()));
         wj.setX2(Double.parseDouble(wj2.getText()));
@@ -436,177 +438,7 @@ public class FirstSimplex extends JFrame {
         wj.setX5(Double.parseDouble(wj5.getText()));
         wj.setX6(Double.parseDouble(wj6.getText()));
         wj.setX7(Double.parseDouble(wj7.getText()));
-        procesos.add(wj);
 
-
-        return procesos;
-    }
-    private HashMap<String, ArrayList<Double>> stackValores() {
-
-
-        HashMap<String, ArrayList<Double>> vs = new HashMap();
-
-
-        ArrayList<Double> x1s = new ArrayList();
-        x1s.add(Double.parseDouble(cj1.getText()));
-        x1s.add(Double.parseDouble(x11.getText()));
-        x1s.add(Double.parseDouble(x12.getText()));
-        x1s.add(Double.parseDouble(x13.getText()));
-        x1s.add(Double.parseDouble(zj1.getText()));
-        x1s.add(Double.parseDouble(wj1.getText()));
-        vs.put("x1", x1s);
-
-        ArrayList<Double> x2s = new ArrayList();
-        x2s.add(Double.parseDouble(cj2.getText()));
-        x2s.add(Double.parseDouble(x21.getText()));
-        x2s.add(Double.parseDouble(x22.getText()));
-        x2s.add(Double.parseDouble(x23.getText()));
-        x2s.add(Double.parseDouble(zj2.getText()));
-        x2s.add(Double.parseDouble(wj2.getText()));
-        vs.put("x2", x2s);
-
-
-        ArrayList<Double> x3s = new ArrayList();
-        x3s.add(Double.parseDouble(cj3.getText()));
-        x3s.add(Double.parseDouble(x31.getText()));
-        x3s.add(Double.parseDouble(x32.getText()));
-        x3s.add(Double.parseDouble(x33.getText()));
-        x3s.add(Double.parseDouble(zj3.getText()));
-        x3s.add(Double.parseDouble(wj3.getText()));
-        vs.put("x3", x3s);
-
-        ArrayList<Double> x4s = new ArrayList();
-        x4s.add(Double.parseDouble(cj4.getText()));
-        x4s.add(Double.parseDouble(x41.getText()));
-        x4s.add(Double.parseDouble(x42.getText()));
-        x4s.add(Double.parseDouble(x43.getText()));
-        x4s.add(Double.parseDouble(zj4.getText()));
-        x4s.add(Double.parseDouble(wj4.getText()));
-        vs.put("x4", x4s);
-
-        ArrayList<Double> x5s = new ArrayList();
-        x5s.add(Double.parseDouble(cj5.getText()));
-        x5s.add(Double.parseDouble(x51.getText()));
-        x5s.add(Double.parseDouble(x52.getText()));
-        x5s.add(Double.parseDouble(x53.getText()));
-        x5s.add(Double.parseDouble(zj5.getText()));
-        x5s.add(Double.parseDouble(wj5.getText()));
-        vs.put("x5", x5s);
-
-        ArrayList<Double> x6s = new ArrayList();
-        x6s.add(Double.parseDouble(cj6.getText()));
-        x6s.add(Double.parseDouble(x61.getText()));
-        x6s.add(Double.parseDouble(x62.getText()));
-        x6s.add(Double.parseDouble(x63.getText()));
-        x6s.add(Double.parseDouble(zj6.getText()));
-        x6s.add(Double.parseDouble(wj6.getText()));
-        vs.put("x6", x6s);
-
-        ArrayList<Double> x7s = new ArrayList();
-        x7s.add(Double.parseDouble(cj7.getText()));
-        x7s.add(Double.parseDouble(x71.getText()));
-        x7s.add(Double.parseDouble(x72.getText()));
-        x7s.add(Double.parseDouble(x73.getText()));
-        x7s.add(Double.parseDouble(zj7.getText()));
-        x7s.add(Double.parseDouble(wj7.getText()));
-        vs.put("x7", x7s);
-
-        ArrayList<Double> cjs = new ArrayList();
-        cjs.add(Double.parseDouble(cj1.getText()));
-        cjs.add(Double.parseDouble(cj2.getText()));
-        cjs.add(Double.parseDouble(cj3.getText()));
-        cjs.add(Double.parseDouble(cj4.getText()));
-        cjs.add(Double.parseDouble(cj5.getText()));
-        cjs.add(Double.parseDouble(cj6.getText()));
-        cjs.add(Double.parseDouble(cj7.getText()));
-        vs.put("cjs", cjs);
-
-        ArrayList<Double> wjs = new ArrayList();
-        wjs.add(Double.parseDouble(wj1.getText()));
-        wjs.add(Double.parseDouble(wj2.getText()));
-        wjs.add(Double.parseDouble(wj3.getText()));
-        wjs.add(Double.parseDouble(wj4.getText()));
-        wjs.add(Double.parseDouble(wj5.getText()));
-        wjs.add(Double.parseDouble(wj6.getText()));
-        wjs.add(Double.parseDouble(wj7.getText()));
-        vs.put("wjs", wjs);
-
-
-        ArrayList<Double> zjs = new ArrayList();
-        zjs.add(Double.parseDouble(zj1.getText()));
-        zjs.add(Double.parseDouble(zj2.getText()));
-        zjs.add(Double.parseDouble(zj3.getText()));
-        zjs.add(Double.parseDouble(zj4.getText()));
-        zjs.add(Double.parseDouble(zj5.getText()));
-        zjs.add(Double.parseDouble(zj6.getText()));
-        zjs.add(Double.parseDouble(zj7.getText()));
-        vs.put("zjs", zjs);
-
-        ArrayList<Double> sols = new ArrayList();
-        sols.add(Double.parseDouble(c1.getText()));
-        sols.add(Double.parseDouble(c2.getText()));
-        sols.add(Double.parseDouble(c3.getText()));
-        vs.put("sols", sols);
-
-        ArrayList<Double> ladoX5 = new ArrayList();
-        ladoX5.add(Double.parseDouble(cj8.getText()));
-        ladoX5.add(Double.parseDouble(c1.getText()));
-        vs.put("ladoX5", ladoX5);
-
-        ArrayList<Double> ladoX6 = new ArrayList();
-        ladoX6.add(Double.parseDouble(cj9.getText()));
-        ladoX6.add(Double.parseDouble(c2.getText()));
-        vs.put("ladoX6", ladoX6);
-
-        ArrayList<Double> ladoX7 = new ArrayList();
-        ladoX7.add(Double.parseDouble(cj10.getText()));
-        ladoX7.add(Double.parseDouble(c3.getText()));
-        vs.put("ladoX7", ladoX7);
-
-        ArrayList<Double> divisores = new ArrayList();
-        divisores.add(Double.parseDouble(cj8.getText()));
-        divisores.add(Double.parseDouble(cj9.getText()));
-        divisores.add(Double.parseDouble(cj10.getText()));
-        vs.put("divisores", divisores);
-
-
-        ArrayList<Double> hx5 = new ArrayList();
-        hx5.add(Double.parseDouble(x11.getText()));
-        hx5.add(Double.parseDouble(x21.getText()));
-        hx5.add(Double.parseDouble(x31.getText()));
-        hx5.add(Double.parseDouble(x41.getText()));
-        hx5.add(Double.parseDouble(x51.getText()));
-        hx5.add(Double.parseDouble(x61.getText()));
-        hx5.add(Double.parseDouble(x71.getText()));
-        hx5.add(Double.parseDouble(c1.getText()));
-        hx5.add(Double.parseDouble(cj8.getText()));
-        vs.put("hx5", hx5);
-
-        ArrayList<Double> hx6 = new ArrayList();
-        hx6.add(Double.parseDouble(x12.getText()));
-        hx6.add(Double.parseDouble(x22.getText()));
-        hx6.add(Double.parseDouble(x32.getText()));
-        hx6.add(Double.parseDouble(x42.getText()));
-        hx6.add(Double.parseDouble(x52.getText()));
-        hx6.add(Double.parseDouble(x62.getText()));
-        hx6.add(Double.parseDouble(x72.getText()));
-        hx6.add(Double.parseDouble(c2.getText()));
-        hx6.add(Double.parseDouble(cj9.getText()));
-        vs.put("hx6", hx6);
-
-        ArrayList<Double> hx7 = new ArrayList();
-        hx7.add(Double.parseDouble(x13.getText()));
-        hx7.add(Double.parseDouble(x23.getText()));
-        hx7.add(Double.parseDouble(x33.getText()));
-        hx7.add(Double.parseDouble(x43.getText()));
-        hx7.add(Double.parseDouble(x53.getText()));
-        hx7.add(Double.parseDouble(x63.getText()));
-        hx7.add(Double.parseDouble(x73.getText()));
-        hx7.add(Double.parseDouble(c3.getText()));
-        hx7.add(Double.parseDouble(cj10.getText()));
-        vs.put("hx7", hx7);
-
-        return vs;
 
     }
 

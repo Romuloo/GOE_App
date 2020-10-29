@@ -66,6 +66,16 @@ public class ProcesoHorizontal implements IProceso{
         this.cj = cj;
     }
 
+    @Override
+    public void setWj(Double d) {
+
+    }
+
+    @Override
+    public void setZj(Double d) {
+
+    }
+
     public void setX1(Double x1) {
         this.x1 = x1;
     }
@@ -125,7 +135,12 @@ public class ProcesoHorizontal implements IProceso{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ProcesoHorizontal proceso = (ProcesoHorizontal) o;
-        return Objects.equals(nombreProceso, proceso.nombreProceso);
+        return this.nombreProceso.equals(proceso.getNombreProceso());
     }
 
+    @Override
+    public int compareTo(IProceso o) {
+        return this.nombreProceso.hashCode() - o.getNombreProceso().hashCode();
+
+    }
 }

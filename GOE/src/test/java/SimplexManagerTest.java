@@ -1,7 +1,7 @@
 import domain.simplex.programLoop.SimplexManager;
 import domain.simplex.programLoop.recurring.EntranteSaliente;
 import org.junit.Before;
-import org.junit.Test;
+
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 
@@ -120,7 +120,7 @@ public class SimplexManagerTest {
     /**
      * Con este test pruevo que se haya realizado con éxito el setPosicion;
      */
-    @Test
+   /* @Test
     public void testSetPosicionesCorrecto(){
      HashMap<String, Double> h = sm.setPosiciones(hm, saliente, noSaliente1, noSaliente2);
      HashMap<String, Double> myH = new HashMap<>();
@@ -135,6 +135,6 @@ public class SimplexManagerTest {
      assertEquals(true, igual);
      }
 
-
+*/
 
 }

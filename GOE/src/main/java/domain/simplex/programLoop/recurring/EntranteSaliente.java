@@ -1,76 +1,39 @@
 package domain.simplex.programLoop.recurring;
 
+import domain.simplex.programLoop.firstStep.FirstSimplex;
 import domain.simplex.programLoop.recurring.plantillas.IProceso;
-import domain.simplex.programLoop.recurring.plantillas.ProcesoHorizontal;
+import domain.simplex.programLoop.recurring.plantillas.ProcesoVertical;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.PriorityQueue;
 
 public class EntranteSaliente {
 
+    private IProceso[][] matrizProcesos = FirstSimplex.matrizProcesos();
 
 
-    private HashMap<String, ArrayList<Double>> valoresStack;
     private int contador;
-
-    private ArrayList<IProceso> procesos;
-
+    //maetodo 1
     private ArrayList<Double> xs = new ArrayList<>();
+    //metodo 2
+    private ArrayList<Double> dividendos = new ArrayList<>(), divisores = new ArrayList<>();
 
-    private ArrayList<Double> x1 = new ArrayList<>();
-    private ArrayList<Double> x2 = new ArrayList<>();
-    private ArrayList<Double> x3 = new ArrayList<>();
-    private ArrayList<Double> x4 = new ArrayList<>();
-    private ArrayList<Double> x5 = new ArrayList<>();
-    private ArrayList<Double> x6 = new ArrayList<>();
-    private ArrayList<Double> x7 = new ArrayList<>();
-
-    private ArrayList<Double> dividendos = new ArrayList<>();
-    private ArrayList<Double> divisores = new ArrayList<>();
-
-
-
-    public EntranteSaliente(HashMap<String, ArrayList<Double>> es, int cont) {
-        this.valoresStack = es;
-        this.contador = cont;
-    }
-    public EntranteSaliente(ArrayList<IProceso> procesos, int cont){
-        this.procesos = procesos;
-        this.contador = cont;
+    public EntranteSaliente(IProceso[][] matriz, int contador){
+        this.contador = contador;
     }
 
-
-    /**
-     * Con este código encuentro el entrante.
-     *
-     * @return la variable que sale del proceso simplex.
-     */
-
-    public String getEntranteP(){
-        //Con este bloque de codigo obtengo el objeto.
-
+    public String getEntrante(){
         double solucion = 0; //almacenará la solución de quién es más grande.
         int posicion = 0; //almacenará la dirección de memoria del elemento mayor en el ArrayList.
 
-        ProcesoHorizontal x1 = new ProcesoHorizontal("x1");
-        xs.add(procesos.get(procesos.indexOf(x1)).getCj());
+        xs.add((matrizProcesos[0][0]).getCj());
+        xs.add((matrizProcesos[0][1]).getCj());
+        xs.add((matrizProcesos[0][2]).getCj());
+        xs.add((matrizProcesos[0][3]).getCj());
+        xs.add((matrizProcesos[0][4]).getCj());
+        xs.add((matrizProcesos[0][5]).getCj());
+        xs.add((matrizProcesos[0][6]).getCj());
 
-        ProcesoHorizontal x2 = new ProcesoHorizontal("x2");
-        xs.add(procesos.get(procesos.indexOf(x2)).getCj());
-
-        ProcesoHorizontal x3 = new ProcesoHorizontal("x3");
-        xs.add(procesos.get(procesos.indexOf(x3)).getCj());
-
-        ProcesoHorizontal x4 = new ProcesoHorizontal("x4");
-        xs.add(procesos.get(procesos.indexOf(x4)).getCj());
-
-        ProcesoHorizontal x5 = new ProcesoHorizontal("x5");
-        xs.add(procesos.get(procesos.indexOf(x5)).getCj());
-
-        ProcesoHorizontal x6 = new ProcesoHorizontal("x6");
-        xs.add(procesos.get(procesos.indexOf(x6)).getCj());
-
-        ProcesoHorizontal x7 = new ProcesoHorizontal("x7");
-        xs.add(procesos.get(procesos.indexOf(x7)).getCj());
 
         PriorityQueue<Double> values = new PriorityQueue<>();
         values.add(xs.get(0));
@@ -83,103 +46,64 @@ public class EntranteSaliente {
 
         for (int i = 0; i < 7 - contador; i++)
             solucion = values.remove();
-        System.out.println(solucion);
 
         for (int i = 0; i < 7; i++)
             if (solucion == xs.get(i))
                 posicion = i + 1;
-        System.out.println(posicion);
 
         String solucionFinal = "x" + posicion;
 
-        return solucionFinal;
-
-    }
-    /*
-    public String getEntrante() {
-
-        double solucion = 0; //almacenará la solución de quién es más grande.
-        int posicion = 0; //almacenará la dirección de memoria del elemento mayor en el ArrayList.
-
-        x1 = valoresStack.get("x1");
-        x2 = valoresStack.get("x2");
-        x3 = valoresStack.get("x3");
-        x4 = valoresStack.get("x4");
-        x5 = valoresStack.get("x5");
-        x6 = valoresStack.get("x6");
-        x7 = valoresStack.get("x7");
-
-        //Creo un ArrayList donde almaceno todos los cjs actuales ordenados.
-        ArrayList<Double> cjs = new ArrayList<>();
-        cjs.add(x1.get(0));
-        cjs.add(x2.get(0));
-        cjs.add(x3.get(0));
-        cjs.add(x4.get(0));
-        cjs.add(x5.get(0));
-        cjs.add(x6.get(0));
-        cjs.add(x7.get(0));
-
-        //Creo una priorityQueue donde encontrar el máximo dependiendo de la iteración del simplex.
-        PriorityQueue<Double> values = new PriorityQueue<>();
-        values.add(x1.get(0));
-        values.add(x2.get(0));
-        values.add(x3.get(0));
-        values.add(x4.get(0));
-        values.add(x5.get(0));
-        values.add(x6.get(0));
-        values.add(x7.get(0));
-
-        for (int i = 0; i < 7 - contador; i++)
-            solucion = values.remove();
-        System.out.println(solucion);
-
-        for (int i = 0; i < 7; i++)
-            if (solucion == cjs.get(i))
-                posicion = i + 1;
-        System.out.println(posicion);
-
-        String solucionFinal = "x" + posicion;
 
         return solucionFinal;
-
     }
 
-*/
+    public String getSaliente(String entrante){
 
-    /**
-     * Localiza el proceso que debe salir.
-     * @return proceso saliente.
-     */
-    public String getSaliente(ArrayList<String> procesosSalientes){
+        int index = 0;
+        for(int i = 0; i < 7; i++)
+            if(matrizProcesos[0][i].getNombreProceso().equals(entrante))
+                index = i;
 
-        for(Double d : valoresStack.get("sols"))
-            dividendos.add(d);
 
-        for(Double d : valoresStack.get("divisores"))
-            divisores.add(d);
+        dividendos.add(matrizProcesos[0][8].getX1());
+        dividendos.add(matrizProcesos[0][8].getX2());
+        dividendos.add(matrizProcesos[0][8].getX3());
+
+        //Con este bloque de código, repito la misma estrategia pero pasando el parámetro "entrante".
+        divisores.add(matrizProcesos[0][index].getX1());
+        divisores.add(matrizProcesos[0][index].getX2());
+        divisores.add(matrizProcesos[0][index].getX3());
+
 
 
         int solIndex = 0; //almaneca la posicion en memoria de la solución.
-            if((division(dividendos.get(0), divisores.get(0)) < division(dividendos.get(1), divisores.get(1)))) {
-                if (division(dividendos.get(0), divisores.get(0)) < division(dividendos.get(2), divisores.get(2))) {
-                    solIndex = 0;
-                } else {
-                    solIndex = 2;
-                }
-            }
-            else if(division(dividendos.get(1), divisores.get(1)) < division(dividendos.get(2), divisores.get(2))){
-                    solIndex = 1;
-                }
-            else {
+        if((division(dividendos.get(0), divisores.get(0)) < division(dividendos.get(1), divisores.get(1)))) {
+            if (division(dividendos.get(0), divisores.get(0)) < division(dividendos.get(2), divisores.get(2))) {
+                solIndex = 0;
+            } else {
                 solIndex = 2;
-                }
+            }
+        }
+        else if(division(dividendos.get(1), divisores.get(1)) < division(dividendos.get(2), divisores.get(2))){
+            solIndex = 1;
+        }
+        else {
+            solIndex = 2;
+        }
 
+
+
+        //Con este bloque de codigo, obtengo el nombre del proceso horizontal cuya cantidad coincide con un objeto de Procesos verticales.
         String saliente = "";
-        if(solIndex == 0) saliente = procesosSalientes.get(0);
-        if(solIndex == 1) saliente = procesosSalientes.get(1);
-        if(solIndex == 2) saliente = procesosSalientes.get(2);
+        System.out.println(solIndex);
+        if(solIndex == 0) saliente = matrizProcesos[1][0].getNombreProceso();
+        if(solIndex == 1) saliente = matrizProcesos[1][1].getNombreProceso();
+        if(solIndex == 2) saliente = matrizProcesos[1][2].getNombreProceso();
+
         return saliente;
+
     }
+
 
     private double division(double dividendo, double divisor){
         return dividendo / divisor;
@@ -196,6 +120,23 @@ public class EntranteSaliente {
         procesosNoSalientes[1] = procesos.get(1);
 
         return procesosNoSalientes;
+    }
+
+    public String[] noSalientes(IProceso[][] matriz, String entrante){
+        IProceso[][] matrizProcesos= matriz;
+        int idx = 0;
+        for(int i = 0; i < 3; i++)
+            if(matrizProcesos[1][i].getNombreProceso().equals(entrante))
+             idx = i;
+
+        ArrayList<Integer> aux = new ArrayList<>();
+        aux.add(0); aux.add(1); aux.add(2);
+
+        aux.remove(aux.indexOf(idx));
+
+        String[] procesosNoSalientes = new String[2];
+        procesosNoSalientes[0] = matrizProcesos[1][aux.get(0)].getNombreProceso();
+        procesosNoSalientes[1] = matrizProcesos[1][aux.get(1)].getNombreProceso();
     }
 
 }
