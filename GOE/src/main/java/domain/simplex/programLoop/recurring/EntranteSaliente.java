@@ -109,7 +109,6 @@ public class EntranteSaliente {
         return dividendo / divisor;
     }
 
-    ˇ
     public String[] noSalientes(IProceso[][] matriz, String entrante){
         IProceso[][] matrizProcesos= matriz;
         int idx = 0;

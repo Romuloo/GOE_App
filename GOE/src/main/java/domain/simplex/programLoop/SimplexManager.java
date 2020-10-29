@@ -2,7 +2,10 @@ package domain.simplex.programLoop;
 
 import domain.simplex.programLoop.firstStep.FirstSimplex;
 import domain.simplex.programLoop.recurring.EntranteSaliente;
+import domain.simplex.programLoop.recurring.plantillas.IProceso;
 import domain.simplex.programLoop.recurring.plantillas.PanelSimplexSolution;
+import domain.simplex.programLoop.recurring.plantillas.ProcesoHorizontal;
+import domain.simplex.programLoop.recurring.plantillas.ProcesoVertical;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +15,7 @@ public class SimplexManager extends JFrame {
 
     private static final JTabbedPane jt = new JTabbedPane();
 
-    private HashMap<String, ArrayList<Double>> valoresIniciales = FirstSimplex.getValoresStack();
+    private IProceso[][] valoresIniciales = FirstSimplex.matrizProcesos();
 
     public SimplexManager() {
          setUp();
@@ -30,34 +33,58 @@ public class SimplexManager extends JFrame {
     public void manager() {
         boolean correcto = false;
 
-
-        EntranteSaliente es = new EntranteSaliente(FirstSimplex.matrizProcesos(), 0);
-        System.out.println("Entrante: " + es.getEntrante());
-        System.out.println("Saliente: " + es.getSaliente(es.getEntrante()));
         do {
-            correcto = true;
-        /*    correcto = true;
+
             //Con este bloque de código compruebo que los datos originales no son Sol óptima.
-            HashMap<String, ArrayList<Double>> solucion_1 = new HashMap<>();
-            ArrayList<Double> wjsIniciales =  valoresIniciales.get("wjs");
+            IProceso[][] solucion_1 = new IProceso[2][9];
+
+           //Primera comprobacion de que la solucion actual no es la óptima.
+            ArrayList<Double> wjsIniciales = new ArrayList<>();
+            wjsIniciales.add(valoresIniciales[1][4].getX1());
+            wjsIniciales.add(valoresIniciales[1][4].getX2());
+            wjsIniciales.add(valoresIniciales[1][4].getX3());
+            wjsIniciales.add(valoresIniciales[1][4].getX4());
+            wjsIniciales.add(valoresIniciales[1][4].getX5());
+            wjsIniciales.add(valoresIniciales[1][4].getX6());
+            wjsIniciales.add(valoresIniciales[1][4].getX7());
+
             int contadorInicial = 0;
             for(Double d : wjsIniciales)
                 if (d > 0) contadorInicial++;
             if(contadorInicial != 0)  correcto = true;
 
-            EntranteSalienteR2 es1 = new EntranteSalienteR2(0);
+            //Una vez comprobado, comienzo con el bucle.
+
+
+            EntranteSaliente es1 = new EntranteSaliente(valoresIniciales, 0);
             String entrante_1 = es1.getEntrante();
-            String saliente_1 = "x2";//es1.getSaliente(FirstSimplex.salientesInicial());
+            String saliente_1 = es1.getSaliente(es1.getEntrante());//es1.getSaliente(FirstSimplex.salientesInicial());
 
             //Averiguo los procesos que se mantienen.
-           // String[] noSalientes_1 = es1.noSalientes(FirstSimplex.salientesInicial(), saliente_1);
-            //String noSaliente_1_1 = noSalientes_1[0];
-          //  String noSaliente_1_2 = noSalientes_1[1];
+             String[] noSalientes_1 = es1.noSalientes(valoresIniciales, es1.getEntrante());
+             String noSaliente_1_1 = noSalientes_1[0];
+             String noSaliente_1_2 = noSalientes_1[1];
 
 
-            //Empiezo a formar el nuevo HashMap con la solución {solucion_1}
 
-            //Definitivamente, con este bloque de código incluyo los elementos de las filas hxs calculadas.
+             //Empiezo a formar la nueva solución.
+
+            //Con este código encuentro el proceso saliente horizontal (su índice en la matriz).
+            int indexSaliente1 = 0;
+            for(int i = 0; i < 3; i++)
+                if(valoresIniciales[1][i].getNombreProceso().equals(saliente_1))
+                    indexSaliente1 = i;
+
+
+
+
+
+
+
+
+/*
+
+
             solucion_1.put("cjs", valoresIniciales.get("cjs"));
             String entranteEnMap_1 = "h" + entrante_1;
             String noSalienteEnMap_1_1 = "h" + noSaliente_1_1;
@@ -94,6 +121,7 @@ public class SimplexManager extends JFrame {
             nuevaIteracion(solucion_1, entranteEnMap_1, noSalienteEnMap_1_1, noSalienteEnMap_1_2 );
 
 */
+            correcto = true;
         }while(!correcto);
 
 
@@ -103,32 +131,72 @@ public class SimplexManager extends JFrame {
 
 
     /**
-     * Este método toma un ArrayList como parámetro y devuelve las soluciones de la fila en cuestion;
-     * @param ar
-     * @param pivote
-     * @return ArrayList con los valores de la fila entera
+     * Método encargado de calcular la fila del proceso entrante.
+     * @param matriz
+     * @param entrante
+     * @param saliente
+     * @return un proceso con los valores de la fila horizontal.
      */
-  public ArrayList<Double> getElementosProcesoEntrante(ArrayList<Double> ar, String pivote)
-    {
-        ArrayList<Double> sol = new ArrayList<>();
-        //encuentro el pivote:
-        int indxPivote = Integer.parseInt(pivote.charAt(1) + "") - 1; //Si es X1, me da la posicion 0
-        //Utilizar ese pivote para dividir los demás
-        //Me rellena el ArrayList con los elemenos divididos por el pivote
-        for(int i = 0; i <7; i++){
-            sol.add(ar.get(i)/ar.get(indxPivote));
-        }
-        return sol;
+    public IProceso calcularFilaEntrante(IProceso[][] matriz, String entrante, String saliente){
+
+      IProceso solucion = new ProcesoHorizontal();
+      IProceso procesoSaliente = null;
+
+      //inicializo todo el proceso saliente con este código.
+      for(int i = 0; i < 3; i++){
+          if(matriz[1][i].getNombreProceso().equals(saliente)){
+              procesoSaliente = matriz[1][i];
+          }
+
+      }
+
+      Double pivote = 0.0;
+      //Calculo en qué posicion de la matriz[][] está el proceso entrante vertical.
+      int indiceEntrante = 0;
+      for(int i = 0; i < 7; i++) {
+          if (matriz[0][i].getNombreProceso().equals(entrante)) {
+              indiceEntrante = i;
+          }
+      }
+      //calculo en qué indice de la matriz está el proceso saliente horizontal.
+      int indiceSaliente = 0;
+      for(int i = 0; i < 3; i++) {
+          if (matriz[1][i].getNombreProceso().equals(saliente)) {
+              indiceSaliente = i;
+          }
+      }
+      //Con este código averiguo cuál será el pivote.
+      if(indiceSaliente == 0) {
+          pivote = matriz[1][indiceEntrante].getX1();
+      }
+      if(indiceSaliente == 1){
+          pivote = matriz[1][indiceEntrante].getX2();
+      }
+      if(indiceSaliente == 1){
+          pivote = matriz[1][indiceEntrante].getX3();
+      }
+
+      //doy valores al nuevo proceso horizontal.
+      solucion.setNombreProceso(entrante);
+      solucion.setX1(procesoSaliente.getX1() / pivote);
+      solucion.setX2(procesoSaliente.getX2() / pivote);
+      solucion.setX3(procesoSaliente.getX3() / pivote);
+      solucion.setX4(procesoSaliente.getX4() / pivote);
+      solucion.setX5(procesoSaliente.getX5() / pivote);
+      solucion.setX6(procesoSaliente.getX6() / pivote);
+      solucion.setX7(procesoSaliente.getX7() / pivote);
+
+        return solucion;
     }
 
-            /**
-             * Este método calcula los valores de la fila de un proceso que permanece en el programa base.
-             * @param ar
-             * @param thisAr
-             * @param pivote
-             * @return el arrayList con los valores de la fila calculados.
-             */
-    public ArrayList<Double> getElementosDelProgramaBase(ArrayList<Double> ar, ArrayList<Double> thisAr, String pivote)
+    /**
+     * Este método calcula los valores de la fila de un proceso que permanece en el programa base.
+     * @param ar
+     * @param thisAr
+     * @param pivote
+     * @return el arrayList con los valores de la fila calculados.
+     */
+   /* private ArrayList<Double> getElementosDelProgramaBase(ArrayList<Double> ar, ArrayList<Double> thisAr, String pivote)
     {
        ArrayList<Double> sol = new ArrayList<>();
        ArrayList<Double> arAnterior = getElementosProcesoEntrante(ar, pivote);
@@ -138,15 +206,15 @@ public class SimplexManager extends JFrame {
 
        return sol;
     }
-
-            /**
-             * Hago uso de este método para calcular los procesos Zjs de la iteración actual.
-             * @param x1 array que hace referencia a hx1/hx2/hx3
-             * @param x2
-             * @param x3
-             * @return un arrayList con los valores de Zj.
-             */
-   public ArrayList<Double> calcularZjs(ArrayList<Double> x1, ArrayList<Double> x2, ArrayList<Double> x3)
+*/
+    /**
+     * Hago uso de este método para calcular los procesos Zjs de la iteración actual.
+     * @param x1 array que hace referencia a hx1/hx2/hx3
+     * @param x2
+     * @param x3
+     * @return un arrayList con los valores de Zj.
+     */
+   private ArrayList<Double> calcularZjs(ArrayList<Double> x1, ArrayList<Double> x2, ArrayList<Double> x3)
     {
         double multiplicador_1 = x1.get(7);
         double multiplicador_2 = x2.get(7);
@@ -177,7 +245,7 @@ public class SimplexManager extends JFrame {
              * @param zjs
              * @return un arrayList con los valores de Wjs.
              */
-    public ArrayList<Double> calcularWjs(ArrayList<Double> cjs, ArrayList<Double> zjs)
+    private ArrayList<Double> calcularWjs(ArrayList<Double> cjs, ArrayList<Double> zjs)
     {
         ArrayList<Double> solu = new ArrayList<>();
         for(int i = 0; i < 7; i++)
@@ -186,15 +254,15 @@ public class SimplexManager extends JFrame {
         return solu;
     }
 
-            /**
-             * Utilizo este método para hallar el orden en el que los xs horizontales van situados.
-             * @param hm hace referencia a un HashMap con los Xs originales y su orden.
-             * @param saliente hace referencia a los nombres del proceso saliente y los que no.
-             * @param noSaliente_1
-             * @param noSaliente_2
-             * @return
-             */
-   public HashMap<String, Double> setPosiciones(HashMap<Double, String> hm, String saliente, String noSaliente_1, String noSaliente_2)
+    /**
+     * Utilizo este método para hallar el orden en el que los xs horizontales van situados.
+     * @param hm hace referencia a un HashMap con los Xs originales y su orden.
+     * @param saliente hace referencia a los nombres del proceso saliente y los que no.
+     * @param noSaliente_1
+     * @param noSaliente_2
+     * @return
+     */
+   private HashMap<String, Double> setPosiciones(HashMap<Double, String> hm, String saliente, String noSaliente_1, String noSaliente_2)
     {
         HashMap<String, Double> indices = new HashMap<>();
         //Con este codigo me hago con la posicion de cada fila.
@@ -216,18 +284,18 @@ public class SimplexManager extends JFrame {
     }
 
 
-            /**
-             * Utilizo este método para annadir un valor a cada arrayList que indica el orden en el que debe ir situado.
-             * @param valores
-             * @param hm
-             * @param saliente
-             * @param noSaliente_1
-             * @param noSaliente_2
-             * @param entranteHorizontal
-             * @param noSalienteHorizontal_1
-             * @param noSalienteHorizontal_2
-             */
-    public void asignarPosicion(HashMap<String, ArrayList<Double>> valores, HashMap<Double, String> hm, String saliente, String noSaliente_1,
+    /**
+     * Utilizo este método para annadir un valor a cada arrayList que indica el orden en el que debe ir situado.
+     * @param valores
+     * @param hm
+     * @param saliente
+     * @param noSaliente_1
+     * @param noSaliente_2
+     * @param entranteHorizontal
+     * @param noSalienteHorizontal_1
+     * @param noSalienteHorizontal_2
+     */
+    private void asignarPosicion(HashMap<String, ArrayList<Double>> valores, HashMap<Double, String> hm, String saliente, String noSaliente_1,
                                               String noSaliente_2, String entranteHorizontal, String noSalienteHorizontal_1, String noSalienteHorizontal_2)
     {
         HashMap<String, Double> orden= setPosiciones(hm, saliente, noSaliente_1, noSaliente_2);
@@ -240,10 +308,10 @@ public class SimplexManager extends JFrame {
             valores.get(noSalienteHorizontal_2).add(orden.get(noSaliente_2));
     }
 
-            /**
-             * Método encargado de crear un Panel, inicializarlo y annadirlo al JPannelTable.
-             * !! deben de ser el entrante, noSaliente... horizontales !!
-             */
+    /**
+     * Método encargado de crear un Panel, inicializarlo y annadirlo al JPannelTable.
+     * !! deben de ser el entrante, noSaliente... horizontales !!
+     */
    private void nuevaIteracion(HashMap<String, ArrayList<Double>> map, String entrante,
                                 String noSaliente_1, String noSaliente_2)
     {
