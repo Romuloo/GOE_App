@@ -15,16 +15,16 @@ public class SimplexManager extends JFrame {
 
     private static final JTabbedPane jt = new JTabbedPane();
 
-    private IProceso[][] valoresIniciales = FirstSimplex.matrizProcesos();
+   private IProceso[][] valoresIniciales;// = FirstSimplex.matrizProcesos();
 
     public SimplexManager() {
          setUp();
     }
 
     private void setUp() {
-        initComponentes();
-        initFrame();
-        manager();
+       // initComponentes();
+      //  initFrame();
+        //manager();
     }
 
     /**
@@ -158,34 +158,37 @@ public class SimplexManager extends JFrame {
               indiceEntrante = i;
           }
       }
-      //calculo en qué indice de la matriz está el proceso saliente horizontal.
+
+        //calculo en qué indice de la matriz está el proceso saliente horizontal.
       int indiceSaliente = 0;
       for(int i = 0; i < 3; i++) {
           if (matriz[1][i].getNombreProceso().equals(saliente)) {
               indiceSaliente = i;
           }
       }
-      //Con este código averiguo cuál será el pivote.
+
+        //Con este código averiguo cuál será el pivote.
       if(indiceSaliente == 0) {
-          pivote = matriz[1][indiceEntrante].getX1();
+          pivote = matriz[1][indiceSaliente].getX1();
       }
       if(indiceSaliente == 1){
-          pivote = matriz[1][indiceEntrante].getX2();
+          pivote = matriz[1][indiceSaliente].getX2();
       }
-      if(indiceSaliente == 1){
-          pivote = matriz[1][indiceEntrante].getX3();
+      if(indiceSaliente == 2){
+          pivote = matriz[1][indiceSaliente].getX3();
       }
-
       //doy valores al nuevo proceso horizontal.
-      solucion.setNombreProceso(entrante);
-      solucion.setX1(procesoSaliente.getX1() / pivote);
-      solucion.setX2(procesoSaliente.getX2() / pivote);
-      solucion.setX3(procesoSaliente.getX3() / pivote);
-      solucion.setX4(procesoSaliente.getX4() / pivote);
-      solucion.setX5(procesoSaliente.getX5() / pivote);
-      solucion.setX6(procesoSaliente.getX6() / pivote);
-      solucion.setX7(procesoSaliente.getX7() / pivote);
-
+     if(pivote != 0.0) {
+         solucion.setNombreProceso(entrante);
+         solucion.setX1(procesoSaliente.getX1() / pivote);
+         solucion.setX2(procesoSaliente.getX2() / pivote);
+         solucion.setX3(procesoSaliente.getX3() / pivote);
+         solucion.setX4(procesoSaliente.getX4() / pivote);
+         solucion.setX5(procesoSaliente.getX5() / pivote);
+         solucion.setX6(procesoSaliente.getX6() / pivote);
+         solucion.setX7(procesoSaliente.getX7() / pivote);
+         solucion.setCantidad(procesoSaliente.getCantidad() / pivote);
+     }
         return solucion;
     }
 

@@ -21,16 +21,6 @@ public class ProcesoVertical implements IProceso{
         return cj;
     }
 
-    @Override
-    public Double getWj() {
-        return null;
-    }
-
-    @Override
-    public Double getZj() {
-        return null;
-    }
-
     public Double getX1() {
         return x1;
     }
@@ -43,25 +33,6 @@ public class ProcesoVertical implements IProceso{
         return x3;
     }
 
-    @Override
-    public Double getX4() {
-        return null;
-    }
-
-    @Override
-    public Double getX5() {
-        return null;
-    }
-
-    @Override
-    public Double getX6() {
-        return null;
-    }
-
-    @Override
-    public Double getX7() {
-        return null;
-    }
 
     public void setCj(Double cj) {
         this.cj = cj;
@@ -142,4 +113,42 @@ public class ProcesoVertical implements IProceso{
     public int compareTo(IProceso o) {
         return this.nombreProceso.hashCode() - o.getNombreProceso().hashCode();
     }
+
+
+
+    @Override
+    public Double getWj() {
+        return null;
+    }
+
+    @Override
+    public Double getZj() {
+        return null;
+    }
+
+    @Override
+    public Double getCantidad() {
+        return null;
+    }
+
+    @Override
+    public Double getX4() {
+        return null;
+    }
+
+    @Override
+    public Double getX5() {
+        return null;
+    }
+
+    @Override
+    public Double getX6() {
+        return null;
+    }
+
+    @Override
+    public Double getX7() {
+        return null;
+    }
 }
+

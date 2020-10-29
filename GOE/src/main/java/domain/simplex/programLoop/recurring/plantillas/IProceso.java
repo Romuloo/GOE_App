@@ -11,6 +11,8 @@ public interface IProceso extends Comparable<IProceso> {
     Double getCj();
     Double getWj();
     Double getZj();
+    Double getCantidad();
+    String getNombreProceso();
 
     void setX1(Double d);
     void setX2(Double d);
@@ -24,8 +26,5 @@ public interface IProceso extends Comparable<IProceso> {
     void setZj(Double d);
     void setCantidad(Double d);
     void setNombreProceso(String s);
-
-    String getNombreProceso();
-
 
 }
