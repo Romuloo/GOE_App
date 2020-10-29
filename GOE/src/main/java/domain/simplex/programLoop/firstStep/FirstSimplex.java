@@ -441,13 +441,4 @@ public class FirstSimplex extends JFrame {
 
 
     }
-
-    public static HashMap<Double, String> posicionesFirst(){
-        HashMap<Double, String> hm = new HashMap<>();
-        hm.put(0.0, v1.getText());
-        hm.put(1.0, v2.getText());
-        hm.put(2.0, v3.getText());
-        return hm;
-    }
-
 }

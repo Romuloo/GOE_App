@@ -9,7 +9,7 @@ import java.util.PriorityQueue;
 
 public class EntranteSaliente {
 
-    private IProceso[][] matrizProcesos = FirstSimplex.matrizProcesos();
+    private IProceso[][] matrizProcesos;
 
 
     private int contador;
@@ -20,7 +20,9 @@ public class EntranteSaliente {
 
     public EntranteSaliente(IProceso[][] matriz, int contador){
         this.contador = contador;
+        this.matrizProcesos = matriz;
     }
+
 
     public String getEntrante(){
         double solucion = 0; //almacenará la solución de quién es más grande.
@@ -64,7 +66,6 @@ public class EntranteSaliente {
             if(matrizProcesos[0][i].getNombreProceso().equals(entrante))
                 index = i;
 
-
         dividendos.add(matrizProcesos[0][8].getX1());
         dividendos.add(matrizProcesos[0][8].getX2());
         dividendos.add(matrizProcesos[0][8].getX3());
@@ -73,8 +74,6 @@ public class EntranteSaliente {
         divisores.add(matrizProcesos[0][index].getX1());
         divisores.add(matrizProcesos[0][index].getX2());
         divisores.add(matrizProcesos[0][index].getX3());
-
-
 
         int solIndex = 0; //almaneca la posicion en memoria de la solución.
         if((division(dividendos.get(0), divisores.get(0)) < division(dividendos.get(1), divisores.get(1)))) {
@@ -91,17 +90,13 @@ public class EntranteSaliente {
             solIndex = 2;
         }
 
-
-
         //Con este bloque de codigo, obtengo el nombre del proceso horizontal cuya cantidad coincide con un objeto de Procesos verticales.
         String saliente = "";
-        System.out.println(solIndex);
         if(solIndex == 0) saliente = matrizProcesos[1][0].getNombreProceso();
         if(solIndex == 1) saliente = matrizProcesos[1][1].getNombreProceso();
         if(solIndex == 2) saliente = matrizProcesos[1][2].getNombreProceso();
 
         return saliente;
-
     }
 
 
