@@ -109,19 +109,7 @@ public class EntranteSaliente {
         return dividendo / divisor;
     }
 
-    public String[] noSalientes(ArrayList<String> p, String saliente)
-    {
-        ArrayList<String> procesos = p;
-        int idx = procesos.indexOf(saliente);
-        procesos.remove(idx);
-
-        String[] procesosNoSalientes = new String[2];
-        procesosNoSalientes[0] = procesos.get(0);
-        procesosNoSalientes[1] = procesos.get(1);
-
-        return procesosNoSalientes;
-    }
-
+    ˇ
     public String[] noSalientes(IProceso[][] matriz, String entrante){
         IProceso[][] matrizProcesos= matriz;
         int idx = 0;
@@ -137,6 +125,8 @@ public class EntranteSaliente {
         String[] procesosNoSalientes = new String[2];
         procesosNoSalientes[0] = matrizProcesos[1][aux.get(0)].getNombreProceso();
         procesosNoSalientes[1] = matrizProcesos[1][aux.get(1)].getNombreProceso();
+
+        return procesosNoSalientes;
     }
 
 }
