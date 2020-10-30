@@ -1,15 +1,11 @@
-import com.sun.security.jgss.InquireSecContextPermission;
-import domain.simplex.programLoop.firstStep.FirstSimplex;
 import domain.simplex.programLoop.recurring.EntranteSaliente;
 import domain.simplex.programLoop.recurring.plantillas.IProceso;
 import domain.simplex.programLoop.recurring.plantillas.ProcesoHorizontal;
 import domain.simplex.programLoop.recurring.plantillas.ProcesoVertical;
 import org.junit.Test;
 import org.junit.Before;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 
-import java.util.ArrayList;
 
 /**
  * Clase encargada de probar la clase EntranteSaliente.
@@ -95,19 +91,25 @@ public class EntranteSalienteTest {
 
     /**
      * Este test comprueba que el método saliente no se ve afectado por el entrante
-     * */
+     */
     @Test
     public void testSalienteConEntranteSegundaIteracion(){
         es = new EntranteSaliente(matriz, 1);
         assertEquals(es.getSaliente("x2"), "x7");
     }
 
+    /**
+     * Con este test compruebo que se hallan correctamente los procesos no salientes una vez hallado el que sale.
+     */
     @Test
     public void testProcesosNoSalientes(){
         es = new EntranteSaliente(matriz, 0);
         assertEquals(es.noSalientes(es.getSaliente(es.getEntrante()))[0], "x6");
     }
 
+    /**
+     * Con este test veo si se halla correctamente los procesos no salientes en la iteración 2.
+     */
     @Test
     public void testProcesosNoSalientesIteracion2(){
         es = new EntranteSaliente(matriz, 1);

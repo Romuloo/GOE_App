@@ -20,16 +20,6 @@ public class ProcesoHorizontal implements IProceso{
         return cj;
     }
 
-    @Override
-    public Double getWj() {
-        return null;
-    }
-
-    @Override
-    public Double getZj() {
-        return null;
-    }
-
     public Double getX1() {
         return x1;
     }
@@ -64,16 +54,6 @@ public class ProcesoHorizontal implements IProceso{
 
     public void setCj(Double cj) {
         this.cj = cj;
-    }
-
-    @Override
-    public void setWj(Double d) {
-
-    }
-
-    @Override
-    public void setZj(Double d) {
-
     }
 
     public void setX1(Double x1) {
@@ -143,4 +123,22 @@ public class ProcesoHorizontal implements IProceso{
         return this.nombreProceso.hashCode() - o.getNombreProceso().hashCode();
 
     }
+    @Override
+    public void setWj(Double d) {
+    }
+
+    @Override
+    public void setZj(Double d) {
+    }
+
+    @Override
+    public Double getWj() {
+        return null;
+    }
+
+    @Override
+    public Double getZj() {
+        return null;
+    }
+
 }

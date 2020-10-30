@@ -10,14 +10,29 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 
 
+/**
+ * Clase encargada de probar la clase SimplexManager.
+ */
 public class SimplexManagerTest {
 
+    //1º
     private EntranteSaliente es;
-    private IProceso x1, x2, x3, x4, x5, x6, x7, cjVertical, cantidades, hx1, hx2, hx3, zj, wj;
+    private IProceso x1, x2, x3, x4, x5, x6, x7, cjVertical, cantidades, hx1, hx2, hx3;
     private IProceso[][] matriz = new IProceso[2][9];
+//-------------------------------------------------//
+    //2º Creo esto para probar métodos más avanzados que requieren otros valores de los procesos.
 
+    private IProceso[][] matriz_2 = new IProceso[2][9];
+    private IProceso X1, X2, X3, zj; //todos horizontales.
+
+
+
+//------------------------------------------------//
     private SimplexManager sm;
 
+    /**
+     * Este método inicializa los datos necesarios para correr los test.
+     */
     @Before
     public void setUp(){
 
@@ -59,6 +74,27 @@ public class SimplexManagerTest {
         matriz[0][8] = cantidades;
 
         matriz[1][0] = hx1;  matriz[1][1] = hx2;  matriz[1][2] = hx3;
+
+        //---------------------------------------------------------------------------//
+
+        X1 = new ProcesoHorizontal();
+        X1.setNombreProceso("x1"); X1.setX1(1.0); X1.setX2(0.0); X1.setX3(0.4); X1.setX4(1.2);
+        X1.setX5(0.4); X1.setX6(0.0); X1.setX7(-0.2); X1.setCantidad(60.0); X1.setCj(40.0);
+
+        X2 = new ProcesoHorizontal();
+        X2.setNombreProceso("x6"); X2.setX1(0.0); X2.setX2(0.0); X2.setX3(-0.5); X2.setX4(-1.5);
+        X2.setX5(-0.5); X2.setX6(1.0); X2.setX7(0.0); X2.setCantidad(50.0); X2.setCj(0.0);
+
+        X3 = new ProcesoHorizontal();
+        X3.setNombreProceso("x2"); X3.setX1(0.0); X3.setX2(1.0); X3.setX3(0.7); X3.setX4(-0.4);
+        X3.setX5(-0.3); X3.setX6(0.0); X3.setX7(0.4); X3.setCantidad(380.0); X3.setCj(35.0);
+
+        matriz_2[1][0] = X1;
+        matriz_2[1][1] = X2;
+        matriz_2[1][2] = X3;
+
+
+
     }
 
     /**
@@ -127,5 +163,19 @@ public class SimplexManagerTest {
                 noSaliente.getX3().equals(1.0) && noSaliente.getX4().equals(3.0) && noSaliente.getX5().equals(1.0) &&
                 noSaliente.getX6().equals(0.0) && noSaliente.getX7().equals(-0.5) && noSaliente.getCantidad().equals(150.0) && noSaliente.getCj().equals(0.0));
     }
+
+    /**
+     * Este test comprueba que el método calcularZj funciona correctamente.
+     */
+    @Test
+    public void testCalcularZjFuncionaCorrectamente(){
+        sm = new SimplexManager();
+        IProceso zj = sm.calcularZj(matriz_2);
+
+        assertTrue(zj.getNombreProceso().equals("zj") && zj.getX1().equals(40.0) && zj.getX2().equals(35.0) && zj.getX3().equals(40.5) &&
+                zj.getX4().equals(34.0) && zj.getX5().equals(5.5) && zj.getX6().equals(0.0) && zj.getX7().equals(6.0));
+    }
+
+
 
 }

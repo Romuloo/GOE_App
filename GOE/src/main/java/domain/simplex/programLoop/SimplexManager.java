@@ -61,10 +61,12 @@ public class SimplexManager extends JFrame {
             String saliente_1 = es1.getSaliente(es1.getEntrante());//es1.getSaliente(FirstSimplex.salientesInicial());
 
             //Averiguo los procesos que se mantienen.
-             String[] noSalientes_1 = es1.noSalientes(es1.getEntrante());
+             String[] noSalientes_1 = es1.noSalientes(es1.getSaliente(es1.getEntrante()));
              String noSaliente_1_1 = noSalientes_1[0];
              String noSaliente_1_2 = noSalientes_1[1];
 
+
+             
 
 
              //Empiezo a formar la nueva solución.
@@ -201,11 +203,12 @@ public class SimplexManager extends JFrame {
     }
 
     /**
+     * Método encargado de calcular un procesos no entrantes de la nueva solución
      * @param entranteCalculadoHorizontal proceso horizontal ya calculado
      * @param matriz donde almaceno los IProcesos.
      * @param nombreProcesoEntrante nombre del proceso que ha entrado (para coger el pivote Xi).
      * @param procesoNoSaliente para calcular la solución dividiento && para saber qué Xi del proceso vertical tomar como pivote.
-     * @return
+     * @return proceso del programa base modificado.
      */
     public IProceso calcularProcesoProgramaBase(IProceso entranteCalculadoHorizontal, IProceso[][] matriz, String nombreProcesoEntrante, String procesoNoSaliente){
 
@@ -261,35 +264,28 @@ public class SimplexManager extends JFrame {
     }
 
     /**
-     * Hago uso de este método para calcular los procesos Zjs de la iteración actual.
-     * @param x1 array que hace referencia a hx1/hx2/hx3
-     * @param x2
-     * @param x3
-     * @return un arrayList con los valores de Zj.
+     * Utilizo este método para calcular la fila Zj.
+     * @param matriz matriz con los procesos horizontales ya solucionados.
+     * @return un ProcesoHorizontal inicializado con los valores de Zj.
      */
-   private ArrayList<Double> calcularZjs(ArrayList<Double> x1, ArrayList<Double> x2, ArrayList<Double> x3)
-    {
-        double multiplicador_1 = x1.get(7);
-        double multiplicador_2 = x2.get(7);
-        double multiplicador_3 = x3.get(7);
+    public IProceso calcularZj(IProceso[][] matriz){
 
-        //Copio los ArrayList porque no me fio de que se mantengan los valores iniciales.
-        ArrayList<Double> aux1 = new ArrayList<>(), aux2 = new ArrayList<>(), aux3 = new ArrayList<>(), solucion = new ArrayList<>();
+       IProceso zj = new ProcesoHorizontal();
+       zj.setNombreProceso("zj");
 
-        for(int i = 0; i < 7 ; i++)
-              aux1.add(x1.get(i) * multiplicador_1);
+       //Obtengo el valor CJ por el cual voy a multiplicar los elementos. Calculo los valores de Zj.
+       Double x1 = matriz[1][0].getCj() * matriz[1][0].getX1() + matriz[1][1].getCj() * matriz[1][1].getX1() + matriz[1][2].getCj() * matriz[1][2].getX1();
+       Double x2 = matriz[1][0].getCj() * matriz[1][0].getX2() + matriz[1][1].getCj() * matriz[1][1].getX2() + matriz[1][2].getCj() * matriz[1][2].getX2();
+       Double x3 = matriz[1][0].getCj() * matriz[1][0].getX3() + matriz[1][1].getCj() * matriz[1][1].getX3() + matriz[1][2].getCj() * matriz[1][2].getX3();
+       Double x4 = matriz[1][0].getCj() * matriz[1][0].getX4() + matriz[1][1].getCj() * matriz[1][1].getX4() + matriz[1][2].getCj() * matriz[1][2].getX4();
+       Double x5 = matriz[1][0].getCj() * matriz[1][0].getX5() + matriz[1][1].getCj() * matriz[1][1].getX5() + matriz[1][2].getCj() * matriz[1][2].getX5();
+       Double x6 = matriz[1][0].getCj() * matriz[1][0].getX6() + matriz[1][1].getCj() * matriz[1][1].getX6() + matriz[1][2].getCj() * matriz[1][2].getX6();
+       Double x7 = matriz[1][0].getCj() * matriz[1][0].getX7() + matriz[1][1].getCj() * matriz[1][1].getX7() + matriz[1][2].getCj() * matriz[1][2].getX7();
 
-        for(int i = 0; i < 7 ; i++)
-            aux2.add(x2.get(i) * multiplicador_2);
+        //Con este bloque de código, añado los valores de Zj calculados a la matriz.
+       zj.setX1(x1); zj.setX2(x2); zj.setX3(x3); zj.setX4(x4); zj.setX5(x5); zj.setX6(x6); zj.setX7(x7);
 
-        for(int i = 0; i < 7 ; i++)
-            aux3.add(x3.get(i) * multiplicador_3);
-
-        //Ahora sumo los valores
-        for(int i = 0; i < 7; i++)
-            solucion.add(aux1.get(i) + aux2.get(i) + aux3.get(i));
-
-        return solucion;
+       return zj;
     }
 
             /**
