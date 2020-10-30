@@ -1,9 +1,9 @@
 package domain.simplex.programLoop.firstStep;
 
 import domain.simplex.programLoop.SimplexManager;
-import domain.simplex.programLoop.recurring.plantillas.IProceso;
-import domain.simplex.programLoop.recurring.plantillas.ProcesoVertical;
-import domain.simplex.programLoop.recurring.plantillas.ProcesoHorizontal;
+import domain.simplex.programLoop.recurring.procesos.IProceso;
+import domain.simplex.programLoop.recurring.procesos.ProcesoVertical;
+import domain.simplex.programLoop.recurring.procesos.ProcesoHorizontal;
 
 import javax.swing.*;
 import java.awt.*;

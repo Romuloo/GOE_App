@@ -1,4 +1,4 @@
-package domain.simplex.programLoop.recurring.plantillas;
+package domain.simplex.programLoop.recurring.procesos;
 
 public interface IProceso extends Comparable<IProceso> {
     Double getX1();

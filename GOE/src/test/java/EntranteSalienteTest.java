@@ -1,7 +1,7 @@
 import domain.simplex.programLoop.recurring.EntranteSaliente;
-import domain.simplex.programLoop.recurring.plantillas.IProceso;
-import domain.simplex.programLoop.recurring.plantillas.ProcesoHorizontal;
-import domain.simplex.programLoop.recurring.plantillas.ProcesoVertical;
+import domain.simplex.programLoop.recurring.procesos.IProceso;
+import domain.simplex.programLoop.recurring.procesos.ProcesoHorizontal;
+import domain.simplex.programLoop.recurring.procesos.ProcesoVertical;
 import org.junit.Test;
 import org.junit.Before;
 import static org.junit.Assert.assertEquals;

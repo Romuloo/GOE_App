@@ -1,11 +1,9 @@
 package domain.simplex.programLoop;
 
-import domain.simplex.programLoop.firstStep.FirstSimplex;
 import domain.simplex.programLoop.recurring.EntranteSaliente;
-import domain.simplex.programLoop.recurring.plantillas.IProceso;
+import domain.simplex.programLoop.recurring.procesos.IProceso;
 import domain.simplex.programLoop.recurring.plantillas.PanelSimplexSolution;
-import domain.simplex.programLoop.recurring.plantillas.ProcesoHorizontal;
-import domain.simplex.programLoop.recurring.plantillas.ProcesoVertical;
+import domain.simplex.programLoop.recurring.procesos.ProcesoHorizontal;
 
 import javax.swing.*;
 import java.awt.*;
@@ -129,7 +127,7 @@ public class SimplexManager extends JFrame {
 
     }
 
-            //-------------------------------- Metodos a los que recurro durante el simplex
+            //-------------------------------- Metodos a los que recurro durante la resolución del Simplex --------------------------------\\
 
 
     /**
@@ -265,43 +263,57 @@ public class SimplexManager extends JFrame {
 
     /**
      * Utilizo este método para calcular la fila Zj.
+     *
      * @param matriz matriz con los procesos horizontales ya solucionados.
      * @return un ProcesoHorizontal inicializado con los valores de Zj.
      */
-    public IProceso calcularZj(IProceso[][] matriz){
+    public IProceso calcularZj(IProceso[][] matriz) {
 
-       IProceso zj = new ProcesoHorizontal();
-       zj.setNombreProceso("zj");
+        IProceso zj = new ProcesoHorizontal();
+        zj.setNombreProceso("zj");
 
-       //Obtengo el valor CJ por el cual voy a multiplicar los elementos. Calculo los valores de Zj.
-       Double x1 = matriz[1][0].getCj() * matriz[1][0].getX1() + matriz[1][1].getCj() * matriz[1][1].getX1() + matriz[1][2].getCj() * matriz[1][2].getX1();
-       Double x2 = matriz[1][0].getCj() * matriz[1][0].getX2() + matriz[1][1].getCj() * matriz[1][1].getX2() + matriz[1][2].getCj() * matriz[1][2].getX2();
-       Double x3 = matriz[1][0].getCj() * matriz[1][0].getX3() + matriz[1][1].getCj() * matriz[1][1].getX3() + matriz[1][2].getCj() * matriz[1][2].getX3();
-       Double x4 = matriz[1][0].getCj() * matriz[1][0].getX4() + matriz[1][1].getCj() * matriz[1][1].getX4() + matriz[1][2].getCj() * matriz[1][2].getX4();
-       Double x5 = matriz[1][0].getCj() * matriz[1][0].getX5() + matriz[1][1].getCj() * matriz[1][1].getX5() + matriz[1][2].getCj() * matriz[1][2].getX5();
-       Double x6 = matriz[1][0].getCj() * matriz[1][0].getX6() + matriz[1][1].getCj() * matriz[1][1].getX6() + matriz[1][2].getCj() * matriz[1][2].getX6();
-       Double x7 = matriz[1][0].getCj() * matriz[1][0].getX7() + matriz[1][1].getCj() * matriz[1][1].getX7() + matriz[1][2].getCj() * matriz[1][2].getX7();
+        //Obtengo el valor CJ por el cual voy a multiplicar los elementos. Calculo los valores de Zj.
+        Double x1 = matriz[1][0].getCj() * matriz[1][0].getX1() + matriz[1][1].getCj() * matriz[1][1].getX1() + matriz[1][2].getCj() * matriz[1][2].getX1();
+        Double x2 = matriz[1][0].getCj() * matriz[1][0].getX2() + matriz[1][1].getCj() * matriz[1][1].getX2() + matriz[1][2].getCj() * matriz[1][2].getX2();
+        Double x3 = matriz[1][0].getCj() * matriz[1][0].getX3() + matriz[1][1].getCj() * matriz[1][1].getX3() + matriz[1][2].getCj() * matriz[1][2].getX3();
+        Double x4 = matriz[1][0].getCj() * matriz[1][0].getX4() + matriz[1][1].getCj() * matriz[1][1].getX4() + matriz[1][2].getCj() * matriz[1][2].getX4();
+        Double x5 = matriz[1][0].getCj() * matriz[1][0].getX5() + matriz[1][1].getCj() * matriz[1][1].getX5() + matriz[1][2].getCj() * matriz[1][2].getX5();
+        Double x6 = matriz[1][0].getCj() * matriz[1][0].getX6() + matriz[1][1].getCj() * matriz[1][1].getX6() + matriz[1][2].getCj() * matriz[1][2].getX6();
+        Double x7 = matriz[1][0].getCj() * matriz[1][0].getX7() + matriz[1][1].getCj() * matriz[1][1].getX7() + matriz[1][2].getCj() * matriz[1][2].getX7();
 
         //Con este bloque de código, añado los valores de Zj calculados a la matriz.
-       zj.setX1(x1); zj.setX2(x2); zj.setX3(x3); zj.setX4(x4); zj.setX5(x5); zj.setX6(x6); zj.setX7(x7);
+        zj.setX1(x1);
+        zj.setX2(x2);
+        zj.setX3(x3);
+        zj.setX4(x4);
+        zj.setX5(x5);
+        zj.setX6(x6);
+        zj.setX7(x7);
 
-       return zj;
+        return zj;
     }
 
-            /**
-             * Este método me calcula los valores de Wjs.
-             * @param cjs
-             * @param zjs
-             * @return un arrayList con los valores de Wjs.
-             */
-    private ArrayList<Double> calcularWjs(ArrayList<Double> cjs, ArrayList<Double> zjs)
-    {
-        ArrayList<Double> solu = new ArrayList<>();
-        for(int i = 0; i < 7; i++)
-            solu.add(cjs.get(i) - zjs.get(i));
+    /**
+     * Con este método calculo los valores de wj. La solución al simplex.
+     * @param matriz matriz con los procesos necesarios.
+     * @param zj proceso zj ya calculado.
+     * @return un proceso horizontal con todos los valores de wj.
+     */
+    public IProceso calcularWj(IProceso[][] matriz, IProceso zj){
+        IProceso wj = new ProcesoHorizontal();
+        wj.setNombreProceso("wj");
 
-        return solu;
+        wj.setX1(matriz[0][0].getCj() - zj.getX1());
+        wj.setX2(matriz[0][1].getCj() - zj.getX2());
+        wj.setX3(matriz[0][2].getCj() - zj.getX3());
+        wj.setX4(matriz[0][3].getCj() - zj.getX4());
+        wj.setX5(matriz[0][4].getCj() - zj.getX5());
+        wj.setX6(matriz[0][5].getCj() - zj.getX6());
+        wj.setX7(matriz[0][6].getCj() - zj.getX7());
+
+        return wj;
     }
+
 
     /**
      * Utilizo este método para hallar el orden en el que los xs horizontales van situados.

@@ -1,8 +1,8 @@
 import domain.simplex.programLoop.SimplexManager;
 import domain.simplex.programLoop.recurring.EntranteSaliente;
-import domain.simplex.programLoop.recurring.plantillas.IProceso;
-import domain.simplex.programLoop.recurring.plantillas.ProcesoHorizontal;
-import domain.simplex.programLoop.recurring.plantillas.ProcesoVertical;
+import domain.simplex.programLoop.recurring.procesos.IProceso;
+import domain.simplex.programLoop.recurring.procesos.ProcesoHorizontal;
+import domain.simplex.programLoop.recurring.procesos.ProcesoVertical;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -174,6 +174,20 @@ public class SimplexManagerTest {
 
         assertTrue(zj.getNombreProceso().equals("zj") && zj.getX1().equals(40.0) && zj.getX2().equals(35.0) && zj.getX3().equals(40.5) &&
                 zj.getX4().equals(34.0) && zj.getX5().equals(5.5) && zj.getX6().equals(0.0) && zj.getX7().equals(6.0));
+    }
+
+    /**
+     * Mediante este test compruebo el cálculo del proceso horizontal Wj.
+     */
+    @Test
+    public void testCalcularWjFuncionaCorrectamente(){
+        sm = new SimplexManager();
+        IProceso zj = sm.calcularZj(matriz_2);
+
+        IProceso wj = sm.calcularWj(matriz, zj);
+
+        assertTrue(wj.getNombreProceso().equals("wj") && wj.getX1().equals(0.0) && wj.getX2().equals(0.0) && wj.getX3().equals(-10.5) &&
+                wj.getX4().equals(-14.0) && wj.getX5().equals(-5.5) && wj.getX6().equals(0.0) && wj.getX7().equals(-6.0));
     }
 
 

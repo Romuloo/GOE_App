@@ -1,8 +1,6 @@
-package domain.simplex.programLoop.recurring.plantillas;
+package domain.simplex.programLoop.recurring.procesos;
 
-import java.util.Objects;
-
-public class ProcesoHorizontal implements IProceso{
+public class ProcesoHorizontal implements IProceso {
 
     private String nombreProceso;
 

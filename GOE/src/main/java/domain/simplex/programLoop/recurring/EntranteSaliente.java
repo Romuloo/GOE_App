@@ -1,8 +1,6 @@
 package domain.simplex.programLoop.recurring;
 
-import domain.simplex.programLoop.firstStep.FirstSimplex;
-import domain.simplex.programLoop.recurring.plantillas.IProceso;
-import domain.simplex.programLoop.recurring.plantillas.ProcesoVertical;
+import domain.simplex.programLoop.recurring.procesos.IProceso;
 
 import java.util.ArrayList;
 import java.util.PriorityQueue;
