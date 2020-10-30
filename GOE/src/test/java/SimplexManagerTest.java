@@ -52,7 +52,7 @@ public class SimplexManagerTest {
         hx3.setX1(3.0); hx3.setX2(4.0); hx3.setX3(4.0); hx3.setX4(2.0);
         hx3.setX5(0.0); hx3.setX6(0.0); hx3.setX7(1.0); hx3.setNombreProceso("x7");
         hx1.setCantidad(1000.0); hx2.setCantidad(550.0); hx3.setCantidad(1700.0);
-
+        hx1.setCj(0.0); hx2.setCj(0.0); hx3.setCj(0.0);
 
         matriz[0][0] = x1; matriz[0][1] = x2; matriz[0][2] = x3; matriz[0][3] = x4;
         matriz[0][4] = x5; matriz[0][5] = x6; matriz[0][6] = x7; matriz[0][7] = cjVertical;
@@ -70,7 +70,7 @@ public class SimplexManagerTest {
         sm = new SimplexManager();
         IProceso p = sm.calcularFilaEntrante(matriz, es.getEntrante(), es.getSaliente(es.getEntrante()));
         assertTrue(p.getNombreProceso().equals("x1") && p.getX1().equals(1.0) && p.getX2().equals(0.5) && p.getX3().equals(0.75) && p.getX4().equals(1.0)
-                && p.getX5().equals(0.25) && p.getX6().equals(0.0) && p.getX7().equals(0.0) && p.getCantidad().equals(250.0));
+                && p.getX5().equals(0.25) && p.getX6().equals(0.0) && p.getX7().equals(0.0) && p.getCantidad().equals(250.0) && p.getCj().equals(40.0));
     }
 
 
@@ -84,8 +84,48 @@ public class SimplexManagerTest {
         sm = new SimplexManager();
         IProceso p = sm.calcularFilaEntrante(matriz, es.getEntrante(), es.getSaliente(es.getEntrante()));
         assertTrue(p.getNombreProceso().equals("x2") && p.getX1().equals(0.75) && p.getX2().equals(1.0) && p.getX3().equals(1.0) && p.getX4().equals(0.5)
-             && p.getX5().equals(0.0) && p.getX6().equals(0.0) && p.getX7().equals(0.25) && p.getCantidad().equals(425.0));
+             && p.getX5().equals(0.0) && p.getX6().equals(0.0) && p.getX7().equals(0.25) && p.getCantidad().equals(425.0) && p.getCj().equals(35.0));
     }
 
+    /**
+     * Este test comprueba que se calculen bien los procesos del programaBase, es decir, aquellos que no son salientes.
+     */
+    @Test
+    public void testCalcularElementosProgramaBaseFunciona(){
+        es = new EntranteSaliente(matriz, 0);
+        sm = new SimplexManager();
+        IProceso p = sm.calcularFilaEntrante(matriz, es.getEntrante(), es.getSaliente(es.getEntrante()));
+
+        String noSalienteNombre_1 = es.noSalientes(es.getSaliente(es.getEntrante()))[0];
+        IProceso noSaliente_1 = sm.calcularProcesoProgramaBase(p, matriz, es.getEntrante(), noSalienteNombre_1);
+        boolean x6 = noSaliente_1.getNombreProceso().equals("x6") &&  noSaliente_1.getX1().equals(0.0) && noSaliente_1.getX2().equals(0.0) &&
+                noSaliente_1.getX3().equals(-0.5) && noSaliente_1.getX4().equals(-1.5) && noSaliente_1.getX5().equals(-0.5) &&
+                noSaliente_1.getX6().equals(1.0) && noSaliente_1.getX7().equals(0.0) && noSaliente_1.getCantidad().equals(50.0) && noSaliente_1.getCj().equals(0.0);
+
+        String noSalienteNombre_2 = es.noSalientes(es.getSaliente(es.getEntrante()))[1];
+        IProceso noSaliente_2 = sm.calcularProcesoProgramaBase(p, matriz, es.getEntrante(), noSalienteNombre_2);
+        boolean x7 = noSaliente_2.getNombreProceso().equals("x7") &&  noSaliente_2.getX1().equals(0.0) && noSaliente_2.getX2().equals(2.5) &&
+                noSaliente_2.getX3().equals(1.75) && noSaliente_2.getX4().equals(-1.0) && noSaliente_2.getX5().equals(-0.75) &&
+                noSaliente_2.getX6().equals(0.0) && noSaliente_2.getX7().equals(1.0) && noSaliente_2.getCantidad().equals(950.0) && noSaliente_2.getCj().equals(0.0);
+
+        assertTrue(x6 && x7);
+    }
+
+
+    /**
+     * Utilizo este test para probar que se calcular los programas base correctamente en una iteración distinta.
+     * Es decir, comprobar que el contador de iteración influye en el programa.
+     */
+    @Test
+    public void testCalcularElementosProgramaBaseOtraIteracion(){
+        es = new EntranteSaliente(matriz, 1);
+        sm = new SimplexManager();
+        IProceso p = sm.calcularFilaEntrante(matriz, es.getEntrante(), es.getSaliente(es.getEntrante()));
+        String noSalienteNombre = es.noSalientes(es.getSaliente(es.getEntrante()))[0];
+        IProceso noSaliente = sm.calcularProcesoProgramaBase(p, matriz, es.getEntrante(), noSalienteNombre);
+        assertTrue(noSaliente.getNombreProceso().equals("x5") &&  noSaliente.getX1().equals(2.5) && noSaliente.getX2().equals(0.0) &&
+                noSaliente.getX3().equals(1.0) && noSaliente.getX4().equals(3.0) && noSaliente.getX5().equals(1.0) &&
+                noSaliente.getX6().equals(0.0) && noSaliente.getX7().equals(-0.5) && noSaliente.getCantidad().equals(150.0) && noSaliente.getCj().equals(0.0));
+    }
 
 }

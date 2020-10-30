@@ -23,7 +23,10 @@ public class EntranteSaliente {
         this.matrizProcesos = matriz;
     }
 
-
+    /**
+     * Con este método calculo el proceso entrante.
+     * @return proceso entrante.
+     */
     public String getEntrante(){
         double solucion = 0; //almacenará la solución de quién es más grande.
         int posicion = 0; //almacenará la dirección de memoria del elemento mayor en el ArrayList.
@@ -59,6 +62,11 @@ public class EntranteSaliente {
         return solucionFinal;
     }
 
+    /**
+     * Coon este método calculo el proceso saliente.
+     * @param entrante
+     * @return el proceso saliente.
+     */
     public String getSaliente(String entrante){
 
         int index = 0;
@@ -104,11 +112,16 @@ public class EntranteSaliente {
         return dividendo / divisor;
     }
 
-    public String[] noSalientes(IProceso[][] matriz, String entrante){
-        IProceso[][] matrizProcesos= matriz;
+    /**
+     * Utilizo este método para hallar los procesos que no van a salir.
+     * ¡Importante! -> Se utiliza el proceso saliente y NO el entrante, de otro modo no funcionaría.
+     * @param saliente
+     * @return una tupla con los dos procesos no salientes.
+     */
+    public String[] noSalientes(String saliente){
         int idx = 0;
         for(int i = 0; i < 3; i++)
-            if(matrizProcesos[1][i].getNombreProceso().equals(entrante))
+            if(matrizProcesos[1][i].getNombreProceso().equals(saliente))
              idx = i;
 
         ArrayList<Integer> aux = new ArrayList<>();

@@ -61,7 +61,7 @@ public class SimplexManager extends JFrame {
             String saliente_1 = es1.getSaliente(es1.getEntrante());//es1.getSaliente(FirstSimplex.salientesInicial());
 
             //Averiguo los procesos que se mantienen.
-             String[] noSalientes_1 = es1.noSalientes(valoresIniciales, es1.getEntrante());
+             String[] noSalientes_1 = es1.noSalientes(es1.getEntrante());
              String noSaliente_1_1 = noSalientes_1[0];
              String noSaliente_1_2 = noSalientes_1[1];
 
@@ -141,6 +141,13 @@ public class SimplexManager extends JFrame {
 
       IProceso solucion = new ProcesoHorizontal();
       IProceso procesoSaliente = null;
+      IProceso procesoEntrante = null;
+
+      //Consigo el proceso vertical entrante.
+        for(int i = 0; i < 7; i++)
+            if(matriz[0][i].getNombreProceso().equals(entrante))
+                procesoEntrante = matriz[0][i];
+
 
       //inicializo todo el proceso saliente con este código.
       for(int i = 0; i < 3; i++){
@@ -188,28 +195,71 @@ public class SimplexManager extends JFrame {
          solucion.setX6(procesoSaliente.getX6() / pivote);
          solucion.setX7(procesoSaliente.getX7() / pivote);
          solucion.setCantidad(procesoSaliente.getCantidad() / pivote);
+         solucion.setCj(procesoEntrante.getCj());
      }
         return solucion;
     }
 
     /**
-     * Este método calcula los valores de la fila de un proceso que permanece en el programa base.
-     * @param ar
-     * @param thisAr
-     * @param pivote
-     * @return el arrayList con los valores de la fila calculados.
+     * @param entranteCalculadoHorizontal proceso horizontal ya calculado
+     * @param matriz donde almaceno los IProcesos.
+     * @param nombreProcesoEntrante nombre del proceso que ha entrado (para coger el pivote Xi).
+     * @param procesoNoSaliente para calcular la solución dividiento && para saber qué Xi del proceso vertical tomar como pivote.
+     * @return
      */
-   /* private ArrayList<Double> getElementosDelProgramaBase(ArrayList<Double> ar, ArrayList<Double> thisAr, String pivote)
-    {
-       ArrayList<Double> sol = new ArrayList<>();
-       ArrayList<Double> arAnterior = getElementosProcesoEntrante(ar, pivote);
+    public IProceso calcularProcesoProgramaBase(IProceso entranteCalculadoHorizontal, IProceso[][] matriz, String nombreProcesoEntrante, String procesoNoSaliente){
 
-       for(int i = 0; i < 7; i++)
-           sol.add(thisAr.get(i) - (thisAr.get(i) * arAnterior.get(i)));
+       IProceso entranteVertical = null;
+       IProceso noSaliente = null;
+       IProceso solucion = new ProcesoHorizontal();
+       Double pivote = 0.0;
 
-       return sol;
+       //Creo un proceso vertical igual que el entrante.
+        for(int i = 0; i < 7; i++){
+            if(matriz[0][i].getNombreProceso().equals(nombreProcesoEntrante)) {
+                entranteVertical = matriz[0][i];
+            }
+        }
+       //Busco el proceso horizontal anterior sobre el que voy a realizar los cálculos.
+        for(int i = 0; i < 3; i++) {
+
+            if (matriz[1][i].getNombreProceso().equals(procesoNoSaliente)) {
+                noSaliente = matriz[1][i];
+            }
+        }
+        //calculo en qué indice de la matriz está el proceso que ha salido horizontal.
+        int indice = 0;
+        for(int i = 0; i < 3; i++) {
+            if (matriz[1][i].getNombreProceso().equals(procesoNoSaliente)) {
+                indice = i;
+            }
+        }
+        //Si el indice es 0, el pivote es el elemento X1.
+        if(indice == 0) {
+            pivote = entranteVertical.getX1();
+        }
+        if(indice == 1) {
+            pivote = entranteVertical.getX2();
+        }
+
+        if(indice == 2) {
+            pivote = entranteVertical.getX3();
+        }
+
+       solucion.setNombreProceso(procesoNoSaliente);
+       solucion.setX1(noSaliente.getX1() - (pivote * entranteCalculadoHorizontal.getX1()));
+       solucion.setX2(noSaliente.getX2() - (pivote * entranteCalculadoHorizontal.getX2()));
+       solucion.setX3(noSaliente.getX3() - (pivote * entranteCalculadoHorizontal.getX3()));
+       solucion.setX4(noSaliente.getX4() - (pivote * entranteCalculadoHorizontal.getX4()));
+       solucion.setX5(noSaliente.getX5() - (pivote * entranteCalculadoHorizontal.getX5()));
+       solucion.setX6(noSaliente.getX6() - (pivote * entranteCalculadoHorizontal.getX6()));
+       solucion.setX7(noSaliente.getX7() - (pivote * entranteCalculadoHorizontal.getX7()));
+       solucion.setCantidad(noSaliente.getCantidad() - (pivote * entranteCalculadoHorizontal.getCantidad()));
+       solucion.setCj(noSaliente.getCj());
+
+       return solucion;
     }
-*/
+
     /**
      * Hago uso de este método para calcular los procesos Zjs de la iteración actual.
      * @param x1 array que hace referencia a hx1/hx2/hx3

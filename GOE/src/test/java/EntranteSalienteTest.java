@@ -102,6 +102,17 @@ public class EntranteSalienteTest {
         assertEquals(es.getSaliente("x2"), "x7");
     }
 
+    @Test
+    public void testProcesosNoSalientes(){
+        es = new EntranteSaliente(matriz, 0);
+        assertEquals(es.noSalientes(es.getSaliente(es.getEntrante()))[0], "x6");
+    }
+
+    @Test
+    public void testProcesosNoSalientesIteracion2(){
+        es = new EntranteSaliente(matriz, 1);
+        assertEquals(es.noSalientes(es.getSaliente(es.getEntrante()))[0], "x5");
+    }
 
 
 
