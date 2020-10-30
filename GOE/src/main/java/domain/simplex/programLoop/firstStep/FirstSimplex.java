@@ -16,7 +16,7 @@ import java.util.*;
  */
 
 /**
- * Clase encargada de anotar los datos de la primera iteracioon del Algoritmo Simpelx.
+ * Clase encargada de anotar y agrupar los datos introducidos por el usuario.
  */
 public class FirstSimplex extends JFrame {
     //cj: procesos, x = valores matriz, c =  matriz ampliada, v = valores solución óptima.
@@ -150,7 +150,7 @@ public class FirstSimplex extends JFrame {
         cj5.setText("0");
         cj6.setBounds(225+275, 0, 50, 40);
         cj6.setBackground(Color.green);
-        cj6.setText("10");
+        cj6.setText("0");
         cj7.setBounds(225+330, 0, 50, 40);
         cj7.setBackground(Color.green);
         cj7.setText("0");

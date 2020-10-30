@@ -47,9 +47,9 @@ public class SimplexManagerTest {
         x2.setX1(2.0); x2.setX2(1.0); x2.setX3(4.0);
         x3.setX1(3.0); x3.setX2(1.0); x3.setX3(4.0);
         x4.setX1(4.0); x4.setX2(0.5); x4.setX3(2.0);
-        x5.setX1(0.0); x5.setX2(0.0); x5.setX3(0.0);
-        x6.setX1(0.0); x6.setX2(0.0); x6.setX3(0.0);
-        x7.setX1(0.0); x7.setX2(0.0); x7.setX3(0.0);
+        x5.setX1(1.0); x5.setX2(0.0); x5.setX3(0.0);
+        x6.setX1(0.0); x6.setX2(1.0); x6.setX3(0.0);
+        x7.setX1(0.0); x7.setX2(0.0); x7.setX3(1.0);
         cjVertical.setX1(0.0); cjVertical.setX2(0.0); cjVertical.setX3(0.0);
         cantidades.setX1(1000.0); cantidades.setX2(550.0); cantidades.setX3(1700.0);
         x1.setNombreProceso("x1"); x2.setNombreProceso("x2"); x3.setNombreProceso("x3"); x4.setNombreProceso("x4");
@@ -190,6 +190,20 @@ public class SimplexManagerTest {
                 wj.getX4().equals(-14.0) && wj.getX5().equals(-5.5) && wj.getX6().equals(0.0) && wj.getX7().equals(-6.0));
     }
 
+    /**
+     *Este test comprueba el método calcularIteración.
+     */
+    @Test
+    public void testCalcularIteracionCompletaCorrectamente(){
+
+        sm = new SimplexManager();
+        IProceso[][] solucion = sm.calcularIteracion(matriz);
+
+        assertTrue(solucion[1][0].getNombreProceso().equals("x1") && solucion[1][1].getNombreProceso().equals("x6")
+                && solucion[1][2].getNombreProceso().equals("x7") && solucion[1][4].getX5().equals(-10.0) && solucion[1][0].getCj().equals(40.0) &&
+                solucion[1][2].getCj().equals(0.0) && solucion[1][1].getCantidad().equals(50.0) && solucion[0][0].getX1().equals(1.0) &&
+                solucion[0][2].getX2().equals(-0.5) && solucion[0][3].getCj().equals(20.0));
+    }
 
 
 }

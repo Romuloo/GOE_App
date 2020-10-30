@@ -1,9 +1,11 @@
 package domain.simplex.programLoop;
 
+import domain.simplex.programLoop.firstStep.FirstSimplex;
 import domain.simplex.programLoop.recurring.EntranteSaliente;
 import domain.simplex.programLoop.recurring.procesos.IProceso;
 import domain.simplex.programLoop.recurring.plantillas.PanelSimplexSolution;
 import domain.simplex.programLoop.recurring.procesos.ProcesoHorizontal;
+import domain.simplex.programLoop.recurring.procesos.ProcesoVertical;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,35 +28,50 @@ public class SimplexManager extends JFrame {
     }
 
     /**
-     * Método encargado de realizar el algoritmo.
+     * Método encargado de resolver el simplex
      */
-    public void manager() {
+    public void manager(){
         boolean correcto = false;
+       IProceso[][] matriz = FirstSimplex.matrizProcesos();
 
-        do {
+        do{
+            do {
+                ArrayList<Double> wjsIniciales = new ArrayList<>();
+                wjsIniciales.add(matriz[1][4].getX1());
+                wjsIniciales.add(matriz[1][4].getX2());
+                wjsIniciales.add(matriz[1][4].getX3());
+                wjsIniciales.add(matriz[1][4].getX4());
+                wjsIniciales.add(matriz[1][4].getX5());
+                wjsIniciales.add(matriz[1][4].getX6());
+                wjsIniciales.add(matriz[1][4].getX7());
+
+                int contadorInicial = 0;
+                for (Double d : wjsIniciales)
+                    if (d > 0) contadorInicial++;
+                if (contadorInicial != 0) correcto = true;
+
+                matriz = calcularIteracion(matriz);
+
+            }while(correcto);
+        }while(!correcto);
+
+
+    }
+
+
+    /**
+     * Método responsable de calcular una iteración del simplex.
+     */
+    public IProceso[][] calcularIteracion(IProceso[][] matriz) {
+      //  boolean correcto = false;
 
             //Con este bloque de código compruebo que los datos originales no son Sol óptima.
-            IProceso[][] solucion_1 = new IProceso[2][9];
-
-           //Primera comprobacion de que la solucion actual no es la óptima.
-            ArrayList<Double> wjsIniciales = new ArrayList<>();
-            wjsIniciales.add(valoresIniciales[1][4].getX1());
-            wjsIniciales.add(valoresIniciales[1][4].getX2());
-            wjsIniciales.add(valoresIniciales[1][4].getX3());
-            wjsIniciales.add(valoresIniciales[1][4].getX4());
-            wjsIniciales.add(valoresIniciales[1][4].getX5());
-            wjsIniciales.add(valoresIniciales[1][4].getX6());
-            wjsIniciales.add(valoresIniciales[1][4].getX7());
-
-            int contadorInicial = 0;
-            for(Double d : wjsIniciales)
-                if (d > 0) contadorInicial++;
-            if(contadorInicial != 0)  correcto = true;
+            IProceso[][] solucion = new IProceso[2][9];
 
             //Una vez comprobado, comienzo con el bucle.
 
 
-            EntranteSaliente es1 = new EntranteSaliente(valoresIniciales, 0);
+            EntranteSaliente es1 = new EntranteSaliente(matriz, 0);
             String entrante_1 = es1.getEntrante();
             String saliente_1 = es1.getSaliente(es1.getEntrante());//es1.getSaliente(FirstSimplex.salientesInicial());
 
@@ -63,68 +80,46 @@ public class SimplexManager extends JFrame {
              String noSaliente_1_1 = noSalientes_1[0];
              String noSaliente_1_2 = noSalientes_1[1];
 
+             //Aquí uso los métodos para calcular las filas del programa entrante y las que se mantienen.
+             IProceso filaEntrante_1 = calcularFilaEntrante(matriz, entrante_1, saliente_1);
+             IProceso filaProgramaBase_1_1 = calcularProcesoProgramaBase(filaEntrante_1, matriz, entrante_1, noSaliente_1_1);
+             IProceso filaProgramaBase_1_2 = calcularProcesoProgramaBase(filaEntrante_1, matriz, entrante_1, noSaliente_1_2);
 
-             
+             //Con este bloque de código organizo las soluciones obtenidas en la nueva matriz solución.
+            for(int i = 0; i < 3; i++){
+                if(matriz[1][i].getNombreProceso().equals(saliente_1)){
+                    solucion[1][i] = filaEntrante_1;
+                }
+                if(matriz[1][i].getNombreProceso().equals(filaProgramaBase_1_1.getNombreProceso())){
+                    solucion[1][i] = filaProgramaBase_1_1;
+                }
+                if(matriz[1][i].getNombreProceso().equals(filaProgramaBase_1_2.getNombreProceso())){
+                    solucion[1][i] = filaProgramaBase_1_2;
+                }
+            }
+            //Calculo zj y lo añado a la solución.
+            IProceso zj = calcularZj(solucion);
+            solucion[1][3] = zj;
 
+            //Calculo wj y lo añado a la solución.
+            IProceso wj = calcularWj(matriz, zj);
+            solucion[1][4] = wj;
 
-             //Empiezo a formar la nueva solución.
+            IProceso x1 = new ProcesoVertical(), x2 = new ProcesoVertical(), x3 = new ProcesoVertical(), x4 = new ProcesoVertical(),
+                    x5 = new ProcesoVertical(), x6 = new ProcesoVertical(), x7 = new ProcesoVertical();
 
-            //Con este código encuentro el proceso saliente horizontal (su índice en la matriz).
-            int indexSaliente1 = 0;
-            for(int i = 0; i < 3; i++)
-                if(valoresIniciales[1][i].getNombreProceso().equals(saliente_1))
-                    indexSaliente1 = i;
-
-
-
-
-
-
-
-
-/*
-
-
-            solucion_1.put("cjs", valoresIniciales.get("cjs"));
-            String entranteEnMap_1 = "h" + entrante_1;
-            String noSalienteEnMap_1_1 = "h" + noSaliente_1_1;
-            String noSalienteEnMap_1_2 = "h" + noSaliente_1_2;
-
-            solucion_1.put(entranteEnMap_1, getElementosProcesoEntrante(valoresIniciales.get(entranteEnMap_1), entrante_1));
-            solucion_1.put(noSalienteEnMap_1_1, getElementosDelProgramaBase(valoresIniciales.get(entranteEnMap_1),
-                    valoresIniciales.get(noSalienteEnMap_1_1), entrante_1));
-            solucion_1.put(noSalienteEnMap_1_2, getElementosDelProgramaBase(valoresIniciales.get(entranteEnMap_1),
-                    valoresIniciales.get(noSalienteEnMap_1_2), entrante_1));
-
-            //Annado el valor Cj horizontal a cada solucion.
-            solucion_1.get(entranteEnMap_1).add(valoresIniciales.get(entrante_1).get(0));
-            solucion_1.get(noSalienteEnMap_1_1).add(valoresIniciales.get(noSaliente_1_1).get(0));
-            solucion_1.get(noSalienteEnMap_1_2).add(valoresIniciales.get(noSaliente_1_2).get(0));
-
-            //llamo al método calcular Zjs y calculo el array horizontal con todas las zjs.
-            solucion_1.put("zjs", calcularZjs(solucion_1.get(entranteEnMap_1), solucion_1.get(noSalienteEnMap_1_1), solucion_1.get(noSalienteEnMap_1_2)));
-
-            //llamo al método calcular Wjs y calculo el array horizontal con todas las wjs.
-            solucion_1.put("wjs", calcularWjs(valoresIniciales.get("cjs"),
-                    calcularZjs(solucion_1.get(entranteEnMap_1), solucion_1.get(noSalienteEnMap_1_1), solucion_1.get(noSalienteEnMap_1_2))));
-
-            //Hasta aquí debería tener todos los valores de la solucion 1. Ahora he de plasmarlos.
-           //Llamo a un método que me crea un nuevo Jpanel, lo inicializa y lo añade al  JtabblePane.
-
-            asignarPosicion(solucion_1, FirstSimplex.posicionesFirst(), saliente_1, noSaliente_1_1, noSaliente_1_2, entranteEnMap_1, noSalienteEnMap_1_1,
-                    noSalienteEnMap_1_2);
-
-            //Si el bloque de código anterior ha funcionado como debía, debería de haber llenado en la posición 9 el índice donde debería ir cada fila.
-           // correcto = true;
+        x1.setCj(matriz[0][0].getCj()); x1.setNombreProceso("x1"); x1.setX1(solucion[1][0].getX1()); x1.setX2(solucion[1][1].getX1()); x1.setX3(solucion[1][2].getX1());
+        x2.setCj(matriz[0][1].getCj()); x2.setNombreProceso("x2"); x2.setX1(solucion[1][0].getX2()); x2.setX2(solucion[1][1].getX2()); x1.setX3(solucion[1][2].getX2());
+        x3.setCj(matriz[0][2].getCj()); x3.setNombreProceso("x3"); x3.setX1(solucion[1][0].getX3()); x3.setX2(solucion[1][1].getX3()); x1.setX3(solucion[1][2].getX3());
+        x4.setCj(matriz[0][3].getCj()); x4.setNombreProceso("x4"); x4.setX1(solucion[1][0].getX4()); x4.setX2(solucion[1][1].getX4()); x1.setX3(solucion[1][2].getX4());
+        x5.setCj(matriz[0][4].getCj()); x5.setNombreProceso("x5"); x5.setX1(solucion[1][0].getX5()); x5.setX2(solucion[1][1].getX5()); x1.setX3(solucion[1][2].getX5());
+        x6.setCj(matriz[0][5].getCj()); x6.setNombreProceso("x6"); x6.setX1(solucion[1][0].getX6()); x6.setX2(solucion[1][1].getX6()); x1.setX3(solucion[1][2].getX6());
+        x7.setCj(matriz[0][6].getCj()); x7.setNombreProceso("x7"); x7.setX1(solucion[1][0].getX7()); x7.setX2(solucion[1][1].getX7()); x1.setX3(solucion[1][2].getX7());
 
 
-            nuevaIteracion(solucion_1, entranteEnMap_1, noSalienteEnMap_1_1, noSalienteEnMap_1_2 );
+        solucion[0][0] = x1; solucion[0][1] = x2; solucion[0][2] = x3; solucion[0][3] = x4; solucion[0][4] = x5; solucion[0][5] = x6; solucion[0][6] =x7;
 
-*/
-            correcto = true;
-        }while(!correcto);
-
-
+        return solucion;
     }
 
             //-------------------------------- Metodos a los que recurro durante la resolución del Simplex --------------------------------\\
@@ -299,7 +294,7 @@ public class SimplexManager extends JFrame {
      * @param zj proceso zj ya calculado.
      * @return un proceso horizontal con todos los valores de wj.
      */
-    public IProceso calcularWj(IProceso[][] matriz, IProceso zj){
+    public IProceso calcularWj(IProceso[][] matriz, IProceso zj) {
         IProceso wj = new ProcesoHorizontal();
         wj.setNombreProceso("wj");
 
@@ -316,182 +311,93 @@ public class SimplexManager extends JFrame {
 
 
     /**
-     * Utilizo este método para hallar el orden en el que los xs horizontales van situados.
-     * @param hm hace referencia a un HashMap con los Xs originales y su orden.
-     * @param saliente hace referencia a los nombres del proceso saliente y los que no.
-     * @param noSaliente_1
-     * @param noSaliente_2
-     * @return
+     * Metodo encargado de generarme un JPanel con la iteración.
+     * @param matriz
+     * @return el panel completo.
      */
-   private HashMap<String, Double> setPosiciones(HashMap<Double, String> hm, String saliente, String noSaliente_1, String noSaliente_2)
-    {
-        HashMap<String, Double> indices = new HashMap<>();
-        //Con este codigo me hago con la posicion de cada fila.
-      double aux = 0, aux2 = 0, aux3 = 0;
-      for(double i = 0; i < 3; i++){
-          if(hm.get(i) == saliente)
-              aux = i;
-          if(hm.get(i) == noSaliente_1)
-              aux2 = i;
-          if(hm.get(i) == noSaliente_2)
-              aux3 = i;
-      }
-
-      indices.put(saliente, aux);
-      indices.put(noSaliente_1, aux2);
-      indices.put(noSaliente_2, aux3);
-
-      return indices;
-    }
-
-
-    /**
-     * Utilizo este método para annadir un valor a cada arrayList que indica el orden en el que debe ir situado.
-     * @param valores
-     * @param hm
-     * @param saliente
-     * @param noSaliente_1
-     * @param noSaliente_2
-     * @param entranteHorizontal
-     * @param noSalienteHorizontal_1
-     * @param noSalienteHorizontal_2
-     */
-    private void asignarPosicion(HashMap<String, ArrayList<Double>> valores, HashMap<Double, String> hm, String saliente, String noSaliente_1,
-                                              String noSaliente_2, String entranteHorizontal, String noSalienteHorizontal_1, String noSalienteHorizontal_2)
-    {
-        HashMap<String, Double> orden= setPosiciones(hm, saliente, noSaliente_1, noSaliente_2);
-
-
-        //En este bloque de código añado a cada arraylist dentro de valores un numero que indica su orden.
-        // (Ahora este numero se guardará en la posición 10)
-            valores.get(entranteHorizontal).add(orden.get(saliente));
-            valores.get(noSalienteHorizontal_1).add(orden.get(noSaliente_1));
-            valores.get(noSalienteHorizontal_2).add(orden.get(noSaliente_2));
-    }
-
-    /**
-     * Método encargado de crear un Panel, inicializarlo y annadirlo al JPannelTable.
-     * !! deben de ser el entrante, noSaliente... horizontales !!
-     */
-   private void nuevaIteracion(HashMap<String, ArrayList<Double>> map, String entrante,
-                                String noSaliente_1, String noSaliente_2)
-    {
+    public PanelSimplexSolution addIteracionJPanel(IProceso[][] matriz){
         PanelSimplexSolution p = new PanelSimplexSolution();
         jt.add(p);
 
-        p.getCj1().setText("" + map.get("cjs").get(0));
-        p.getCj2().setText("" + map.get("cjs").get(1));
-        p.getCj3().setText("" + map.get("cjs").get(2));
-        p.getCj4().setText("" + map.get("cjs").get(3));
-        p.getCj5().setText("" + map.get("cjs").get(4));
-        p.getCj6().setText("" + map.get("cjs").get(5));
-        p.getCj7().setText("" + map.get("cjs").get(6));
+        p.getCj1().setText("" + matriz[0][0].getCj());
+        p.getCj2().setText("" + matriz[0][1].getCj());
+        p.getCj3().setText("" + matriz[0][2].getCj());
+        p.getCj4().setText("" + matriz[0][3].getCj());
+        p.getCj5().setText("" + matriz[0][4].getCj());
+        p.getCj6().setText("" + matriz[0][5].getCj());
+        p.getCj7().setText("" + matriz[0][6].getCj());
 
-        p.getZj1().setText("" + map.get("zjs").get(0));
-        p.getZj2().setText("" + map.get("zjs").get(1));
-        p.getZj3().setText("" + map.get("zjs").get(2));
-        p.getZj4().setText("" + map.get("zjs").get(3));
-        p.getZj5().setText("" + map.get("zjs").get(4));
-        p.getZj6().setText("" + map.get("zjs").get(5));
-        p.getZj7().setText("" + map.get("zjs").get(6));
+        p.getZj1().setText("" + matriz[1][3].getX1());
+        p.getZj2().setText("" + matriz[1][3].getX2());
+        p.getZj3().setText("" + matriz[1][3].getX3());
+        p.getZj4().setText("" + matriz[1][3].getX4());
+        p.getZj5().setText("" + matriz[1][3].getX5());
+        p.getZj6().setText("" + matriz[1][3].getX6());
+        p.getZj7().setText("" + matriz[1][3].getX7());
 
-        p.getWj1().setText("" + map.get("wjs").get(0));
-        p.getWj2().setText("" + map.get("wjs").get(1));
-        p.getWj3().setText("" + map.get("wjs").get(2));
-        p.getWj4().setText("" + map.get("wjs").get(3));
-        p.getWj5().setText("" + map.get("wjs").get(4));
-        p.getWj6().setText("" + map.get("wjs").get(5));
-        p.getWj7().setText("" + map.get("wjs").get(6));
+        p.getWj1().setText("" + matriz[1][4].getX1());
+        p.getWj2().setText("" + matriz[1][4].getX2());
+        p.getWj3().setText("" + matriz[1][4].getX3());
+        p.getWj4().setText("" + matriz[1][4].getX4());
+        p.getWj5().setText("" + matriz[1][4].getX5());
+        p.getWj6().setText("" + matriz[1][4].getX6());
+        p.getWj7().setText("" + matriz[1][4].getX7());
 
-        //Este bloque de codigo me crea un arrayList con los tres arrayList ordenados seguún su posición!
-        //Posibles fallos en copiar y pegar.
-        ArrayList<ArrayList> horizontalesOrdenados = new ArrayList<>();
-        if (map.get(entrante).get(9) < map.get(noSaliente_1).get(9)){
-            if (map.get(entrante).get(9) < map.get(noSaliente_2).get(9)) {
-                horizontalesOrdenados.add(map.get(entrante));
-                if (map.get(noSaliente_1).get(9) < map.get(noSaliente_2).get(9)) {
-                    horizontalesOrdenados.add(map.get(noSaliente_1));
-                    horizontalesOrdenados.add(map.get(noSaliente_2));
-                } else {
-                    horizontalesOrdenados.add(map.get(noSaliente_2));
-                    horizontalesOrdenados.add(map.get(noSaliente_1));
-                }
-            }
-        } else if (map.get(noSaliente_1).get(9) < map.get(noSaliente_2).get(9)) {
-            horizontalesOrdenados.add(map.get(noSaliente_1));
-            if (map.get(entrante).get(9) < map.get(noSaliente_2).get(9)) {
-                horizontalesOrdenados.add(map.get(entrante));
-                horizontalesOrdenados.add(map.get(noSaliente_2));
-            } else {
-                horizontalesOrdenados.add(map.get(noSaliente_2));
-                horizontalesOrdenados.add(map.get(entrante));
-            }
-        } else {
-            horizontalesOrdenados.add(map.get(noSaliente_2));
-            if (map.get(entrante).get(9) < map.get(noSaliente_1).get(9)) {
-                horizontalesOrdenados.add(map.get(entrante));
-                horizontalesOrdenados.add(map.get(noSaliente_1));
-            } else {
-                horizontalesOrdenados.add(map.get(noSaliente_1));
-                horizontalesOrdenados.add(map.get(entrante));
+        p.getX11().setText("" + matriz[1][0].getX1());
+        p.getX21().setText("" + matriz[1][0].getX2());
+        p.getX31().setText("" + matriz[1][0].getX3());
+        p.getX41().setText("" + matriz[1][0].getX4());
+        p.getX51().setText("" + matriz[1][0].getX5());
+        p.getX61().setText("" + matriz[1][0].getX6());
+        p.getX71().setText("" + matriz[1][0].getX7());
+        p.getC1().setText("" + matriz[1][0].getCantidad());
+        p.getCj8().setText("" + matriz[1][0].getCj());
 
-            }
-
-        }
+        p.getX12().setText("" + matriz[1][1].getX1());
+        p.getX22().setText("" + matriz[1][1].getX2());
+        p.getX32().setText("" + matriz[1][1].getX3());
+        p.getX42().setText("" + matriz[1][1].getX4());
+        p.getX52().setText("" + matriz[1][1].getX5());
+        p.getX62().setText("" + matriz[1][1].getX6());
+        p.getX72().setText("" + matriz[1][1].getX7());
+        p.getC2().setText("" + matriz[1][1].getCantidad());
+        p.getCj9().setText("" + matriz[1][1].getCj());
 
 
-        p.getX11().setText("" + horizontalesOrdenados.get(0).get(0));
-        p.getX21().setText("" + horizontalesOrdenados.get(0).get(1));
-        p.getX31().setText("" + horizontalesOrdenados.get(0).get(2));
-        p.getX41().setText("" + horizontalesOrdenados.get(0).get(3));
-        p.getX51().setText("" + horizontalesOrdenados.get(0).get(4));
-        p.getX61().setText("" + horizontalesOrdenados.get(0).get(5));
-        p.getX71().setText("" + horizontalesOrdenados.get(0).get(6));
-        p.getC1().setText("" + horizontalesOrdenados.get(0).get(7));
-        p.getCj8().setText("" + horizontalesOrdenados.get(0).get(8));
-
-        p.getX12().setText("" + horizontalesOrdenados.get(1).get(0));
-        p.getX22().setText("" + horizontalesOrdenados.get(1).get(1));
-        p.getX32().setText("" + horizontalesOrdenados.get(1).get(2));
-        p.getX42().setText("" + horizontalesOrdenados.get(1).get(3));
-        p.getX52().setText("" + horizontalesOrdenados.get(1).get(4));
-        p.getX62().setText("" + horizontalesOrdenados.get(1).get(5));
-        p.getX72().setText("" + horizontalesOrdenados.get(1).get(6));
-        p.getC2().setText("" + horizontalesOrdenados.get(1).get(7));
-        p.getCj9().setText("" + horizontalesOrdenados.get(1).get(8));
+        p.getX13().setText("" + matriz[1][2].getX1());
+        p.getX23().setText("" + matriz[1][2].getX2());
+        p.getX33().setText("" + matriz[1][2].getX3());
+        p.getX43().setText("" + matriz[1][2].getX4());
+        p.getX53().setText("" + matriz[1][2].getX5());
+        p.getX63().setText("" + matriz[1][2].getX6());
+        p.getX73().setText("" + matriz[1][2].getX7());
+        p.getC3().setText("" + matriz[1][2].getCantidad());
+        p.getCj10().setText("" + matriz[1][2].getCj());
 
 
-        p.getX13().setText("" + horizontalesOrdenados.get(2).get(0));
-        p.getX23().setText("" + horizontalesOrdenados.get(2).get(1));
-        p.getX33().setText("" + horizontalesOrdenados.get(2).get(2));
-        p.getX43().setText("" + horizontalesOrdenados.get(2).get(3));
-        p.getX53().setText("" + horizontalesOrdenados.get(2).get(4));
-        p.getX63().setText("" + horizontalesOrdenados.get(2).get(5));
-        p.getX73().setText("" + horizontalesOrdenados.get(2).get(6));
-        p.getC3().setText("" + horizontalesOrdenados.get(2).get(7));
-        p.getCj10().setText("" + horizontalesOrdenados.get(2).get(8));
+        p.getV1().setText(matriz[1][0].getNombreProceso());
+        p.getV2().setText(matriz[1][1].getNombreProceso());
+        p.getV3().setText(matriz[1][2].getNombreProceso());
 
-        //Sin generalizar
-        p.getV1().setText(entrante);
-        p.getV2().setText(noSaliente_1);
-        p.getV3().setText(noSaliente_2);
-
-
+        return p;
     }
 
 
-            //------------------------------------------ Frame stuff
-            private void initComponentes () {
-                add(jt);
-                // jt.add(new PanelSimplexSolution(), 0);
-            }
-            private void initFrame () {
-                setBackground(new Color(39, 156, 207));
-                setSize(1190 / 2, 1226 / 2 + 70);
-                setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                setVisible(true);
-                setLocation(100, 20);
-                setResizable(false);
-                setTitle("Simplex - Solucion");
-            }
+
+
+            //------------------------------------------ Frame stuff ------------------------------------------\\
+
+    private void initComponentes () {
+    add(jt);
+    }
+
+    private void initFrame () {
+        setBackground(new Color(39, 156, 207));
+        setSize(1190 / 2, 1226 / 2 + 70);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setVisible(true);
+        setLocation(100, 20);
+        setResizable(false);
+        setTitle("Simplex - Solucion");
+    }
 }
