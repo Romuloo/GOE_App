@@ -13,7 +13,7 @@ import java.util.*;
 
 public class SimplexManager extends JFrame {
 
-    private static final JTabbedPane jt = new JTabbedPane();
+    private JTabbedPane jt = new JTabbedPane();
 
    private IProceso[][] valoresIniciales;// = FirstSimplex.matrizProcesos();
 
@@ -22,47 +22,63 @@ public class SimplexManager extends JFrame {
     }
 
     private void setUp() {
-       // initComponentes();
-      //  initFrame();
-        //manager();
+       initComponentes();
+        initFrame();
+        manager();
     }
 
     /**
      * Método encargado de resolver el simplex
      */
     public void manager(){
-        boolean correcto = false;
+
        IProceso[][] matriz = FirstSimplex.matrizProcesos();
 
-        do{
-            do {
-                ArrayList<Double> wjsIniciales = new ArrayList<>();
-                wjsIniciales.add(matriz[1][4].getX1());
-                wjsIniciales.add(matriz[1][4].getX2());
-                wjsIniciales.add(matriz[1][4].getX3());
-                wjsIniciales.add(matriz[1][4].getX4());
-                wjsIniciales.add(matriz[1][4].getX5());
-                wjsIniciales.add(matriz[1][4].getX6());
-                wjsIniciales.add(matriz[1][4].getX7());
 
-                int contadorInicial = 0;
-                for (Double d : wjsIniciales)
-                    if (d > 0) contadorInicial++;
-                if (contadorInicial != 0) correcto = true;
+       IProceso[][] solucion = calcularIteracion(matriz, 0);
+       jt.add(addIteracionJPanel(solucion));
 
-                matriz = calcularIteracion(matriz);
+       IProceso[][] solucion_2 = calcularIteracion(solucion, 1);
+       jt.add(addIteracionJPanel(solucion_2));
 
-            }while(correcto);
-        }while(!correcto);
 
 
     }
 
+    //-------------------------------- Metodos a los que recurro durante la resolución del Simplex --------------------------------\\
+
 
     /**
-     * Método responsable de calcular una iteración del simplex.
+     * Este método calcula si la iteración actual es la solucón óptima.
+     * @param matriz
+     * @return si es o no la solución óptima.
      */
-    public IProceso[][] calcularIteracion(IProceso[][] matriz) {
+    public boolean esSolucionOptima(IProceso[][] matriz){
+
+        boolean correcto = true;
+
+        ArrayList<Double> wjsIniciales = new ArrayList<>();
+        wjsIniciales.add(matriz[1][4].getX1());
+        wjsIniciales.add(matriz[1][4].getX2());
+        wjsIniciales.add(matriz[1][4].getX3());
+        wjsIniciales.add(matriz[1][4].getX4());
+        wjsIniciales.add(matriz[1][4].getX5());
+        wjsIniciales.add(matriz[1][4].getX6());
+        wjsIniciales.add(matriz[1][4].getX7());
+
+        int contadorInicial = 0;
+        for (Double d : wjsIniciales)
+            if (d > 0) contadorInicial++;
+
+        return (contadorInicial == 0) ? correcto : !correcto;
+    }
+
+    /**
+     * Método encargado de realizar una iteración del simplex.
+     * @param matriz matriz con los IProcesos.
+     * @return una matriz de IProceso con la solución de la iteración.
+     */
+    public IProceso[][] calcularIteracion(IProceso[][] matriz, int contador) {
       //  boolean correcto = false;
 
             //Con este bloque de código compruebo que los datos originales no son Sol óptima.
@@ -71,7 +87,7 @@ public class SimplexManager extends JFrame {
             //Una vez comprobado, comienzo con el bucle.
 
 
-            EntranteSaliente es1 = new EntranteSaliente(matriz, 0);
+            EntranteSaliente es1 = new EntranteSaliente(matriz, contador);
             String entrante_1 = es1.getEntrante();
             String saliente_1 = es1.getSaliente(es1.getEntrante());//es1.getSaliente(FirstSimplex.salientesInicial());
 
@@ -109,21 +125,26 @@ public class SimplexManager extends JFrame {
                     x5 = new ProcesoVertical(), x6 = new ProcesoVertical(), x7 = new ProcesoVertical();
 
         x1.setCj(matriz[0][0].getCj()); x1.setNombreProceso("x1"); x1.setX1(solucion[1][0].getX1()); x1.setX2(solucion[1][1].getX1()); x1.setX3(solucion[1][2].getX1());
-        x2.setCj(matriz[0][1].getCj()); x2.setNombreProceso("x2"); x2.setX1(solucion[1][0].getX2()); x2.setX2(solucion[1][1].getX2()); x1.setX3(solucion[1][2].getX2());
-        x3.setCj(matriz[0][2].getCj()); x3.setNombreProceso("x3"); x3.setX1(solucion[1][0].getX3()); x3.setX2(solucion[1][1].getX3()); x1.setX3(solucion[1][2].getX3());
-        x4.setCj(matriz[0][3].getCj()); x4.setNombreProceso("x4"); x4.setX1(solucion[1][0].getX4()); x4.setX2(solucion[1][1].getX4()); x1.setX3(solucion[1][2].getX4());
-        x5.setCj(matriz[0][4].getCj()); x5.setNombreProceso("x5"); x5.setX1(solucion[1][0].getX5()); x5.setX2(solucion[1][1].getX5()); x1.setX3(solucion[1][2].getX5());
-        x6.setCj(matriz[0][5].getCj()); x6.setNombreProceso("x6"); x6.setX1(solucion[1][0].getX6()); x6.setX2(solucion[1][1].getX6()); x1.setX3(solucion[1][2].getX6());
-        x7.setCj(matriz[0][6].getCj()); x7.setNombreProceso("x7"); x7.setX1(solucion[1][0].getX7()); x7.setX2(solucion[1][1].getX7()); x1.setX3(solucion[1][2].getX7());
+        x2.setCj(matriz[0][1].getCj()); x2.setNombreProceso("x2"); x2.setX1(solucion[1][0].getX2()); x2.setX2(solucion[1][1].getX2()); x2.setX3(solucion[1][2].getX2());
+        x3.setCj(matriz[0][2].getCj()); x3.setNombreProceso("x3"); x3.setX1(solucion[1][0].getX3()); x3.setX2(solucion[1][1].getX3()); x3.setX3(solucion[1][2].getX3());
+        x4.setCj(matriz[0][3].getCj()); x4.setNombreProceso("x4"); x4.setX1(solucion[1][0].getX4()); x4.setX2(solucion[1][1].getX4()); x4.setX3(solucion[1][2].getX4());
+        x5.setCj(matriz[0][4].getCj()); x5.setNombreProceso("x5"); x5.setX1(solucion[1][0].getX5()); x5.setX2(solucion[1][1].getX5()); x5.setX3(solucion[1][2].getX5());
+        x6.setCj(matriz[0][5].getCj()); x6.setNombreProceso("x6"); x6.setX1(solucion[1][0].getX6()); x6.setX2(solucion[1][1].getX6()); x6.setX3(solucion[1][2].getX6());
+        x7.setCj(matriz[0][6].getCj()); x7.setNombreProceso("x7"); x7.setX1(solucion[1][0].getX7()); x7.setX2(solucion[1][1].getX7()); x7.setX3(solucion[1][2].getX7());
+
+        IProceso cantidades = new ProcesoVertical();
+        cantidades.setNombreProceso("cantidades");
+        cantidades.setX1(solucion[1][0].getCantidad());
+        cantidades.setX2(solucion[1][1].getCantidad());
+        cantidades.setX3(solucion[1][2].getCantidad());
+
+        solucion[0][8] = cantidades;
 
 
         solucion[0][0] = x1; solucion[0][1] = x2; solucion[0][2] = x3; solucion[0][3] = x4; solucion[0][4] = x5; solucion[0][5] = x6; solucion[0][6] =x7;
 
         return solucion;
     }
-
-            //-------------------------------- Metodos a los que recurro durante la resolución del Simplex --------------------------------\\
-
 
     /**
      * Método encargado de calcular la fila del proceso entrante.
@@ -308,7 +329,6 @@ public class SimplexManager extends JFrame {
 
         return wj;
     }
-
 
     /**
      * Metodo encargado de generarme un JPanel con la iteración.

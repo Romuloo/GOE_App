@@ -12,9 +12,9 @@ public class EntranteSaliente {
 
     private int contador;
     //maetodo 1
-    private ArrayList<Double> xs = new ArrayList<>();
+    private ArrayList<Double> xs;
     //metodo 2
-    private ArrayList<Double> dividendos = new ArrayList<>(), divisores = new ArrayList<>();
+    private ArrayList<Double> dividendos, divisores;
 
     public EntranteSaliente(IProceso[][] matriz, int contador){
         this.contador = contador;
@@ -29,6 +29,7 @@ public class EntranteSaliente {
         double solucion = 0; //almacenará la solución de quién es más grande.
         int posicion = 0; //almacenará la dirección de memoria del elemento mayor en el ArrayList.
 
+        xs = new ArrayList<>();
         xs.add((matrizProcesos[0][0]).getCj());
         xs.add((matrizProcesos[0][1]).getCj());
         xs.add((matrizProcesos[0][2]).getCj());
@@ -65,13 +66,16 @@ public class EntranteSaliente {
      * @param entrante
      * @return el proceso saliente.
      */
-    public String getSaliente(String entrante){
+    public String getSaliente(String entrante) {
 
         int index = 0;
-        for(int i = 0; i < 7; i++)
-            if(matrizProcesos[0][i].getNombreProceso().equals(entrante))
+        for (int i = 0; i < 7; i++){
+            if (matrizProcesos[0][i].getNombreProceso().equals(entrante)) {
                 index = i;
-
+            }
+    }
+        dividendos  = new ArrayList<>();
+        divisores = new ArrayList<>();
         dividendos.add(matrizProcesos[0][8].getX1());
         dividendos.add(matrizProcesos[0][8].getX2());
         dividendos.add(matrizProcesos[0][8].getX3());

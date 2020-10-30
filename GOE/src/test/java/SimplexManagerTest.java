@@ -6,8 +6,7 @@ import domain.simplex.programLoop.recurring.procesos.ProcesoVertical;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 
 /**
@@ -197,12 +196,22 @@ public class SimplexManagerTest {
     public void testCalcularIteracionCompletaCorrectamente(){
 
         sm = new SimplexManager();
-        IProceso[][] solucion = sm.calcularIteracion(matriz);
+        IProceso[][] solucion = sm.calcularIteracion(matriz, 0);
 
         assertTrue(solucion[1][0].getNombreProceso().equals("x1") && solucion[1][1].getNombreProceso().equals("x6")
                 && solucion[1][2].getNombreProceso().equals("x7") && solucion[1][4].getX5().equals(-10.0) && solucion[1][0].getCj().equals(40.0) &&
                 solucion[1][2].getCj().equals(0.0) && solucion[1][1].getCantidad().equals(50.0) && solucion[0][0].getX1().equals(1.0) &&
                 solucion[0][2].getX2().equals(-0.5) && solucion[0][3].getCj().equals(20.0));
+    }
+
+    /**
+     * Este test comprueba que se calcula correctamente si la iteración es o no la solución óptima.
+     */
+    @Test
+    public void testCalcularSiEsSolucionOptima(){
+        sm  = new SimplexManager();
+        IProceso[][] solucion = sm.calcularIteracion(matriz, 0);
+        assertFalse(sm.esSolucionOptima(solucion));
     }
 
 
