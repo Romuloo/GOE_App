@@ -1,3 +1,16 @@
+/**
+ Copyright [2020] [Javier Linares Castrillón]
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ http://www.apache.org/licenses/LICENSE-2.0
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ */
+
 package domain.simplex.programLoop.recurring;
 
 import domain.simplex.programLoop.recurring.procesos.IProceso;
@@ -5,6 +18,13 @@ import domain.simplex.programLoop.recurring.procesos.IProceso;
 import java.util.ArrayList;
 import java.util.PriorityQueue;
 
+/**
+ * @author Javier Linares Castrillón
+ */
+
+/**
+ * Esta clase es la encargada de calcular los procesos entrante y saliente de cada iteración del algoritmo simplex.
+ */
 public class EntranteSaliente {
 
     private IProceso[][] matrizProcesos;
@@ -16,6 +36,11 @@ public class EntranteSaliente {
     //metodo 2
     private ArrayList<Double> dividendos, divisores;
 
+    /**
+     * Constructor de la clase EntranteSaliente.
+     * @param matriz
+     * @param contador
+     */
     public EntranteSaliente(IProceso[][] matriz, int contador){
         this.contador = contador;
         this.matrizProcesos = matriz;

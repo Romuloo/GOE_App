@@ -1,5 +1,24 @@
+/**
+ Copyright [2020] [Javier Linares Castrillón]
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ http://www.apache.org/licenses/LICENSE-2.0
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ */
 package domain.simplex.programLoop.recurring.procesos;
 
+/**
+ * @author Javier Linares Castrillón
+ */
+
+/**
+ * Clase encargada de definir un proceso vertical.
+ */
 public class ProcesoVertical implements IProceso {
 
     private String nombreProceso;
@@ -81,24 +100,18 @@ public class ProcesoVertical implements IProceso {
         this.wj = wj;
     }
 
-    public ProcesoVertical(String nombreProceso, Double cj, Double x1, Double x2, Double x3, Double zj, Double wj) {
-        this.nombreProceso = nombreProceso;
-        this.cj = cj;
-        this.x1 = x1;
-        this.x2 = x2;
-        this.x3 = x3;
-        this.zj = zj;
-        this.wj = wj;
-    }
+    /**
+     * Constructor de la clase ProcesoVertical.
+     */
     public ProcesoVertical(){
-
     }
 
-    public ProcesoVertical(String nombreProceso){
-        this.nombreProceso = nombreProceso;
-    }
-
-
+    /**
+     * Con este método defino cuándo un proceso es igual a otro. En este caso,
+     * un proceso es igual a otro cuando tienen el mismo nombre.
+     * @param o
+     * @return un boolean que dice si son o no iguales.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -107,6 +120,11 @@ public class ProcesoVertical implements IProceso {
         return this.nombreProceso.equals(proceso.getNombreProceso());
     }
 
+    /**
+     * Utilizo este método para comparar dos procesos respecto al hashCode de su nombre.
+     * @param o
+     * @return un integer que dice si son o no iguales.
+     */
     @Override
     public int compareTo(IProceso o) {
         return this.nombreProceso.hashCode() - o.getNombreProceso().hashCode();

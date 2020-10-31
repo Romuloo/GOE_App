@@ -1,3 +1,16 @@
+/**
+ Copyright [2020] [Javier Linares Castrillón]
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ http://www.apache.org/licenses/LICENSE-2.0
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ */
+
 package domain.simplex.programLoop.firstStep;
 
 import domain.simplex.programLoop.SimplexManager;
@@ -9,7 +22,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.*;
 
 /**
  * @author Javier Linares Castrillón
@@ -34,28 +46,6 @@ public class FirstSimplex extends JFrame {
 
     private JButton bt = new JButton("Resolver");
     private ImageIcon ic = new ImageIcon("GOE/src/main/res/iconoResolver.png");
-
-
-    private static HashMap<String, ArrayList<Double>> valoresStack;
-    private static ArrayList<String> procesos;
-
-
-
-    public static HashMap<String, ArrayList<Double>> getValoresStack(){
-        return valoresStack;
-    }
-
-    public static ArrayList<String> salientesInicial(){
-       return salientes();
-    }
-    private static ArrayList<String> salientes(){
-        procesos = new ArrayList<>();
-        procesos.add(v1.getText());
-        procesos.add(v2.getText());
-        procesos.add(v3.getText());
-        return procesos;
-    }
-
 
     /**
      * Constructor de la clase. Inicializa el Frame y los componentes.
@@ -111,6 +101,10 @@ public class FirstSimplex extends JFrame {
         setTitle("Simplex");
     }
 
+    /**
+     * Este método agrupa los IProcesos creados en una matriz de IProcesos.
+     * @return matriz de IProcesos que utilizaré para resolver el algoritmo.
+     */
     public static IProceso[][] matrizProcesos(){
         IProceso[][] matriz = new IProceso[2][9];
         initProcesos();
@@ -132,6 +126,7 @@ public class FirstSimplex extends JFrame {
 
         return matriz;
     }
+
     private void initFields(){
         cj1.setBounds(225, 0, 50, 40);
         cj1.setBackground(Color.green);
@@ -301,7 +296,9 @@ public class FirstSimplex extends JFrame {
 
     }
 
-
+    /**
+     * Con este método inicializo IProcesos con los valores introducidos por el usuario.
+     */
     public static void initProcesos()
     {
 

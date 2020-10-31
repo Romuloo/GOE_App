@@ -1,3 +1,15 @@
+/**
+ Copyright [2020] [Javier Linares Castrillón]
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ http://www.apache.org/licenses/LICENSE-2.0
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ */
 package domain.simplex.programLoop;
 
 import domain.simplex.programLoop.firstStep.FirstSimplex;
@@ -9,8 +21,13 @@ import domain.simplex.programLoop.recurring.procesos.ProcesoVertical;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.*;
+
+/**
+ * @author Javier Linares Castrillón
+ */
 
 /**
  * Clase encargada de resolver el algoritmo del simplex.
@@ -20,14 +37,16 @@ public class SimplexManager extends JFrame {
 
     private JTabbedPane jt = new JTabbedPane();
 
+    /**
+     * Constructor de la clase SimplexManager.
+     */
     public SimplexManager() {
          setUp();
     }
 
     private void setUp() {
        initComponentes();
-        initFrame();
-        jt.add(new PanelSimplexSolution());
+       initFrame();
        try {
            manager();
        }catch(Exception e){
@@ -368,62 +387,62 @@ public class SimplexManager extends JFrame {
 
         p.getEnt().setText(entrante);
         p.getSal().setText(saliente);
-        p.getSol().setText("" + (matriz[1][0].getCj() * matriz[1][0].getCantidad() + matriz[1][1].getCj() * matriz[1][1].getCantidad()
-                + matriz[1][2].getCj() * matriz[1][2].getCantidad()));
-        p.getCj1().setText("" + matriz[0][0].getCj());
-        p.getCj2().setText("" + matriz[0][1].getCj());
-        p.getCj3().setText("" + matriz[0][2].getCj());
-        p.getCj4().setText("" + matriz[0][3].getCj());
-        p.getCj5().setText("" + matriz[0][4].getCj());
-        p.getCj6().setText("" + matriz[0][5].getCj());
-        p.getCj7().setText("" + matriz[0][6].getCj());
+        p.getSol().setText("" + round(matriz[1][0].getCj() * matriz[1][0].getCantidad() + matriz[1][1].getCj() * matriz[1][1].getCantidad()
+                + matriz[1][2].getCj() * matriz[1][2].getCantidad(), 4));
+        p.getCj1().setText("" + round(matriz[0][0].getCj(), 4));
+        p.getCj2().setText("" + round(matriz[0][1].getCj(), 4));
+        p.getCj3().setText("" + round(matriz[0][2].getCj(),4));
+        p.getCj4().setText("" + round(matriz[0][3].getCj(),4));
+        p.getCj5().setText("" + round(matriz[0][4].getCj(),4));
+        p.getCj6().setText("" + round(matriz[0][5].getCj(),4));
+        p.getCj7().setText("" + round(matriz[0][6].getCj(),4));
 
-        p.getZj1().setText("" + matriz[1][3].getX1());
-        p.getZj2().setText("" + matriz[1][3].getX2());
-        p.getZj3().setText("" + matriz[1][3].getX3());
-        p.getZj4().setText("" + matriz[1][3].getX4());
-        p.getZj5().setText("" + matriz[1][3].getX5());
-        p.getZj6().setText("" + matriz[1][3].getX6());
-        p.getZj7().setText("" + matriz[1][3].getX7());
+        p.getZj1().setText("" + round(matriz[1][3].getX1(), 4));
+        p.getZj2().setText("" + round(matriz[1][3].getX2(), 4));
+        p.getZj3().setText("" + round(matriz[1][3].getX3(), 4));
+        p.getZj4().setText("" + round(matriz[1][3].getX4(), 4));
+        p.getZj5().setText("" + round(matriz[1][3].getX5(), 4));
+        p.getZj6().setText("" + round(matriz[1][3].getX6(), 4));
+        p.getZj7().setText("" + round(matriz[1][3].getX7(), 4));
 
-        p.getWj1().setText("" + matriz[1][4].getX1());
-        p.getWj2().setText("" + matriz[1][4].getX2());
-        p.getWj3().setText("" + matriz[1][4].getX3());
-        p.getWj4().setText("" + matriz[1][4].getX4());
-        p.getWj5().setText("" + matriz[1][4].getX5());
-        p.getWj6().setText("" + matriz[1][4].getX6());
-        p.getWj7().setText("" + matriz[1][4].getX7());
+        p.getWj1().setText("" + round(matriz[1][4].getX1(), 4));
+        p.getWj2().setText("" + round(matriz[1][4].getX2(), 4));
+        p.getWj3().setText("" + round(matriz[1][4].getX3(), 4));
+        p.getWj4().setText("" + round(matriz[1][4].getX4(), 4));
+        p.getWj5().setText("" + round(matriz[1][4].getX5(), 4));
+        p.getWj6().setText("" + round(matriz[1][4].getX6(), 4));
+        p.getWj7().setText("" + round(matriz[1][4].getX7(), 4));
 
-        p.getX11().setText("" + matriz[1][0].getX1());
-        p.getX21().setText("" + matriz[1][0].getX2());
-        p.getX31().setText("" + matriz[1][0].getX3());
-        p.getX41().setText("" + matriz[1][0].getX4());
-        p.getX51().setText("" + matriz[1][0].getX5());
-        p.getX61().setText("" + matriz[1][0].getX6());
-        p.getX71().setText("" + matriz[1][0].getX7());
-        p.getC1().setText("" + matriz[1][0].getCantidad());
-        p.getCj8().setText("" + matriz[1][0].getCj());
+        p.getX11().setText("" + round(matriz[1][0].getX1(), 4));
+        p.getX21().setText("" + round(matriz[1][0].getX2(), 4));
+        p.getX31().setText("" + round(matriz[1][0].getX3(), 4));
+        p.getX41().setText("" + round(matriz[1][0].getX4(), 4));
+        p.getX51().setText("" + round(matriz[1][0].getX5(), 4));
+        p.getX61().setText("" + round(matriz[1][0].getX6(), 4));
+        p.getX71().setText("" + round(matriz[1][0].getX7(), 4));
+        p.getC1().setText("" + round(matriz[1][0].getCantidad(), 4));
+        p.getCj8().setText("" + round(matriz[1][0].getCj(), 4));
 
-        p.getX12().setText("" + matriz[1][1].getX1());
-        p.getX22().setText("" + matriz[1][1].getX2());
-        p.getX32().setText("" + matriz[1][1].getX3());
-        p.getX42().setText("" + matriz[1][1].getX4());
-        p.getX52().setText("" + matriz[1][1].getX5());
-        p.getX62().setText("" + matriz[1][1].getX6());
-        p.getX72().setText("" + matriz[1][1].getX7());
-        p.getC2().setText("" + matriz[1][1].getCantidad());
-        p.getCj9().setText("" + matriz[1][1].getCj());
+        p.getX12().setText("" + round(matriz[1][1].getX1(), 4));
+        p.getX22().setText("" + round(matriz[1][1].getX2(), 4));
+        p.getX32().setText("" + round(matriz[1][1].getX3(), 4));
+        p.getX42().setText("" + round(matriz[1][1].getX4(), 4));
+        p.getX52().setText("" + round(matriz[1][1].getX5(), 4));
+        p.getX62().setText("" + round(matriz[1][1].getX6(), 4));
+        p.getX72().setText("" + round(matriz[1][1].getX7(), 4));
+        p.getC2().setText("" + round(matriz[1][1].getCantidad(), 4));
+        p.getCj9().setText("" + round(matriz[1][1].getCj(), 4));
 
 
-        p.getX13().setText("" + matriz[1][2].getX1());
-        p.getX23().setText("" + matriz[1][2].getX2());
-        p.getX33().setText("" + matriz[1][2].getX3());
-        p.getX43().setText("" + matriz[1][2].getX4());
-        p.getX53().setText("" + matriz[1][2].getX5());
-        p.getX63().setText("" + matriz[1][2].getX6());
-        p.getX73().setText("" + matriz[1][2].getX7());
-        p.getC3().setText("" + matriz[1][2].getCantidad());
-        p.getCj10().setText("" + matriz[1][2].getCj());
+        p.getX13().setText("" + round(matriz[1][2].getX1(), 4));
+        p.getX23().setText("" + round(matriz[1][2].getX2(), 4));
+        p.getX33().setText("" + round(matriz[1][2].getX3(), 4));
+        p.getX43().setText("" + round(matriz[1][2].getX4(), 4));
+        p.getX53().setText("" + round(matriz[1][2].getX5(), 4));
+        p.getX63().setText("" + round(matriz[1][2].getX6(), 4));
+        p.getX73().setText("" + round(matriz[1][2].getX7(), 4));
+        p.getC3().setText("" + round(matriz[1][2].getCantidad(), 4));
+        p.getCj10().setText("" + round(matriz[1][2].getCj(), 4));
 
 
         p.getV1().setText(matriz[1][0].getNombreProceso());
@@ -431,6 +450,20 @@ public class SimplexManager extends JFrame {
         p.getV3().setText(matriz[1][2].getNombreProceso());
 
         return p;
+    }
+
+    /**
+     * Utilizo esta clase para redondear las soluciones del algoritmo.
+     * @param valor
+     * @param decimales
+     * @return el valor redondeado.
+     */
+    public static double round(double valor, int decimales) {
+        if (decimales < 0) throw new IllegalArgumentException();
+
+        BigDecimal bd = new BigDecimal(Double.toString(valor));
+        bd = bd.setScale(decimales, RoundingMode.HALF_UP);
+        return bd.doubleValue();
     }
 
             //------------------------------------------ Frame stuff ------------------------------------------\\
