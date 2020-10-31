@@ -124,13 +124,8 @@ public class SimplexManager extends JFrame {
      * @return una matriz de IProceso con la solución de la iteración.
      */
     public IProceso[][] calcularIteracion(IProceso[][] matriz, int contador) {
-      //  boolean correcto = false;
 
-            //Con este bloque de código compruebo que los datos originales no son Sol óptima.
             IProceso[][] solucion = new IProceso[2][9];
-
-            //Una vez comprobado, comienzo con el bucle.
-
 
             EntranteSaliente es1 = new EntranteSaliente(matriz, contador);
             String entrante_1 = es1.getEntrante();
