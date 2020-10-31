@@ -146,6 +146,8 @@ public class SimplexManager extends JFrame {
         return solucion;
     }
 
+
+    //TIENE QUE HABER FALLO AL CALCULAR LAS ITERACIONES 1 Y 2 CUANDO EL INDICE ES =! 0.
     /**
      * Método encargado de calcular la fila del proceso entrante.
      * @param matriz
@@ -165,7 +167,7 @@ public class SimplexManager extends JFrame {
                 procesoEntrante = matriz[0][i];
 
 
-      //inicializo todo el proceso saliente con este código.
+      //inicializo el proceso saliente con este código.
       for(int i = 0; i < 3; i++){
           if(matriz[1][i].getNombreProceso().equals(saliente)){
               procesoSaliente = matriz[1][i];
@@ -192,13 +194,13 @@ public class SimplexManager extends JFrame {
 
         //Con este código averiguo cuál será el pivote.
       if(indiceSaliente == 0) {
-          pivote = matriz[1][indiceSaliente].getX1();
+          pivote = matriz[0][indiceEntrante].getX1();
       }
       if(indiceSaliente == 1){
-          pivote = matriz[1][indiceSaliente].getX2();
+          pivote = matriz[0][indiceEntrante].getX2();
       }
       if(indiceSaliente == 2){
-          pivote = matriz[1][indiceSaliente].getX3();
+          pivote = matriz[0][indiceEntrante].getX3();
       }
       //doy valores al nuevo proceso horizontal.
      if(pivote != 0.0) {
@@ -213,6 +215,7 @@ public class SimplexManager extends JFrame {
          solucion.setCantidad(procesoSaliente.getCantidad() / pivote);
          solucion.setCj(procesoEntrante.getCj());
      }
+
         return solucion;
     }
 
