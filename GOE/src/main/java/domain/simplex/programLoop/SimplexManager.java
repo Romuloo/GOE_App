@@ -9,13 +9,16 @@ import domain.simplex.programLoop.recurring.procesos.ProcesoVertical;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 import java.util.*;
+
+/**
+ * Clase encargada de resolver el algoritmo del simplex.
+ */
 
 public class SimplexManager extends JFrame {
 
     private JTabbedPane jt = new JTabbedPane();
-
-   private IProceso[][] valoresIniciales;// = FirstSimplex.matrizProcesos();
 
     public SimplexManager() {
          setUp();
@@ -24,7 +27,14 @@ public class SimplexManager extends JFrame {
     private void setUp() {
        initComponentes();
         initFrame();
-        manager();
+        jt.add(new PanelSimplexSolution());
+       try {
+           manager();
+       }catch(Exception e){
+           System.out.println();
+           System.out.println("--------> Debes rellenar todos los campos, o si no deben estar a 0. <--------");
+           System.out.println();
+       }
     }
 
     /**
@@ -33,13 +43,29 @@ public class SimplexManager extends JFrame {
     public void manager(){
 
        IProceso[][] matriz = FirstSimplex.matrizProcesos();
+       int contador = 0;
+       IProceso[][] copiaAux = null;
+       do {
+
+           IProceso[][] solucion = calcularIteracion(matriz, contador++);
+           //En este bloque de codigo averiguo el saliente y entrante.
+           String saliente = "";
+           String entrante = "";
+           for(int i = 0; i < 3; i++)
+           {
+               if(!solucion[1][i].getNombreProceso().equals(matriz[1][i].getNombreProceso())){
+                   entrante = solucion[1][i].getNombreProceso();
+                   saliente = matriz[1][i].getNombreProceso();
+           }
+
+           }
+           jt.add(addIteracionJPanel(solucion, entrante, saliente));
+           copiaAux = solucion;
+           matriz = solucion;
 
 
-       IProceso[][] solucion = calcularIteracion(matriz, 0);
-       jt.add(addIteracionJPanel(solucion));
+       }while(!esSolucionOptima(copiaAux));
 
-       IProceso[][] solucion_2 = calcularIteracion(solucion, 1);
-       jt.add(addIteracionJPanel(solucion_2));
 
 
 
@@ -146,8 +172,6 @@ public class SimplexManager extends JFrame {
         return solucion;
     }
 
-
-    //TIENE QUE HABER FALLO AL CALCULAR LAS ITERACIONES 1 Y 2 CUANDO EL INDICE ES =! 0.
     /**
      * Método encargado de calcular la fila del proceso entrante.
      * @param matriz
@@ -338,10 +362,14 @@ public class SimplexManager extends JFrame {
      * @param matriz
      * @return el panel completo.
      */
-    public PanelSimplexSolution addIteracionJPanel(IProceso[][] matriz){
+    public PanelSimplexSolution addIteracionJPanel(IProceso[][] matriz, String entrante, String saliente){
         PanelSimplexSolution p = new PanelSimplexSolution();
         jt.add(p);
 
+        p.getEnt().setText(entrante);
+        p.getSal().setText(saliente);
+        p.getSol().setText("" + (matriz[1][0].getCj() * matriz[1][0].getCantidad() + matriz[1][1].getCj() * matriz[1][1].getCantidad()
+                + matriz[1][2].getCj() * matriz[1][2].getCantidad()));
         p.getCj1().setText("" + matriz[0][0].getCj());
         p.getCj2().setText("" + matriz[0][1].getCj());
         p.getCj3().setText("" + matriz[0][2].getCj());
@@ -405,9 +433,6 @@ public class SimplexManager extends JFrame {
         return p;
     }
 
-
-
-
             //------------------------------------------ Frame stuff ------------------------------------------\\
 
     private void initComponentes () {
@@ -415,8 +440,9 @@ public class SimplexManager extends JFrame {
     }
 
     private void initFrame () {
-        setBackground(new Color(39, 156, 207));
-        setSize(1190 / 2, 1226 / 2 + 70);
+
+        setBackground(new Color(10, 200, 207));
+        setSize(2324, 1298);// + 70);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setVisible(true);
         setLocation(100, 20);
