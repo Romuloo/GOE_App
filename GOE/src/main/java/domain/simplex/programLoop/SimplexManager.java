@@ -442,7 +442,7 @@ public class SimplexManager extends JFrame {
     private void initFrame () {
 
         setBackground(new Color(10, 200, 207));
-        setSize(2324, 1298);// + 70);
+        setSize(2324/2 + 30, 1298/2 + 70);// + 70);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setVisible(true);
         setLocation(100, 20);

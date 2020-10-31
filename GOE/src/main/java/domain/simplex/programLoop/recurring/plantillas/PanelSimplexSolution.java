@@ -2,12 +2,10 @@ package domain.simplex.programLoop.recurring.plantillas;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 
 public class PanelSimplexSolution extends JPanel {
 
-
-
+    private  Font f= new Font("Arial", Font.BOLD, 18);
     //cj: procesos, x = valores matriz, c =  matriz ampliada, v = valores solución óptima, m = matriz inversa
     private JTextField cj1 = new JTextField(), cj2 = new JTextField(), cj3 = new JTextField(), cj4 = new JTextField(), cj5 = new JTextField(),
             cj6 = new JTextField(), cj7 = new JTextField(), cj8 = new JTextField(), cj9 = new JTextField(), cj10 = new JTextField(), v1 = new JTextField(),
@@ -18,8 +16,7 @@ public class PanelSimplexSolution extends JPanel {
             x71 = new JTextField(), x72 = new JTextField(), x73 = new JTextField(), zj1 = new JTextField(), zj2 = new JTextField(), zj3 = new JTextField(),
             zj4 = new JTextField(), zj5 = new JTextField(), zj6 = new JTextField(), zj7 = new JTextField(), wj1 = new JTextField(),
             wj2 = new JTextField(), wj3 = new JTextField(), wj4 = new JTextField(), wj5 = new JTextField(), wj6 = new JTextField(), wj7 = new JTextField(),
-            m11 = new JTextField(), m12 = new JTextField(), m13 = new JTextField(), m21 = new JTextField(), m22 = new JTextField(), m23 = new JTextField(),
-            m31 = new JTextField(), m32 = new JTextField(), m33 = new JTextField(), sol = new JTextField(), ent = new JTextField(), sal = new JTextField();
+            sol = new JTextField(), ent = new JTextField(), sal = new JTextField();
 
     public PanelSimplexSolution(){
         setLayout(null);
@@ -30,14 +27,13 @@ public class PanelSimplexSolution extends JPanel {
         add(cj1); add(cj2); add(cj3); add(cj4); add(cj5); add(cj6); add(cj7); add(cj8); add(cj9); add(cj10); add(v1); add(v2); add(v3);
         add(c1); add(c2); add(c3); add(x11); add(x12); add(x13); add(x21); add(x22); add(x23); add(x31); add(x32); add(x33); add(x41);
         add(x42); add(x43); add(x51); add(x52); add(x53); add(x61); add(x62); add(x63); add(x71); add(x72); add(x73); add(zj1); add(zj2);
-        add(zj3); add(zj4); add(zj5); add(zj6); add(zj7); add(wj1); add(wj2); add(wj3); add(wj4); add(wj5); add(wj6); add(wj7);
-        add(m11); add(m12); add(m13); add(m21); add(m22); add(m23); add(m31); add(m32); add(m33); add(sol); add(ent); add(sal);
+        add(zj3); add(zj4); add(zj5); add(zj6); add(zj7); add(wj1); add(wj2); add(wj3); add(wj4); add(wj5); add(wj6); add(wj7); add(sol); add(ent); add(sal);
         initFields();
     }
 
     public void paint(Graphics grafico) {
         ImageIcon Img = new ImageIcon("GOE/src/main/res/imagen.png");
-        grafico.drawImage(Img.getImage(), 0, 0, 2324,1298, null);
+        grafico.drawImage(Img.getImage(), 0, 0, 1162,1298/2, null);
         setOpaque(false);
         super.paint(grafico);
 
@@ -45,264 +41,287 @@ public class PanelSimplexSolution extends JPanel {
 
     private void initFields(){
 
-        m11.setBounds(225+165-105, 95, 45, 40);
-        m11.setBorder(null);
-        m11.setOpaque(false);
-        m11.setText("0");
-        m12.setBounds(225+165-105, 95+37, 45, 40);
-        m12.setBorder(null);
-        m12.setOpaque(false);
-        m12.setText("0");
-        m13.setBounds(225+165-105, 95+75, 45, 40);
-        m13.setBorder(null);
-        m13.setOpaque(false);
-        m13.setText("0");
-        m21.setBounds(225+165-70, 95, 47, 40);
-        m21.setBorder(null);
-        m21.setOpaque(false);
-        m21.setText("0");
-        m22.setBounds(225+165-70, 95+37, 47, 40);
-        m22.setBorder(null);
-        m22.setOpaque(false);
-        m22.setText("0");
-        m23.setBounds(225+165-70, 95+75, 47, 40);
-        m23.setBorder(null);
-        m23.setOpaque(false);
-        m23.setText("0");
-        m31.setBounds(225+165-30, 95, 47, 40);
-        m31.setBorder(null);
-        m31.setOpaque(false);
-        m31.setText("0");
-        m32.setBounds(225+165-30, 95+37, 47, 40);
-        m32.setBorder(null);
-        m32.setOpaque(false);
-        m32.setText("0");
-        m33.setBounds(225+165-30, 95+75, 47, 40);
-        m33.setBorder(null);
-        m33.setOpaque(false);
-        m33.setText("0");
-
-        cj1.setBounds(225-55, 255, 47, 40);
+        cj1.setBounds(276+6, 20, 94, 50);
         cj1.setBorder(null);
         cj1.setOpaque(false);
-        cj1.setText("5453");
-        cj2.setBounds(225+55-66, 255, 47, 40);
+        cj1.setText("0");
+        cj1.setFont(f);
+        cj2.setBounds(276+95+6, 20, 94, 50);
         cj2.setBorder(null);
         cj2.setOpaque(false);
         cj2.setText("0");
-        cj3.setBounds(225+110-78, 255, 47, 40);
+        cj2.setFont(f);
+        cj3.setBounds(276+190+6, 20, 94, 50);
         cj3.setBorder(null);
         cj3.setOpaque(false);
         cj3.setText("0");
-        cj4.setBounds(225+165-90, 255, 47, 40);
+        cj3.setFont(f);
+        cj4.setBounds(276+285+6, 20, 94, 50);
         cj4.setBorder(null);
         cj4.setOpaque(false);
         cj4.setText("0");
-        cj5.setBounds(225+220-103, 255, 47, 40);
+        cj4.setFont(f);
+        cj5.setBounds(276 + 377+6, 20, 94, 50);
         cj5.setBorder(null);
         cj5.setOpaque(false);
         cj5.setText("0");
-        cj6.setBounds(225+275-115, 255, 47, 40);
+        cj5.setFont(f);
+        cj6.setBounds(276 + 470+6, 20, 94, 50);
         cj6.setBorder(null);
         cj6.setOpaque(false);
         cj6.setText("0");
-        cj7.setBounds(225+330-128, 255, 47, 40);
+        cj6.setFont(f);
+        cj7.setBounds(275 + 565, 20, 94, 50);
         cj7.setBorder(null);
         cj7.setOpaque(false);
         cj7.setText("0");
+        cj7.setFont(f);
 
-        cj8.setBounds(2, 341, 47, 40);
+        cj8.setBounds(2+6, 210, 94, 50);
         cj8.setBorder(null);
         cj8.setOpaque(false);
         cj8.setText("0");
-        cj9.setBounds(2, 382, 47, 40);
+        cj8.setFont(f);
+        cj9.setBounds(2+6, 300, 94, 50);
         cj9.setBorder(null);
         cj9.setOpaque(false);
         cj9.setText("0");
-        cj10.setBounds(2, 423, 47, 40);
+        cj9.setFont(f);
+        cj10.setBounds(2+6, 390, 94, 50);
         cj10.setBorder(null);
         cj10.setOpaque(false);
         cj10.setText("0");
+        cj10.setFont(f);
 
-        v1.setBounds(92, 341, 47, 40);
+        v1.setBounds(140, 210, 94, 50);
         v1.setBorder(null);
         v1.setOpaque(false);
         v1.setText("x5");
-        v2.setBounds(92, 382, 47, 40);
+        v1.setFont(f);
+        v2.setBounds(140, 300, 94, 50);
         v2.setBorder(null);
         v2.setOpaque(false);
         v2.setText("x6");
-        v3.setBounds(92, 423, 47, 40);
+        v2.setFont(f);
+        v3.setBounds(140, 390, 94, 50);
         v3.setBorder(null);
         v3.setOpaque(false);
         v3.setText("x7");
+        v3.setFont(f);
 
-        x11.setBounds(225-53, 341, 47, 40);
+        x11.setBounds(276+6, 210, 94, 50);
         x11.setBorder(null);
         x11.setOpaque(false);
         x11.setText("0");
-        x12.setBounds(225-53, 382, 47, 40);
+        x11.setFont(f);
+        x12.setBounds(276+6, 300, 94, 50);
         x12.setBorder(null);
         x12.setOpaque(false);
         x12.setText("0");
-        x13.setBounds(225-53, 423, 47, 40);
+        x12.setFont(f);
+        x13.setBounds(276+6, 390, 94, 50);
         x13.setBorder(null);
         x13.setOpaque(false);
         x13.setText("0");
+        x13.setFont(f);
 
-        x21.setBounds(225+55-64, 341, 47, 40);
+        x21.setBounds(276+95+6, 210, 94, 50);
         x21.setBorder(null);
         x21.setOpaque(false);
         x21.setText("0");
-        x22.setBounds(225+55-64, 382, 47, 40);
+        x21.setFont(f);
+        x22.setBounds(276+95+6, 300, 94, 50);
         x22.setBorder(null);
         x22.setOpaque(false);
         x22.setText("0");
-        x23.setBounds(225+55-64, 423, 47, 40);
+        x22.setFont(f);
+        x23.setBounds(276+95+6, 390, 94, 50);
         x23.setBorder(null);
         x23.setOpaque(false);
         x23.setText("0");
+        x23.setFont(f);
 
-        x31.setBounds(225+110-76, 341, 47, 40);
+        x31.setBounds(276+190+6, 210, 94, 50);
         x31.setBorder(null);
         x31.setOpaque(false);
         x31.setText("0");
-        x32.setBounds(225+110-76, 382, 47, 40);
+        x31.setFont(f);
+        x32.setBounds(276+190+6, 300, 94, 50);
         x32.setBorder(null);
         x32.setOpaque(false);
         x32.setText("0");
-        x33.setBounds(225+110-76, 423, 47, 40);
+        x32.setFont(f);
+        x33.setBounds(276+190+6, 390, 94, 50);
         x33.setBorder(null);
         x33.setOpaque(false);
         x33.setText("0");
+        x33.setFont(f);
 
-        x41.setBounds(225+165-88, 341, 47, 40);
+        x41.setBounds(276+285+6, 210, 94, 50);
         x41.setBorder(null);
         x41.setOpaque(false);
         x41.setText("0");
-        x42.setBounds(225+165-88, 382, 47, 40);
+        x41.setFont(f);
+        x42.setBounds(276+285+6, 300, 94, 50);
         x42.setBorder(null);
         x42.setOpaque(false);
         x42.setText("0");
-        x43.setBounds(225+165-88, 423, 47, 40);
+        x42.setFont(f);
+        x43.setBounds(276+285+6, 390, 94, 50);
         x43.setBorder(null);
         x43.setOpaque(false);
         x43.setText("0");
+        x43.setFont(f);
 
-        x51.setBounds(225+220-101, 341, 47, 40);
+        x51.setBounds(276 + 377+6, 210, 94, 50);
         x51.setBorder(null);
         x51.setOpaque(false);
         x51.setText("0");
-        x52.setBounds(225+220-101, 382, 47, 40);
+        x51.setFont(f);
+        x52.setBounds(276 + 377+6, 300, 94, 50);
         x52.setBorder(null);
         x52.setOpaque(false);
         x52.setText("0");
-        x53.setBounds(225+220-101, 423, 47, 40);
+        x52.setFont(f);
+        x53.setBounds(276 + 377+6, 390, 94, 50);
         x53.setBorder(null);
         x53.setOpaque(false);
         x53.setText("0");
+        x53.setFont(f);
 
-        x61.setBounds(225+275-113, 341, 47, 40);
+        x61.setBounds(276 + 470+6, 210, 94, 50);
         x61.setBorder(null);
         x61.setOpaque(false);
         x61.setText("0");
-        x62.setBounds(225+275-113, 382, 47, 40);
+        x61.setFont(f);
+        x62.setBounds(276 + 470+6, 300, 94, 50);
         x62.setBorder(null);
         x62.setOpaque(false);
         x62.setText("0");
-        x63.setBounds(225+275-113, 423, 47, 40);
+        x62.setFont(f);
+        x63.setBounds(276 + 470+6, 390, 94, 50);
         x63.setBorder(null);
         x63.setOpaque(false);
         x63.setText("0");
+        x63.setFont(f);
 
-        x71.setBounds(225+330-126, 341, 47, 40);
+        x71.setBounds(275 + 565+6, 210, 94, 50);
         x71.setBorder(null);
         x71.setOpaque(false);
         x71.setText("0");
-        x72.setBounds(225+330-126, 382, 47, 40);
+        x71.setFont(f);
+        x72.setBounds(275 + 565+6, 300, 94, 50);
         x72.setBorder(null);
         x72.setOpaque(false);
         x72.setText("0");
-        x73.setBounds(225+330-126, 423, 47, 40);
+        x72.setFont(f);
+        x73.setBounds(275 + 565+6, 390, 94, 50);
         x73.setBorder(null);
         x73.setOpaque(false);
         x73.setText("0");
+        x73.setFont(f);
 
-        c1.setBounds(225+330-36, 341, 47, 40);
+        c1.setBounds(276 + 670+6, 210, 94, 50);
         c1.setBorder(null);
         c1.setOpaque(false);
         c1.setText("0");
-        c2.setBounds(225+330-36, 382, 47, 40);
+        c1.setFont(f);
+        c2.setBounds(276 + 670+6, 300, 94, 50);
         c2.setBorder(null);
         c2.setOpaque(false);
         c2.setText("0");
-        c3.setBounds(225+330-36, 423, 47, 40);
+        c2.setFont(f);
+        c3.setBounds(276 + 670+6, 390, 94, 50);
         c3.setBorder(null);
         c3.setOpaque(false);
         c3.setText("0");
+        c3.setFont(f);
 
-        zj1.setBounds(225-53, 464, 47, 40);
+        zj1.setBounds(276+6, 480, 94, 50);
         zj1.setBorder(null);
         zj1.setOpaque(false);
         zj1.setText("0");
-        zj2.setBounds(225+55-64, 464, 47, 40);
+        zj1.setFont(f);
+        zj2.setBounds(276+95+6,  480, 94, 50);
         zj2.setBorder(null);
         zj2.setOpaque(false);
         zj2.setText("0");
-        zj3.setBounds(225+110-76, 464, 47, 40);
+        zj2.setFont(f);
+        zj3.setBounds(276+190+6, 480, 94, 50);
         zj3.setBorder(null);
         zj3.setOpaque(false);
         zj3.setText("0");
-        zj4.setBounds(225+165-88, 464, 47, 40);
+        zj3.setFont(f);
+        zj4.setBounds(276+285+6, 480, 94, 50);
         zj4.setBorder(null);
         zj4.setOpaque(false);
         zj4.setText("0");
-        zj5.setBounds(225+220-101, 464, 47, 40);
+        zj4.setFont(f);
+        zj5.setBounds(276 + 377+6, 480, 94, 50);
         zj5.setBorder(null);
         zj5.setOpaque(false);
         zj5.setText("0");
-        zj6.setBounds(225+275-113, 464, 47, 40);
+        zj5.setFont(f);
+        zj6.setBounds(276 + 470+6, 480, 94, 50);
         zj6.setBorder(null);
         zj6.setOpaque(false);
         zj6.setText("0");
-        zj7.setBounds(225+330-126, 464, 47, 40);
+        zj6.setFont(f);
+        zj7.setBounds(275 + 565+6, 480, 94, 50);
         zj7.setBorder(null);
         zj7.setOpaque(false);
         zj7.setText("0");
+        zj7.setFont(f);
 
-        wj1.setBounds(225-53, 506, 47,40);
+        wj1.setBounds(276+6, 570, 94,50);
         wj1.setBorder(null);
         wj1.setOpaque(false);
         wj1.setText("0");
-        wj2.setBounds(225+55-64, 506, 47, 40);
+        wj1.setFont(f);
+        wj2.setBounds(276+95+6, 570, 94, 50);
         wj2.setBorder(null);
         wj2.setOpaque(false);
         wj2.setText("0");
-        wj3.setBounds(225+110-76, 506, 47, 40);
+        wj2.setFont(f);
+        wj3.setBounds(276+190+6, 570, 94, 50);
         wj3.setBorder(null);
         wj3.setOpaque(false);
         wj3.setText("0");
-        wj4.setBounds(225+165-88, 506, 47, 40);
+        wj3.setFont(f);
+        wj4.setBounds(276+285+6, 570, 94, 50);
         wj4.setBorder(null);
         wj4.setOpaque(false);
         wj4.setText("0");
-        wj5.setBounds(225+220-101, 506, 47, 40);
+        wj4.setFont(f);
+        wj5.setBounds(276 + 377+6, 570, 94, 50);
         wj5.setBorder(null);
         wj5.setOpaque(false);
         wj5.setText("0");
-        wj6.setBounds(225+275-113, 506, 47, 40);
+        wj5.setFont(f);
+        wj6.setBounds(276 + 470+6, 570, 94, 50);
         wj6.setBorder(null);
         wj6.setOpaque(false);
         wj6.setText("0");
-        wj7.setBounds(225+330-126, 506, 47, 40);
+        wj6.setFont(f);
+        wj7.setBounds(275 + 565+6, 570, 94, 50);
         wj7.setBorder(null);
         wj7.setOpaque(false);
         wj7.setText("0");
+        wj7.setFont(f);
 
-        sol.setBounds(225-110, 565, 47,40);
+        sol.setBounds(1040+6, 590, 100,50);
+        sol.setBorder(null);
+        sol.setOpaque(false);
+        ent.setBounds(1040+6, 470, 100, 50);
+        ent.setBorder(null);
+        ent.setOpaque(false);
+        sal.setBounds(1040+6, 530, 100, 50);
+        sal.setBorder(null);
+        sal.setOpaque(false);
 
-        ent.setBounds(225+55-72, 22, 47, 40);
-        sal.setBounds(225+330-95, 22, 47, 40);
+        sol.setFont(f);
+        ent.setFont(f);
+        sal.setFont(f);
     }
 
     public JTextField getCj1() {
