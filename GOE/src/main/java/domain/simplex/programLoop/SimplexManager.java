@@ -378,7 +378,6 @@ public class SimplexManager extends JFrame {
      */
     public PanelSimplexSolution addIteracionJPanel(IProceso[][] matriz, String entrante, String saliente){
         PanelSimplexSolution p = new PanelSimplexSolution();
-        jt.add(p);
 
         p.getEnt().setText(entrante);
         p.getSal().setText(saliente);
